@@ -1,0 +1,17 @@
+{
+  "name": "blog-new",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eleventy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "markdown-it": "^8.4.2",
+    "markdown-it-katex": "^2.0.3",
+    "markdown-it-mathjax": "^2.0.0"
+  }
+}

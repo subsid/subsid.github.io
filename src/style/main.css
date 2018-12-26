@@ -1,0 +1,13 @@
+.ui.navbar.menu a.item{
+  color: #69808c;
+}
+
+a.item {
+  font-family: "Open Sans","sans-serif";
+  font-size: 1.4rem;
+}
+
+p {
+  font-size: 1.4rem;
+}
+
