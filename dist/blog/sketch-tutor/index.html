@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <title>Sketch Tutor - Game based learning</title>
+  </head>
+  <body>
+    <div class="ui navbar menu">
+      <div class="ui container">
+        <div class="ui left secondary menu">
+          <a href="/" class="item">
+            Siddharth
+          </a>
+        </div>
+        <div class="ui right secondary menu">
+          <a href="/blog" class="item">
+            <i class="pencil icon"></i> Blog
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui container">
+      
+<div>
+<p>Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:</p>
+<ul>
+<li>
+<p><strong>Appearance based</strong><br>
+This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.</p>
+</li>
+<li>
+<p><strong>Gesture based</strong> Most useful for forensic methods, but requires user specific training. (Every individual has their own quirks when sketching!)</p>
+</li>
+<li>
+<p><strong>Geometric based</strong> Models are built based on Geometric constraints. Requires neater sketches, but very flexible.</p>
+</li>
+</ul>
+<p>The field is quite fascinating, and methods here can be extended into areas of activity recognition and eye tracking. <a href="http://srl.tamu.edu">Dr. Hammond's SRL Lab</a> has some interesting research in the area.</p>
+<p>Anyways, <em>Sketch Tutor</em> is a sketch based game for learning new symbols. Similar to the old game typing-tutor, the idea is to gamify learning a new language, numerals or set of symbos in general. The prototype version of the game supports learning 1-10 numbers in chinese. The scoring is based on a combination of accuracy and number of attempts.</p>
+<p>The generalized recognition algorithm is based on the <a href="http://faculty.washington.edu/wobbrock/pubs/icmi-12.pdf">$P algorithm</a> from <a href="https://depts.washington.edu/madlab/proj/dollar/pdollar.html">UWash</a>. While the current version of the game supports chinese characters from 1-10, the system can be easily extended to have a training phase, where the generalized learning algorithm can be trained on a new set of symbols.</p>
+<p>Here is the <a href="https://subsid.github.io/sketch-tutor/">demo</a> and <a href="https://github.com/subsid/sketch-tutor">source code</a>. Do let me know what you think.</p>
+
+</div>
+
+
+    </div>
+  </body>
+</html>
+

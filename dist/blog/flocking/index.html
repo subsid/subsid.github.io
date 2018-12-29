@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <title>Physics of flocking</title>
+  </head>
+  <body>
+    <div class="ui navbar menu">
+      <div class="ui container">
+        <div class="ui left secondary menu">
+          <a href="/" class="item">
+            Siddharth
+          </a>
+        </div>
+        <div class="ui right secondary menu">
+          <a href="/blog" class="item">
+            <i class="pencil icon"></i> Blog
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui container">
+      
+<div>
+<p>As a part my of <a href="http://courses.cs.tamu.edu/keyser/viza659/Syllabus.htm">physics based modelling</a> course, I implemented a <a href="https://subsid.github.io/flocking/dist/">flocking simulation</a> using <a href="https://threejs.org/">threejs</a>.</p>
+<p>Flocking (or Swarming) is a nice example of something known as <em>emergent behavior</em>.<br>
+<a href="https://en.wikipedia.org/wiki/Emergence">From wikipedia</a>:</p>
+<blockquote>
+<p>Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.</p>
+</blockquote>
+<p>This behavior is common among various animal groups such as birds, ants, bees, fishes. Here is a beautiful video of starlings flocking around.</p>
+<div class="iframe_container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/V4f_1_r80RY?rel=0" frameborder="0" allowfullscreen='allowfullscreen'> </iframe>
+</div>
+<p>The idea was popularized in the field of graphics by <a href="https://en.wikipedia.org/wiki/Craig_Reynolds_(computer_graphics)">Craig Reynolds</a>, when he created the famous <a href="https://en.wikipedia.org/wiki/Boids">boids</a> artificial life simulation in 1986.</p>
+<p>At its core, each Boid (Bird-oid object!) follows three simple rules:</p>
+<ul>
+<li><strong>seperation</strong> Avoid crowding local buddies.</li>
+<li><strong>alignment</strong> Direction of velocity should be along the average direction of local buddies.</li>
+<li><strong>cohesion</strong> Stay centered between local buddies.</li>
+</ul>
+<p>And that's it! This leads to some cool emergent behavior. This can be extended in many ways, by adding some obstacle avoidance, common goal and other effects. Something I find really cool is that we can start each boid at some random initial velocity, and see them slowly come together into a nice flock.</p>
+<p>The source code is available <a href="https://github.com/subsid/flocking">here</a>, in case someone wants to play with it. The implementation is based on <a href="https://codepen.io/coaster/pen/QpqVjP">this pen by Ellie</a>.</p>
+
+</div>
+
+
+    </div>
+  </body>
+</html>
+
