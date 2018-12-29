@@ -1,14 +1,17 @@
 ---
 layout: layouts/blog.liquid
 title: Sketch Tutor - Game based learning
-tags: [javascript, react, sketch recognition]
-permalink: /blog/sketcht-tutor/
+tags: [post, javascript, react, sketch recognition]
+permalink: blog/sketch-tutor/
 ---
 
 Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:
+
 - **Appearance based**
 This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.
+
 - **Gesture based** Most useful for forensic methods, but requires user specific training. (Every individual has their own quirks when sketching!)
+
 - **Geometric based** Models are built based on Geometric constraints. Requires neater sketches, but very flexible.
 
 The field is quite fascinating, and methods here can be extended into areas of activity recognition and eye tracking. [Dr. Hammond's SRL Lab](http://srl.tamu.edu) has some interesting research in the area.

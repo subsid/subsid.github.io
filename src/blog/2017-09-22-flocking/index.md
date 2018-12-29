@@ -1,7 +1,7 @@
 ---
 layout: layouts/blog.liquid
 title: Physics of flocking
-tags: [javascript, threejs, graphics]
+tags: [post, javascript, threejs, graphics]
 permalink: blog/flocking/
 ---
 

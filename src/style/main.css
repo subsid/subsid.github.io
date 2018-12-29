@@ -2,9 +2,18 @@
   color: #69808c;
 }
 
-a.item {
+h3,a.item,li {
   font-family: "Open Sans","sans-serif";
   font-size: 1.4rem;
+}
+
+.ui.page {
+  font-family: "Open Sans","sans-serif";
+  color: #69808c;
+}
+
+a.item {
+  color: #69808c;
 }
 
 p {

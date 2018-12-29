@@ -9,14 +9,15 @@ title: Make Trouble
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
     {% if latex == true %}
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
       <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
       <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
       <script>
-	document.addEventListener("DOMContentLoaded", function() {
-	    renderMathInElement(document.body);
-	});
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
       </script>
     {% endif %}
     <script
@@ -37,9 +38,6 @@ title: Make Trouble
         <div class="ui right secondary menu">
           <a href="/blog" class="item">
             <i class="pencil icon"></i> Blog
-          </a>
-          <a href="/tags" class="item">
-            <i class="mail icon"></i> Tags
           </a>
         </div>
       </div>

@@ -1,6 +1,6 @@
 const markdownIt = require("markdown-it");
 const mk = require('markdown-it-katex');
-
+const prism = require('markdown-it-prism');
 
 module.exports = (function(eleventyConfig) {
   eleventyConfig.addFilter("filesize", function(path) {
@@ -21,6 +21,7 @@ module.exports = (function(eleventyConfig) {
   let md = markdownIt(options);
   eleventyConfig.setLibrary("md", md);
   md.use(mk)
+  md.use(prism)
 
   return {
     passthroughFileCopy: true

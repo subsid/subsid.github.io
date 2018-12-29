@@ -1,11 +1,11 @@
 ---
 layout: layouts/blog.liquid
 title: "R: Quote vs Substitute"
-tags: [R]
-permalink: /blog/quote-vs-substitute
+tags: [post, R]
+permalink: blog/quote-vs-substitute/
 ---
 
-*Goal:* Understand the use case of both `quote` and `substitute`.
+*Goal:* *Understand the use case of both `quote` and `substitute`.*
 
 *What is the difference between the following 2 code blocks, even though they produce the same output?*
 If you are not sure, this post will help you.

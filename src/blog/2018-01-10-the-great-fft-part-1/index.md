@@ -1,7 +1,7 @@
 ---
 layout: layouts/blog.liquid
 title: The great FFT (Part 1)
-tags: [FFT, algorithms]
+tags: [post, FFT, algorithms]
 permalink: /blog/the-great-fft-part-1/
 ---
 
