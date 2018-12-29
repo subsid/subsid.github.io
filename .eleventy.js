@@ -1,12 +1,10 @@
 const markdownIt = require("markdown-it");
 const mk = require('markdown-it-katex');
 const prism = require('markdown-it-prism');
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = (function(eleventyConfig) {
-  eleventyConfig.addFilter("filesize", function(path) {
-    return "0 KB";
-  })
-
+  eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPassthroughCopy("src/img/");
   eleventyConfig.addPassthroughCopy("src/style/");
   eleventyConfig.addPassthroughCopy("src/style/themes");
