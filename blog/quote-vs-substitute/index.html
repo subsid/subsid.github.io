@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <title>R: Quote vs Substitute</title>
+  </head>
+  <body>
+    <div class="ui navbar menu">
+      <div class="ui container">
+        <div class="ui left secondary menu">
+          <a href="/" class="item">
+            Siddharth
+          </a>
+        </div>
+        <div class="ui right secondary menu">
+          <a href="/blog" class="item">
+            <i class="pencil icon"></i> Blog
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui container">
+      
+<div>
+<p><em>Goal:</em> <em>Understand the use case of both <code>quote</code> and <code>substitute</code>.</em></p>
+<p><em>What is the difference between the following 2 code blocks, even though they produce the same output?</em><br>
+If you are not sure, this post will help you.</p>
+<pre class="language-r"><code class="language-r">rm<span class="token punctuation">(</span>list<span class="token operator">=</span>ls<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+x <span class="token operator">&lt;-</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">1e8</span>
+g <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    b <span class="token operator">&lt;-</span> substitute<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+g<span class="token punctuation">(</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## [1] 5e+07</span>
+<span class="token comment">## [1] 5e+07</span>
+</code></pre>
+<pre class="language-r"><code class="language-r">rm<span class="token punctuation">(</span>list<span class="token operator">=</span>ls<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+x <span class="token operator">&lt;-</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">1e8</span>
+g <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    b <span class="token operator">&lt;-</span> quote<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+g<span class="token punctuation">(</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## [1] 5e+07</span>
+<span class="token comment">## [1] 5e+07</span>
+</code></pre>
+<p>One of the really (really) cool features of R is the idea of <a href="http://adv-r.had.co.nz/Computing-on-the-language.html">Non Standard Evaluation</a>.</p>
+<h2>Capturing expressions with <em>substitute</em>.</h2>
+<p>Function arguments in R are evaluated <a href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazily</a>. <a href="http://adv-r.had.co.nz/Functions.html#function-arguments">Hadley's book</a> explains this in the context of R, if you want to learn more about the advantages and the idea in general, I recommend these readings in <a href="https://www.schoolofhaskell.com/school/starting-with-haskell/introduction-to-haskell/6-laziness">haskell</a> and <a href="http://clojure-doc.org/articles/language/laziness.html">clojure</a>.</p>
+<p>In R, <em>function arguments are evaluated only if they're used.</em></p>
+<pre class="language-r"><code class="language-r">f <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token number">10</span>
+<span class="token punctuation">}</span>
+f<span class="token punctuation">(</span>stop<span class="token punctuation">(</span><span class="token string">"This is an error!"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment">## [1] 10</span>
+</code></pre>
+<p>At an implementation level, this means that the argument passed to <code>f</code> is not a <em>value</em>, it's a special type of object called <strong>promise</strong>. The advantage of this, is that we have access, not only to the <strong>final value</strong>, but also to the expression that <strong>computes it</strong>.</p>
+<p>We can capture this <strong>expression</strong> using the <code>substitute</code> command and then evaluate it with <code>eval</code>.</p>
+<pre class="language-r"><code class="language-r">f <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  print<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+  print<span class="token punctuation">(</span>substitute<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>substitute<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+f<span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> <span class="token number">5</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token comment">## [1] 52</span>
+<span class="token comment">## 10 * 5 + 2</span>
+<span class="token comment">## [1] 52</span>
+</code></pre>
+<h2>What about <em>quote</em>?</h2>
+<p>Let's see.</p>
+<pre class="language-r"><code class="language-r">f <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  print<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+  print<span class="token punctuation">(</span>quote<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>quote<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+f<span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> <span class="token number">5</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">52</span>
+x
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">52</span>
+</code></pre>
+<p>Interesting! In this case, we don't see the <em>expression</em> <code>10 * 5 + 2</code>, but we see the variable <code>x</code>. In other words, quote captures its input <em>as is</em>. In this case, it just captures the <strong>promise</strong>.</p>
+<p><em>How is this useful?</em></p>
+<p><code>quote</code> let's us capture variables that are not bound to anything in the environment yet. We can capture it, and later evaluate it, when the environment has a value for it.</p>
+<pre class="language-r"><code class="language-r">f <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  print<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+  a <span class="token operator">&lt;-</span> <span class="token number">10</span>
+  b <span class="token operator">&lt;-</span> <span class="token number">20</span>
+  print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+f<span class="token punctuation">(</span>quote<span class="token punctuation">(</span>a <span class="token operator">*</span> b <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><code>a</code> and <code>b</code> were not defined when the function was called, but using <code>quote</code> we can still call the function!</p>
+<h2>So how does this work in our initial example?</h2>
+<p>Since, substitute captures the <em>expression</em>, it has to <strong>reevaluate</strong> it everytime its called, but in case of <strong>quote</strong>, it evaluates it only once! (As the promise gets <em>resolved</em> the first time its called, and then just gets looked up) We can easily see this with some profiling.</p>
+<pre class="language-r"><code class="language-r">rm<span class="token punctuation">(</span>list<span class="token operator">=</span>ls<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+time <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>expr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  start <span class="token operator">&lt;-</span> proc.time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  expr
+  print<span class="token punctuation">(</span>proc.time<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+x <span class="token operator">&lt;-</span> <span class="token number">1</span><span class="token operator">:</span><span class="token number">1e8</span>
+g <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">## substitute</span>
+    print<span class="token punctuation">(</span><span class="token string">"substitute"</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">(</span>print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>substitute<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">(</span>print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>substitute<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    print<span class="token punctuation">(</span><span class="token string">"quote"</span><span class="token punctuation">)</span>
+
+    <span class="token comment">## quote</span>
+    time<span class="token punctuation">(</span>print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>quote<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    time<span class="token punctuation">(</span>print<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>quote<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+g<span class="token punctuation">(</span>mean<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token string">"substitute"</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">5e+07</span>
+   user  system elapsed 
+  <span class="token number">0.094</span>   <span class="token number">0.000</span>   <span class="token number">0.094</span> 
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">5e+07</span>
+   user  system elapsed 
+  <span class="token number">0.092</span>   <span class="token number">0.000</span>   <span class="token number">0.091</span> 
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token string">"quote"</span>
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">5e+07</span>
+   user  system elapsed 
+  <span class="token number">0.103</span>   <span class="token number">0.000</span>   <span class="token number">0.103</span> 
+<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token number">5e+07</span>
+   user  system elapsed 
+      <span class="token number">0</span>       <span class="token number">0</span>       <span class="token number">0</span>
+</code></pre>
+<h3>References</h3>
+<ul>
+<li><a href="http://adv-r.had.co.nz/">Hadley's Advanced R</a>.</li>
+<li><a href="https://longjp.github.io/statcomp/">Stat Computing</a> course by <a href="http://www.stat.tamu.edu/~jlong/">James Long</a></li>
+</ul>
+
+</div>
+
+
+    </div>
+  </body>
+</html>
+
