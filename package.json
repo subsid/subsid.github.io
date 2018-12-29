@@ -4,7 +4,9 @@
   "description": "",
   "main": ".eleventy.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "eleventy --input=src/ --watch --serve --port=8080",
+    "deploy": "eleventy --input=src/ --output=dist/ && git subtree push --prefix dist origin master"
   },
   "keywords": [],
   "author": "",
