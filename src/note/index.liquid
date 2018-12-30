@@ -11,7 +11,7 @@ notefiles:
 ---
 <div class="ui grid">
   <div class="ui row">
-    <div class="three wide column">
+    <div class="three wide right aligned column">
       <h1 class="ui page header">
         {{ title }}
       </h1>
@@ -19,6 +19,8 @@ notefiles:
   </div>
   {%- for note in notefiles -%}
     <div class="ui row">
+      <div class="three wide column">
+      </div>
       <div class="twelve wide column">
         <div class="field">
           <a class="item" target="_blank" href="{{ note.link }}">{{ note.title }}</a>
