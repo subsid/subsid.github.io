@@ -22,6 +22,10 @@ module.exports = (function(eleventyConfig) {
   md.use(prism)
 
   return {
-    passthroughFileCopy: true
+    passthroughFileCopy: true,
+    dir: {
+      input: "src",
+      output: "_site"
+    }
   }
 });

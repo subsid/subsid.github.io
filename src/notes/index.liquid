@@ -1,0 +1,30 @@
+---
+layout: layouts/main.liquid
+title: Notes
+notefiles:
+  - title: "Probability"
+    link: "https://subsid.github.io/notes/dist/probability.html"
+  - title: "Learning from Data"
+    link: "https://subsid.github.io/notes/dist/learning_from_data.html"
+  - title: "Mining of Massive Datasets"
+    link: "https://subsid.github.io/notes/dist/mmds.html"
+---
+<div class="ui grid">
+  <div class="ui row">
+    <div class="three wide column">
+      <h1 class="ui page header">
+        {{ title }}
+      </h1>
+    </div>
+  </div>
+  {%- for note in notefiles -%}
+    <div class="ui row">
+      <div class="twelve wide column">
+        <div class="field">
+          <a class="item" target="_blank" href="{{ note.link }}">{{ note.title }}</a>
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
