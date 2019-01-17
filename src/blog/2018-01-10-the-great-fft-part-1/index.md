@@ -2,7 +2,7 @@
 layout: layouts/blog.liquid
 title: The great FFT (Part 1)
 tags: [post, FFT, algorithms]
-permalink: /blog/the-great-fft-part-1/
+permalink: blog/the-great-fft-part-1/
 ---
 
 If you are in the field of software, you've probably wondered at some point: `What are the coolest algorithms ever discovered?`. As a fun task, I decided to try and understand [SIAM's top 10 algorithms of the 20th century](http://www.uta.edu/faculty/rcli/TopTen/topten.pdf).
