@@ -35,21 +35,21 @@ So the app is answering this question: "Given that I am in Downtown Austin, the 
 # Humidity
 
 Humidity is a measure of how much water vapor is present in the air.
-If there is more moisture in the air, its harder for your body to let the hot molecules fly away and cool you down. Hence, more humid it is, the hotter you feel.
+If there is more moisture in the air, its harder for your body to let the hot molecules fly away and cool you down.
 
-Humidity helps answer "How does it feel outside?" Sticky, yucky, hotter, etc. But not quite...
+Humidity helps answer "How does it feel outside?" Sticky, yucky, wet, etc. But how do you know if its gonna feel that way? Give me numbers...
 
-2 types
+2 ways of measuring Humidity
 ## Absolute humidity
-$AH (g/m^3) = (\text{mass of water vapour}/\text{volume of air})$
+$AH (g/m^3) = \frac{\text{mass of water vapour}}{\text{volume of air}}$
 Very similar to density.
-Absolute humidity is absolute, but hard to measure because -> gaslaw $PV = nRT$. (Volume is affected by temperature)
+Absolute humidity is absolute, but hard to measure because of [gaslaw](https://www.wikiwand.com/en/Ideal_gas_law) $PV = nRT$. (Volume is affected by temperature)
 
 ## Relative humidity
-$RH (%) = \text{water vapor in air} / \text{max amount possible or saturation point}$
+$RH (\%) = \frac{\text{water vapor in air}}{\text{max amount possible (or saturation point)}}$
 
- The issue with Relative humidity is that it varies with temperature and is not an absolute measure. Higher the temperature, higher the saturation point. (More molecules of water can jostle around)
-i.e if RH is 50% at 60F and 65F, 65F will feel hotter. A better measure is dewpoint.
+ The issue with Relative humidity is that it varies with temperature and is not an absolute measure. Higher the temperature, higher the saturation point. (More molecules of water can jostle around in gas state)
+i.e. if RH is 50% at 60F and 65F, 65F will feel more humid. A better measure is **dewpoint**.
 
 ## Dewpoint
 For a given amount of water vapor in air, dewpoint is the temperature at which the RH will become 100%.
