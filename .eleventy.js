@@ -8,6 +8,28 @@ module.exports = (function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/img/");
   eleventyConfig.addPassthroughCopy("src/style/");
   eleventyConfig.addPassthroughCopy("src/style/themes");
+  eleventyConfig.addCollection("allPosts", function(collection) {
+
+    return collection.getAllSorted().filter(function(v) {
+      if (v.data.tags) {
+        return v.data.tags.includes("post") ||
+          v.data.tags.includes("TIL")
+      }
+      return false;
+    }).reverse()
+  })
+
+  eleventyConfig.addCollection("allTags", function(collection) {
+
+    var tags = collection.getAllSorted().map(function(v) {
+      return v.data.tags || []
+    })
+    return [].concat(...tags)
+      .filter((v, index, self) => self.indexOf(v) == index)
+      .sort((a, b) =>
+        a.toLowerCase().localeCompare(b.toLowerCase())
+      )
+  });
 
   // Markdown
   // Katex for Latex
@@ -20,6 +42,7 @@ module.exports = (function(eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
   md.use(mk)
   md.use(prism)
+
 
   return {
     passthroughFileCopy: true,

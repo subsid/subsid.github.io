@@ -1,6 +1,6 @@
 ---
 layout: layouts/main.liquid
-title: Blog Posts
+title: Archive
 ---
 <div class="ui grid">
   <div class="ui row">
@@ -12,7 +12,7 @@ title: Blog Posts
       </h1>
     </div>
   </div>
-  {%- for post in collections.post reversed -%}
+  {%- for post in collections.allPosts -%}
     <div class="ui row">
       <div class="four wide right aligned column">
         {{ post.date | date: "%b %d, %Y" }}

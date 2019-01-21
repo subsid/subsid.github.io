@@ -1,0 +1,29 @@
+---
+layout: layouts/main.liquid
+title: All Tags
+---
+<div class="ui grid">
+  <div class="ui row">
+    <div class="two wide column">
+    </div>
+    <div class="three wide column">
+      <h1 class="ui page header">
+        {{ title }}
+      </h1>
+    </div>
+  </div>
+  <div class="ui row">
+    <div class="two wide column">
+    </div>
+    <div class="field">
+      {%- for tag in collections.allTags -%}
+        {%- if tag != "post" -%}
+          <a class="ui medium label" href="/tags/{{ tag }}">
+            <i>{{ tag }}</i>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
