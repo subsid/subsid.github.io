@@ -2,7 +2,7 @@
 date: 2017-11-15
 layout: layouts/blog.liquid
 title: "Precipitation and Humidity"
-tags: [TIL]
+tags: [TIL, science]
 permalink: til/precipitation-humidity/
 ---
 

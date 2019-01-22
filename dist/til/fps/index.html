@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112753095-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112753095-1');
+      </script>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <title>Frame rates</title>
+  </head>
+  <body class="Site">
+    <div class="ui navbar menu Site-header">
+      <div class="ui container">
+        <div class="ui left secondary menu">
+          <a href="/" class="item">
+            Siddharth
+          </a>
+        </div>
+        <div class="ui right secondary menu">
+          <a href="/blog" class="item">
+            <i class="pencil icon"></i> Blog
+          </a>
+          <a href="/archive" class="item">
+            <i class="archive icon"></i> Archive
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui Site-content container">
+      
+<div>
+<p>FPS refers to number of images streamed or captured per second.<br>
+Normally, in tv/recorders, we see 24-30 fps.</p>
+<p>Usual misconception is apparently human eye cannot recognize beyond 30 fps.<br>
+<a href="https://www.youtube.com/watch?v=22TCiQ6_yTs">Nice video explaining fps</a></p>
+<h2>When to use what?</h2>
+<p>Well, if we are just going to do some cctv recording, its enough if we do 1fps as<br>
+all we need to do is recognize if someone is passing by or whatever. The video will be choppy,<br>
+but that's fine.</p>
+<p>So its usually a good idea to set fps based on what the valuable information is.</p>
+<p>For films, 24-30 was the norm, but movies like avatar and hobbit figured 48/60 fps is<br>
+the sweet spot for smooth animations.</p>
+<h2>1 trillion frames per second (10^12)</h2>
+<p><a href="https://www.youtube.com/watch?v=Y_9vd4HWlVA">Ramesh raskar ted talk</a><br>
+This is called femtophotography!!<br>
+This allows us to see light in slow-motion!<br>
+Light speed: 3 million meters/s</p>
+<h2>Resolution</h2>
+<p>How many <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>h</mi><mi>o</mi><mi>r</mi><mi>i</mi><mi>z</mi><mi>o</mi><mi>n</mi><mi>t</mi><mi>a</mi><mi>l</mi><mo>∗</mo><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>i</mi><mi>c</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">horizontal * vertical</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.69444em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit">h</span><span class="mord mathit">o</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">i</span><span class="mord mathit" style="margin-right:0.04398em;">z</span><span class="mord mathit">o</span><span class="mord mathit">n</span><span class="mord mathit">t</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span><span class="mbin">∗</span><span class="mord mathit" style="margin-right:0.03588em;">v</span><span class="mord mathit">e</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit">t</span><span class="mord mathit">i</span><span class="mord mathit">c</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.01968em;">l</span></span></span></span> numbers are displayed? i.e. how many pixels.<br>
+Higher the resolution, more the gpu power we need. This is because we need to calculate more pixels values.</p>
+
+</div>
+
+
+    </div>
+    <footer class="ui Site-footer center aligned segment">
+      <h2 class="ui header">
+        <a href="https://twitter.com/_subsid"  class="item" target="_blank"><i class="icon twitter square"></i></a>
+        <a href="https://www.linkedin.com/in/subsid"  class="item" target="_blank"><i class="linkedin icon"></i></a>
+        <a href="https://www.github.com/subsid"  class="item" target="_blank"><i class="github icon"></i></a>
+      </h2>
+      <p style=>
+        <a href="/blog" class="item">Blog</a>
+        &nbsp;&#183;&nbsp;
+        <a href="/archive" class="item">Archive</a>
+        &nbsp;&#183;&nbsp;
+        <a href="/feed.xml" class="item">RSS</a></p>
+    </footer>
+  </body>
+</html>
+
