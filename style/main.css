@@ -12,6 +12,7 @@
 
 .Site-content {
   flex: 1;
+  font-family: "Open Sans","sans-serif";
 }
 
 .ui.navbar.menu a.item{
@@ -36,3 +37,12 @@ p {
   font-size: 1.4rem;
 }
 
+p.archive-meta {
+  color: #69808c;
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
