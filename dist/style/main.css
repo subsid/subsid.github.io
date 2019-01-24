@@ -46,3 +46,8 @@ p.archive-meta {
 .underline {
   text-decoration: underline;
 }
+
+blockquote {
+  color: #69808c;
+  font-style: italic;
+}

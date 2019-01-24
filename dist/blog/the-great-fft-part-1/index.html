@@ -56,7 +56,12 @@
     <div class="ui Site-content container">
       
 <div>
-<p>If you are in the field of software, you've probably wondered at some point: <code>What are the coolest algorithms ever discovered?</code>. As a fun task, I decided to try and understand <a href="http://www.uta.edu/faculty/rcli/TopTen/topten.pdf">SIAM's top 10 algorithms of the 20th century</a>.</p>
+  <h1 class="ui header">
+    The great FFT (Part 1)
+  </h1>
+  <div class="ui divider"></div>
+  <div>
+    <p>If you are in the field of software, you've probably wondered at some point: <code>What are the coolest algorithms ever discovered?</code>. As a fun task, I decided to try and understand <a href="http://www.uta.edu/faculty/rcli/TopTen/topten.pdf">SIAM's top 10 algorithms of the 20th century</a>.</p>
 <p><a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">The Fast Fourier Transform (FFT)</a> algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The <a href="http://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf">Cooley-Tukey</a> paper rediscovered (<a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform#History">It was found in Gauss's notes for calculations in astronomy! 🤷</a>) and popularized FFT. It is one of the most widely cited papers in science and engineering!</p>
 <p>FFT is something I've used a lot, but didn't quite understand fully. I always thought of it as something that makes the <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a> faster, in order to view time domain signals in their frequency domain. In reality, that is just one application of FFT. For me, the key view point was: <strong>FFT is all about making basic polynomial operations fast!</strong>.</p>
 <h2>Polynomials</h2>
@@ -234,6 +239,7 @@ In the next post, we will discuss how its implemented, where the \(e^{i\theta}\)
 <li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/lecture-videos/lecture-3-divide-conquer-fft/">OCW Erik Demaine FFT</a></li>
 </ul>
 
+  </div>
 </div>
 
 
