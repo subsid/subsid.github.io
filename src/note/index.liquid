@@ -9,22 +9,37 @@ notefiles:
   - title: "Mining of Massive Datasets"
     link: "https://subsid.github.io/notes/dist/mmds.html"
 ---
+
 <div class="ui grid">
   <div class="ui row">
-    <div class="three wide right aligned column">
+    <div class="two wide column">
+    </div>
+    <div class="fourteen wide column">
       <h1 class="ui page header">
         {{ title }}
       </h1>
     </div>
   </div>
-  {%- for note in notefiles -%}
+  {%- for note in collections.notes reversed -%}
     <div class="ui row">
-      <div class="three wide column">
+      <div class="four wide right aligned column">
+        {{ note.date | date: "%b %d, %Y" }}
       </div>
       <div class="twelve wide column">
-        <div class="field">
-          <a class="item" target="_blank" href="{{ note.link }}">{{ note.title }}</a>
+      <div class="field">
+        <div class="ui header">
+          <a class="item" href="/{{ note.data.permalink  }}">{{ note.data.title }}</a>
         </div>
+      </div>
+      <div class="field">
+        {%- for tag in note.data.tags -%}
+          {%- if tag != "post" -%}
+            <a class="ui medium label" href="/tags/{{ tag }}">
+              <i>{{ tag }}</i>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
       </div>
     </div>
   {%- endfor -%}
