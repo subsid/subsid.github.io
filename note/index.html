@@ -24,6 +24,28 @@
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
     <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <script>
+      function setIframeHeight(id) {
+        var ifrm = document.getElementById(id);
+        var doc = ifrm.contentDocument? ifrm.contentDocument:
+            ifrm.contentWindow.document;
+        ifrm.style.visibility = 'hidden';
+        ifrm.style.height = "10px"; // reset to minimal height ...
+        // IE opt. for bing/msn needs a bit added or scrollbar appears
+        ifrm.style.height = window.getDocHeight( doc ) + 4 + "px";
+        ifrm.style.visibility = 'visible';
+      }
+
+
+      function getDocHeight(doc) {
+        doc = doc || document;
+        // stackoverflow.com/questions/1145850/
+        var body = doc.body, html = doc.documentElement;
+        var height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        return height;
+      }
+    </script>
     <title>Notes</title>
   </head>
   <body class="Site">
@@ -45,36 +67,65 @@
       </div>
     </div>
     <div class="ui Site-content container">
-      <div class="ui grid">
+      
+<div class="ui grid">
   <div class="ui row">
-    <div class="three wide right aligned column">
+    <div class="two wide column">
+    </div>
+    <div class="fourteen wide column">
       <h1 class="ui page header">
         Notes
       </h1>
     </div>
   </div><div class="ui row">
-      <div class="three wide column">
+      <div class="four wide right aligned column">
+        Jun 30, 2017
       </div>
       <div class="twelve wide column">
-        <div class="field">
-          <a class="item" target="_blank" href="https://subsid.github.io/notes/dist/probability.html">Probability</a>
+      <div class="field">
+        <div class="ui header">
+          <a class="item" href="/note/lfd/">Learning from data</a>
         </div>
+      </div>
+      <div class="field"><a class="ui medium label" href="/tags/notes">
+              <i>notes</i>
+            </a><a class="ui medium label" href="/tags/machine learning">
+              <i>machine learning</i>
+            </a></div>
       </div>
     </div><div class="ui row">
-      <div class="three wide column">
+      <div class="four wide right aligned column">
+        Feb 28, 2017
       </div>
       <div class="twelve wide column">
-        <div class="field">
-          <a class="item" target="_blank" href="https://subsid.github.io/notes/dist/learning-from-data.html">Learning from Data</a>
+      <div class="field">
+        <div class="ui header">
+          <a class="item" href="/note/mmds/">MMDS</a>
         </div>
+      </div>
+      <div class="field"><a class="ui medium label" href="/tags/notes">
+              <i>notes</i>
+            </a><a class="ui medium label" href="/tags/machine learning">
+              <i>machine learning</i>
+            </a><a class="ui medium label" href="/tags/information retrieval">
+              <i>information retrieval</i>
+            </a></div>
       </div>
     </div><div class="ui row">
-      <div class="three wide column">
+      <div class="four wide right aligned column">
+        Jan 02, 2017
       </div>
       <div class="twelve wide column">
-        <div class="field">
-          <a class="item" target="_blank" href="https://subsid.github.io/notes/dist/mmds.html">Mining of Massive Datasets</a>
+      <div class="field">
+        <div class="ui header">
+          <a class="item" href="/note/probability/">Probability</a>
         </div>
+      </div>
+      <div class="field"><a class="ui medium label" href="/tags/notes">
+              <i>notes</i>
+            </a><a class="ui medium label" href="/tags/probability">
+              <i>probability</i>
+            </a></div>
       </div>
     </div></div>
 
