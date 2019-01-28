@@ -1,6 +1,6 @@
 ---
 layout: layouts/about.liquid
-title: Make Trouble
+title: About
 banner-filename: "sid-roopkund.jpeg"
 permalink: about/
 ---

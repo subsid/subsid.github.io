@@ -13,6 +13,7 @@
 .Site-content {
   flex: 1;
   font-family: "Open Sans","sans-serif";
+  margin-top: 65px;
 }
 
 .ui.navbar.menu a.item{

@@ -16,12 +16,14 @@ permalink: tags/
   <div class="ui row">
     <div class="two wide column">
     </div>
-    <div class="field">
+    <div class="ui horizontal list">
       {%- for tag in collections.allTags -%}
         {%- if tag != "post" -%}
-          <a class="ui medium label" href="/tags/{{ tag }}">
-            <i>{{ tag }}</i>
-          </a>
+          <div class="item">
+            <a class="ui medium label" href="/tags/{{ tag }}">
+              <i>{{ tag }}</i>
+            </a>
+          </div>
         {%- endif -%}
       {%- endfor -%}
     </div>
