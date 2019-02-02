@@ -1,6 +1,8 @@
 const markdownIt = require("markdown-it");
 const mk = require('markdown-it-katex');
 const prism = require('markdown-it-prism');
+const classy = require('markdown-it-classy');
+
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = (function(eleventyConfig) {
@@ -42,7 +44,11 @@ module.exports = (function(eleventyConfig) {
   eleventyConfig.setLibrary("md", md);
   md.use(mk)
   md.use(prism)
+  md.use(classy);
 
+  md.renderer.rules.table_open = function(tokens, idx) {
+    return '<table class="ui compact table">';
+  };
 
   return {
     passthroughFileCopy: true,
