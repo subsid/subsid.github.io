@@ -19,7 +19,7 @@ title: Posts
       </h1>
     </div>
   </div>
-  {% assign taglist = collections[tag] %}
+  {% assign taglist = collections[tag] | sort | reverse %}
   {% for post in taglist %}
   <div class="ui row">
     <div class="four wide right aligned column">

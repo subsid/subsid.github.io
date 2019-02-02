@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
     
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -46,7 +55,7 @@
         return height;
       }
     </script>
-    <title>Posts</title>
+    <title>Virtualenv Relinking python</title>
   </head>
   <body class="Site">
     <div class="ui fixed navbar menu Site-header">
@@ -68,52 +77,26 @@
     </div>
     <div class="ui Site-content container">
       
-<div class="ui grid">
-  <div class="ui row">
-    <div class="two wide column">
-    </div>
-    <div class="fourteen wide column">
-      <h1 class="ui page header">
-        Science
-      </h1>
-    </div>
+<div>
+  <h1 class="ui header">
+    Virtualenv Relinking python
+  </h1>
+  <div class="ui divider"></div>
+  <div>
+    <p>I had to update my system python today for some reason. Unfortunately, all my virtualenvs were pointing to the older system python, hence they all started failing. I had to delete the existing links and create new links.</p>
+<p>Here is a <a href="https://gist.github.com/tevino/1a557a0c200d61d4e4fb">gist</a> by <a href="https://gist.github.com/tevino">tevino</a> that you can use.</p>
+<p>Basic idea:</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">cd</span> .virtualenv/<span class="token punctuation">{</span>ENV<span class="token punctuation">}</span>
+<span class="token comment"># Find all links inside env</span>
+<span class="token function">find</span> <span class="token keyword">.</span> -type l
+<span class="token comment"># After verifying its what you want</span>
+<span class="token function">find</span> <span class="token keyword">.</span> -type l -delete
+<span class="token comment"># Recreate links. (Give python path if necessary)</span>
+mkvirtualenv <span class="token punctuation">{</span>ENV<span class="token punctuation">}</span>
+</code></pre>
+
   </div>
-  
-  
-  <div class="ui row">
-    <div class="four wide right aligned column">
-      Feb 19, 2018
-    </div>
-    <div class="twelve wide column">
-      <div class="field">
-        <div class="ui header">
-          <a class="item" href="/til/why-are-bugs-attracted-to-light/">Why are bugs attracted to light</a>
-        </div>
-      </div>
-      <div class="field"><a class="ui medium label" href="/tags/TIL">
-              <i>TIL</i>
-            </a><a class="ui medium label" href="/tags/science">
-              <i>science</i>
-            </a></div>
-    </div>
-  </div>
-  <div class="ui row">
-    <div class="four wide right aligned column">
-      Nov 14, 2017
-    </div>
-    <div class="twelve wide column">
-      <div class="field">
-        <div class="ui header">
-          <a class="item" href="/til/precipitation-humidity/">Precipitation and Humidity</a>
-        </div>
-      </div>
-      <div class="field"><a class="ui medium label" href="/tags/TIL">
-              <i>TIL</i>
-            </a><a class="ui medium label" href="/tags/science">
-              <i>science</i>
-            </a></div>
-    </div>
-  </div></div>
+</div>
 
 
     </div>
