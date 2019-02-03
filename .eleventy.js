@@ -15,7 +15,8 @@ module.exports = (function(eleventyConfig) {
     return collection.getAllSorted().filter(function(v) {
       if (v.data.tags) {
         return v.data.tags.includes("post") ||
-          v.data.tags.includes("TIL")
+          v.data.tags.includes("TIL") ||
+          v.data.tags.includes("reflection")
       }
       return false;
     }).reverse()
