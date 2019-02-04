@@ -8,7 +8,7 @@ date: 2018-12-31
 
 Inspired by [Nishant](https://nishanttotla.com/blog/2017-year-in-review/) and [Christian Gencos](https://christian.gen.co/2017-review) year in review, I've decided to write one myself. This is just for me to look back and reflect. I usually keep this kind of stuff under the confines of my [emacs org-mode](https://orgmode.org/), but decided to put it out this time. This post is meant to be awfully self-serving :)
 
-In no particular order, here are some of the highlights things that happened in 2018:
+In no particular order, here are some of the highlights of 2018:
 
 * 2018 was my first whole year living by myself. That means making my bed, cooking, doing dishes, cleaning the house, paying bills for a whole year! Though I've done all of that sporadically for most of my life, doing it out of necessity took some getting used to. But now I don't think I'd want it any other way! There is something satisfying about it :) I got into Meal prepping which saved me time and money (and health?). Ofcourse, this didn't stop me from eating out, it just helped me stick to a routine when needed.
 
