@@ -5,7 +5,7 @@ tags: [post, paper, cloud computing]
 permalink: blog/paper-ontology-cloud-computing/
 ---
 
-[Toward a Unified Ontology of Cloud Computing](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.176.3634&rep=rep1&type=pdf) L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.
+*[Toward a Unified Ontology of Cloud Computing](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.176.3634&rep=rep1&type=pdf) L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.*
 
 This paper is one of the early (relatively) works that summarizes the various components of Cloud Computing. At the time (2008), *AWS* was in the market only for a couple of years and Google cloud was just getting started. Thinking back, the classification described here is pretty much how most offerings these days are grouped.
 
