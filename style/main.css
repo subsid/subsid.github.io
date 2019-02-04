@@ -22,7 +22,7 @@
 
 h3,a.item,li {
   font-family: "Open Sans","sans-serif";
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .ui.page {
@@ -35,12 +35,12 @@ a.item {
 }
 
 p {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 p.archive-meta {
   color: #69808c;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-style: italic;
 }
 
