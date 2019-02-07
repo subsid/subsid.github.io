@@ -10,4 +10,4 @@ Hi! My name is Siddharth. Currently, I'm a CS Masters student at <a href="https:
 In the past, I've worked at <a href="https://retailmenot.com/">RetailMeNot</a> and <a href="https://govimana.com/">VIMANA</a>.
 Other things I enjoy include building stuff, table tennis, soccer, cooking, biking, hiking and fitness.
 
-
+Recently, I've started keeping track of the [books I read](https://www.goodreads.com/user/show/42079095-siddharth-subramaniyam).
