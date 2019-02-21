@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112753095-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112753095-1');
+      </script>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/style/semantic.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/style/main.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/themes/prism.min.css" integrity="sha256-N1K43s+8twRa+tzzoF3V8EgssdDiZ6kd9r8Rfgg8kZU=" crossorigin="anonymous" />
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.css">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/katex.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.7.1/dist/contrib/auto-render.min.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+      </script>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="/style/semantic.min.js" charset="utf-8"></script>
+    <script>
+      function setIframeHeight(id) {
+        var ifrm = document.getElementById(id);
+        var doc = ifrm.contentDocument? ifrm.contentDocument:
+            ifrm.contentWindow.document;
+        ifrm.style.visibility = 'hidden';
+        ifrm.style.height = "10px"; // reset to minimal height ...
+        // IE opt. for bing/msn needs a bit added or scrollbar appears
+        ifrm.style.height = window.getDocHeight( doc ) + 4 + "px";
+        ifrm.style.visibility = 'visible';
+      }
+
+
+      function getDocHeight(doc) {
+        doc = doc || document;
+        // stackoverflow.com/questions/1145850/
+        var body = doc.body, html = doc.documentElement;
+        var height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        return height;
+      }
+    </script>
+    <title>Sed to rename files</title>
+  </head>
+  <body class="Site">
+    <div class="ui fixed navbar menu Site-header">
+      <div class="ui container">
+        <div class="ui left secondary menu">
+          <a href="/" class="item">
+            Siddharth
+          </a>
+        </div>
+        <div class="ui right secondary menu">
+          <a href="/blog" class="item">
+            <i class="pencil icon"></i> Blog
+          </a>
+          <a href="/archive" class="item">
+            <i class="archive icon"></i> Archive
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="ui Site-content container">
+      
+<div>
+  <h1 class="ui header">
+    Sed to rename files
+  </h1>
+  <div class="ui divider"></div>
+  <div>
+    <p><a href="https://www.gnu.org/software/sed/manual/sed.html">Sed</a> stands for &quot;Stream editor&quot;. Here is a nice way to rename files with regex using sed. I was running a user study today, and mistyped the file prefix. This created 100s of files with the wrong name. My initial thought was to use a script to fix it, but then decided to lookup sed. Here is how I did it:</p>
+<pre class="language-sh"><code class="language-sh">$ touch fooops_1.txt fooops_2.txt fooops_3.txt
+$ ls
+fooops_1.txt fooops_2.txt fooops_3.txt
+</code></pre>
+<p>Let's say our goal was to type &quot;foobar&quot; as the prefix. Easy to rename with sed!</p>
+<pre class="language-sh"><code class="language-sh">$ ls | sed 's/foo\(ops\)\(.*\)/mv &amp; foo_bar\2/'
+mv fooops_1.txt foo_bar_1.txt
+mv fooops_2.txt foo_bar_2.txt
+mv fooops_3.txt foo_bar_3.txt
+</code></pre>
+<p>The key with sed is, it streams its output to stdout. Hence we can pipe it to anything!<br>
+Here, we make it output the <code>linux move commmand</code> and pipe it to <code>sh</code> to execute the command. Always good to verify command before executing it.</p>
+<pre class="language-sh"><code class="language-sh">$ ls | sed 's/foo\(ops\)\(.*\)/mv &amp; foo_bar\3/' | sh
+$ ls
+foo_bar_1.txt foo_bar_2.txt foo_bar_3.txt
+</code></pre>
+
+  </div>
+</div>
+
+
+    </div>
+    <footer class="ui Site-footer center aligned segment">
+      <h2 class="ui header">
+        <a href="https://twitter.com/_subsid"  class="item" target="_blank"><i class="icon twitter square"></i></a>
+        <a href="https://www.linkedin.com/in/subsid"  class="item" target="_blank"><i class="linkedin icon"></i></a>
+        <a href="https://www.github.com/subsid"  class="item" target="_blank"><i class="github icon"></i></a>
+      </h2>
+      <p style=>
+        <a href="/blog" class="item">Blog</a>
+        &nbsp;&#183;&nbsp;
+        <a href="/archive" class="item">Archive</a>
+        &nbsp;&#183;&nbsp;
+        <a href="/feed.xml" class="item">RSS</a></p>
+    </footer>
+  </body>
+</html>
+
