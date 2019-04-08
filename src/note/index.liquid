@@ -20,7 +20,7 @@ notefiles:
       </h1>
     </div>
   </div>
-  {%- for note in collections.notes reversed -%}
+  {%- for note in collections.notes -%}
     <div class="ui row">
       <div class="four wide right aligned column">
         {{ note.date | date: "%b %d, %Y" }}

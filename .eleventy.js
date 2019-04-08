@@ -16,7 +16,8 @@ module.exports = (function(eleventyConfig) {
       if (v.data.tags) {
         return v.data.tags.includes("post") ||
           v.data.tags.includes("TIL") ||
-          v.data.tags.includes("reflection")
+          v.data.tags.includes("reflection") ||
+          v.data.tags.includes("notes")
       }
       return false;
     }).reverse()
