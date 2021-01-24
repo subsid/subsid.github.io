@@ -4,7 +4,7 @@
   <subtitle>Stuff I find interesting</subtitle>
   <link href="https://subsid.github.io/feed.xml" rel="self"/>
   <link href="http://subsid.github.io"/>
-  <updated>2019-02-03T00:00:00-06:00</updated>
+  <updated>2019-02-03T05:00:00Z</updated>
   <id>https://subsid.github.io.com/</id>
   <author>
     <name>Siddharth</name>
@@ -14,9 +14,9 @@
   <entry>
     <title>First Post!</title>
     <link href="http://subsid.github.io/blog/first-post/"/>
-    <updated>2017-07-01T00:00:00-05:00</updated>
+    <updated>2017-07-01T04:00:00Z</updated>
     <id>http://subsid.github.io/blog/first-post/</id>
-    <content type="html">&lt;p&gt;I&#39;ve wanted to start a blog for a while, but it never made it to the top of my queue. After coming back to school, finally got around to start one. Hopefully I can keep it going.&lt;br&gt;
+    <content type="html">&lt;p&gt;I&#39;ve wanted to start a blog for a while, but it never made it to the top of my queue. After coming back to school, finally got around to start one. Hopefully I can keep it going.&lt;br /&gt;
 Looking forward to writing something more interesting in the future.&lt;/p&gt;
 &lt;p&gt;Inspired by Kyle&#39;s &lt;a href=&quot;https://www.bricolage.io/learning-open/&quot;&gt;post&lt;/a&gt;, I hope to share some of my work here.&lt;/p&gt;
 </content>
@@ -25,10 +25,10 @@ Looking forward to writing something more interesting in the future.&lt;/p&gt;
   <entry>
     <title>Physics of flocking</title>
     <link href="http://subsid.github.io/blog/flocking/"/>
-    <updated>2017-09-22T00:00:00-05:00</updated>
+    <updated>2017-09-22T04:00:00Z</updated>
     <id>http://subsid.github.io/blog/flocking/</id>
     <content type="html">&lt;p&gt;As a part my of &lt;a href=&quot;http://courses.cs.tamu.edu/keyser/viza659/Syllabus.htm&quot;&gt;physics based modelling&lt;/a&gt; course, I implemented a &lt;a href=&quot;https://subsid.github.io/flocking/dist/&quot;&gt;flocking simulation&lt;/a&gt; using &lt;a href=&quot;https://threejs.org/&quot;&gt;threejs&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Flocking (or Swarming) is a nice example of something known as &lt;em&gt;emergent behavior&lt;/em&gt;.&lt;br&gt;
+&lt;p&gt;Flocking (or Swarming) is a nice example of something known as &lt;em&gt;emergent behavior&lt;/em&gt;.&lt;br /&gt;
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Emergence&quot;&gt;From wikipedia&lt;/a&gt;:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.&lt;/p&gt;
@@ -52,12 +52,12 @@ Looking forward to writing something more interesting in the future.&lt;/p&gt;
   <entry>
     <title>Sketch Tutor - Game based learning</title>
     <link href="http://subsid.github.io/blog/sketch-tutor/"/>
-    <updated>2017-12-15T00:00:00-06:00</updated>
+    <updated>2017-12-15T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/sketch-tutor/</id>
     <content type="html">&lt;p&gt;Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Appearance based&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Appearance based&lt;/strong&gt;&lt;br /&gt;
 This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -77,20 +77,20 @@ This comes more from the field of computer vision, but is not very useful for va
   <entry>
     <title>The great FFT (Part 1)</title>
     <link href="http://subsid.github.io/blog/the-great-fft-part-1/"/>
-    <updated>2018-01-10T00:00:00-06:00</updated>
+    <updated>2018-01-10T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/the-great-fft-part-1/</id>
     <content type="html">&lt;p&gt;If you are in the field of software, you&#39;ve probably wondered at some point: &lt;code&gt;What are the coolest algorithms ever discovered?&lt;/code&gt;. As a fun task, I decided to try and understand &lt;a href=&quot;http://www.uta.edu/faculty/rcli/TopTen/topten.pdf&quot;&gt;SIAM&#39;s top 10 algorithms of the 20th century&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Fast_Fourier_transform&quot;&gt;The Fast Fourier Transform (FFT)&lt;/a&gt; algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The &lt;a href=&quot;http://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf&quot;&gt;Cooley-Tukey&lt;/a&gt; paper rediscovered (&lt;a href=&quot;https://en.wikipedia.org/wiki/Fast_Fourier_transform#History&quot;&gt;It was found in Gauss&#39;s notes for calculations in astronomy! 🤷&lt;/a&gt;) and popularized FFT. It is one of the most widely cited papers in science and engineering!&lt;/p&gt;
 &lt;p&gt;FFT is something I&#39;ve used a lot, but didn&#39;t quite understand fully. I always thought of it as something that makes the &lt;a href=&quot;https://en.wikipedia.org/wiki/Fourier_transform&quot;&gt;Fourier transform&lt;/a&gt; faster, in order to view time domain signals in their frequency domain. In reality, that is just one application of FFT. For me, the key view point was: &lt;strong&gt;FFT is all about making basic polynomial operations fast!&lt;/strong&gt;.&lt;/p&gt;
 &lt;h2&gt;Polynomials&lt;/h2&gt;
-&lt;p&gt;A &lt;a href=&quot;https://en.wikipedia.org/wiki/Polynomial&quot;&gt;Polynomial&lt;/a&gt; is an expression of the form \[A(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + ... a_{n-1}ax^{n-1}\]&lt;br&gt;
+&lt;p&gt;A &lt;a href=&quot;https://en.wikipedia.org/wiki/Polynomial&quot;&gt;Polynomial&lt;/a&gt; is an expression of the form \[A(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + ... a_{n-1}ax^{n-1}\]&lt;br /&gt;
 where \(a_i\) are Real numbered coefficients(typically) and x is some variable. A(x) is defined to have a &lt;strong&gt;degree of n-1&lt;/strong&gt; (Yup, one less than the number of terms!)&lt;/p&gt;
 &lt;h2&gt;Representation of Polynomials&lt;/h2&gt;
 &lt;p&gt;How can polynomials be represented in a computer?&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Coefficient Representation&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Coefficient Representation&lt;/strong&gt;&lt;br /&gt;
 \[(a_0, a_1, a_2 ... a_{n-1})\] Simple enough, its a vector or list of numbers! This representation is often very useful, as it can represent any kind of one-dimensional data. Sure, if we care about \(x\), we can write a function A(x) to take some variable x and do something with x and these coefficents. If not, we just keep it as a vector.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Point-Value Representation&lt;/strong&gt; \[[(x_0, y_0), (x_1, y_1), (x_2, y_2), ... (x_{n-1}, y_{n-1})]\] Since a polynomial A(x) can be thought of as a function from \(x\) to \(y\), another way to represent a polynomial would be by pairs of (input, output) values. Wow! Are you saying we need to define A(x) at all possible values of x? Nope, it turns out there is a fundamental property of polynomials that states that:&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Given n pairs \((x_0,y_0),...,(x_{n-1},y_{n-1})\), with all the \(x_i\)&#39;s distinct, there is a unique polynomial&lt;br&gt;
+&lt;p&gt;&lt;em&gt;Given n pairs \((x_0,y_0),...,(x_{n-1},y_{n-1})\), with all the \(x_i\)&#39;s distinct, there is a unique polynomial&lt;br /&gt;
 p(x) of degree (at most) n such that \(p(x_i) = y_i\) for \(0 \le i \le (n-1).\)&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;In other words, a polynomial of degree \((n-1)\) is uniquely specified by giving \(n\) point-value pairs. Intuitively, that makes sense. How many points do we need to represent a line (which can be represented as a polynomial of the form \(y = ax + b\))? 2 points! What continuous curve can we draw through 3 points? parabola! A proof can be found &lt;a href=&quot;https://web.stanford.edu/~dntse/classes/cs70_fall09/n6.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;h2&gt;What can we do with a Polynomial?&lt;/h2&gt;
@@ -102,8 +102,8 @@ p(x) of degree (at most) n such that \(p(x_i) = y_i\) for \(0 \le i \le (n-1).\)
 &lt;p&gt;Given two polynomials \(p(x)\) and \(q(x)\), find a polynomial \(r = pq\), such that \(r(x) = p(x).q(x)\) for all \(x\). If \(p\) and \(q\) both have degree \(n\), then the product has degree \(2n\).&lt;/p&gt;
 &lt;h3&gt;Complexity of these operations&lt;/h3&gt;
 &lt;p&gt;Assuming the polynomials are represented using the &lt;strong&gt;coefficient representation&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Evaluation&lt;/strong&gt;: A simple for-loop can achieve this in &lt;em&gt;O(n)&lt;/em&gt; arithmetic operations. (We can cut down the multiplications further using &lt;a href=&quot;https://en.wikipedia.org/wiki/Horner%27s_method&quot;&gt;horner&#39;s scheme&lt;/a&gt;)&lt;br&gt;
-&lt;strong&gt;Addition&lt;/strong&gt;: A simple for-loop can achieve this in &lt;em&gt;O(n)&lt;/em&gt; arithmetic operations.&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Evaluation&lt;/strong&gt;: A simple for-loop can achieve this in &lt;em&gt;O(n)&lt;/em&gt; arithmetic operations. (We can cut down the multiplications further using &lt;a href=&quot;https://en.wikipedia.org/wiki/Horner%27s_method&quot;&gt;horner&#39;s scheme&lt;/a&gt;)&lt;br /&gt;
+&lt;strong&gt;Addition&lt;/strong&gt;: A simple for-loop can achieve this in &lt;em&gt;O(n)&lt;/em&gt; arithmetic operations.&lt;br /&gt;
 &lt;strong&gt;Multiplication&lt;/strong&gt;: Ha! this is more complicated and takes &lt;em&gt;O(\(n^2\))&lt;/em&gt; arithmetic operations. (Sure, we can reduce the asymptotic runtime by using some &lt;a href=&quot;https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm&quot;&gt;fancy&lt;/a&gt; tricks, but the constants are still pretty large.)&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;What if we change the representation to point-value?&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Addition&lt;/strong&gt;: Simple! Given 2 polynomials, \((x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})\) and \((x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})\)  we simply add the output values and get \((x_i, y_i + z_i)\). Thus, it requires &lt;em&gt;\(O(n)\)&lt;/em&gt; arithmetic operations.&lt;/p&gt;
@@ -192,18 +192,18 @@ p(x) of degree (at most) n such that \(p(x_i) = y_i\) for \(0 \le i \le (n-1).\)
 &lt;h3&gt;Divide and Conquer idea for Polynomials&lt;/h3&gt;
 &lt;p&gt;Consider the polynomial \(A(x) = a_0 + a_1x + a_2x^2 + . . . a_{7}x^{7}\).&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Divide&lt;/strong&gt;&lt;br&gt;
+&lt;li&gt;&lt;strong&gt;Divide&lt;/strong&gt;&lt;br /&gt;
 Express \(A(x)\) as a sum of its &lt;em&gt;odd&lt;/em&gt; and &lt;em&gt;even&lt;/em&gt; powers.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;\[ A_{even}(x) = a_0 + a_2x + a_4x^2 + a_6x^3 \]&lt;br&gt;
+&lt;p&gt;\[ A_{even}(x) = a_0 + a_2x + a_4x^2 + a_6x^3 \]&lt;br /&gt;
 \[ A_{odd}(x) = a_1 + a_3x + a_5x^2 + a_7x^3 \]&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Conquer&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Conquer&lt;/strong&gt;&lt;br /&gt;
 Recursively compute \(A_{even}(z)\) and \(A_{odd}(z)\) \(\forall z \in { x^2 | x \in X }\)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Combine&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Combine&lt;/strong&gt;&lt;br /&gt;
 Combine them with \(O(1)\) arithmetic operations (Specifically, 1 multiplication and 1 addition) to get \(A(x)\)!&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -227,9 +227,9 @@ Combine them with \(O(1)\) arithmetic operations (Specifically, 1 multiplication
 &lt;/ul&gt;
 &lt;p&gt;&lt;em&gt;So, how do we arrive at a set of n points such that everytime we square it, we get a smaller set.&lt;/em&gt; (I am using the term square loosely here, I mean the set we get by squaring each element in our current set)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;It turns out we can &lt;em&gt;always&lt;/em&gt; come up with a set of n points, such that they &lt;em&gt;collapse&lt;/em&gt; into a set of &lt;em&gt;n/2&lt;/em&gt; points when squared, using complex numbers&lt;/strong&gt; (Yes, &lt;em&gt;n&lt;/em&gt; has to be even)&lt;/p&gt;
-&lt;p&gt;If you don&#39;t quite have an intuitive idea of what complex numbers are, I highly recommend &lt;a href=&quot;https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/&quot;&gt;this post on betterexplained&lt;/a&gt; by Kalid.&lt;br&gt;
+&lt;p&gt;If you don&#39;t quite have an intuitive idea of what complex numbers are, I highly recommend &lt;a href=&quot;https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/&quot;&gt;this post on betterexplained&lt;/a&gt; by Kalid.&lt;br /&gt;
 For me, the big takeaway about complex numbers was to think about them as &lt;em&gt;rotations&lt;/em&gt;. Do read that post.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png&quot; alt=&quot;Complex number rotation&quot; title=&quot;Complex numbers are just rotations&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png&quot; alt=&quot;Complex number rotation&quot; title=&quot;Complex numbers are just rotations&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;Let&#39;s start with a set \(S_1 = { 1 }\). What set can collapse into this set?&lt;/p&gt;
 &lt;p&gt;Easy, \(S_2 = {-1, 1}\). What set collapses to \(S_2\)?&lt;/p&gt;
 &lt;p&gt;Easy, \(S_3 = {i, -i, 1, -1}\). What set collapses to \(S_3\)?&lt;/p&gt;
@@ -247,7 +247,7 @@ For me, the big takeaway about complex numbers was to think about them as &lt;em
 &lt;p&gt;where \(T(n)\) is the running time of our algorithm on an input of size \(n\). &lt;a href=&quot;https://users.cs.duke.edu/~reif/courses/alglectures/skiena.lectures/lecture3.pdf&quot;&gt;Solving this&lt;/a&gt;, we get a &lt;strong&gt;runtime bound of O(n lgn)&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Cool! We can now &lt;em&gt;Add&lt;/em&gt;, &lt;em&gt;Evaluate&lt;/em&gt; and &lt;em&gt;Multiply&lt;/em&gt; polynomials in \(O(n lg n)\) time!&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;This elegant divide and conquer algorithm, is the FFT algorithm!&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I hope this helps you understand what the FFT is all about.&lt;br&gt;
+&lt;p&gt;I hope this helps you understand what the FFT is all about.&lt;br /&gt;
 In the next post, we will discuss how its implemented, where the \(e^{i\theta}\) and &lt;em&gt;fourier&lt;/em&gt; related terms come in.&lt;/p&gt;
 &lt;h3&gt;References&lt;/h3&gt;
 &lt;ul&gt;
@@ -261,10 +261,10 @@ In the next post, we will discuss how its implemented, where the \(e^{i\theta}\)
   <entry>
     <title>R: Quote vs Substitute</title>
     <link href="http://subsid.github.io/blog/quote-vs-substitute/"/>
-    <updated>2018-01-18T00:00:00-06:00</updated>
+    <updated>2018-01-18T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/quote-vs-substitute/</id>
     <content type="html">&lt;p&gt;&lt;em&gt;Goal:&lt;/em&gt; &lt;em&gt;Understand the use case of both &lt;code&gt;quote&lt;/code&gt; and &lt;code&gt;substitute&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;What is the difference between the following 2 code blocks, even though they produce the same output?&lt;/em&gt;&lt;br&gt;
+&lt;p&gt;&lt;em&gt;What is the difference between the following 2 code blocks, even though they produce the same output?&lt;/em&gt;&lt;br /&gt;
 If you are not sure, this post will help you.&lt;/p&gt;
 &lt;pre class=&quot;language-r&quot;&gt;&lt;code class=&quot;language-r&quot;&gt;rm&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;list&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;ls&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
 x &lt;span class=&quot;token operator&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1e8&lt;/span&gt;
@@ -393,7 +393,7 @@ g&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mean&lt;span clas
   <entry>
     <title>Toward a Unified Ontology of Cloud Computing</title>
     <link href="http://subsid.github.io/blog/paper-ontology-cloud-computing/"/>
-    <updated>2019-01-23T00:00:00-06:00</updated>
+    <updated>2019-01-23T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/paper-ontology-cloud-computing/</id>
     <content type="html">&lt;p&gt;&lt;em&gt;&lt;a href=&quot;http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.176.3634&amp;amp;rep=rep1&amp;amp;type=pdf&quot;&gt;Toward a Unified Ontology of Cloud Computing&lt;/a&gt; L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;This paper is one of the early (relatively) works that summarizes the various components of Cloud Computing. At the time (2008), &lt;em&gt;AWS&lt;/em&gt; was in the market only for a couple of years and Google cloud was just getting started. Thinking back, the classification described here is pretty much how most offerings these days are grouped.&lt;/p&gt;
@@ -401,7 +401,7 @@ g&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mean&lt;span clas
 &lt;p&gt;Cloud Computing is one contemporary technology in which the research community has recently embarked. Manifesting itself as the descendant of several other computing research areas such as Service-Oriented Architecture, distributed and grid computing, and virtualization, cloud computing inherits their advancements and limitations.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The authors keep &lt;strong&gt;composability&lt;/strong&gt; and &lt;strong&gt;layering&lt;/strong&gt; as the central theme to their classification. i.e. Larger components are made from smaller components (taken from &lt;a href=&quot;https://en.wikipedia.org/wiki/Service-oriented_architecture&quot;&gt;SOA&lt;/a&gt;) and each layer is built from lower layer components.&lt;/p&gt;
-&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/cloud-layers.png&quot; alt=&quot;Cloud Computing Layers&quot;&gt;
+&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/cloud-layers.png&quot; alt=&quot;Cloud Computing Layers&quot; /&gt;
 &lt;p&gt;&lt;em&gt;Cloud Application Layer&lt;/em&gt; is the most visible layer to the end users of a cloud service. Applications here are referred to as &lt;strong&gt;Software as a service&lt;/strong&gt;, something we take for granted these days. Its probably what has led to the software startup boom. The ease of getting an application to production, with minimal maintenance, installation and other issues faced by &lt;strong&gt;on-prem&lt;/strong&gt; deployments.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Despite all the advantageous benefits of this model, several deployment issues hinder its wide adoption.  Specifically, the security and availability of cloud applications are two of the major issues in this model, and they are currently avoided by the use of lenient service level agreements (SLA)&lt;/p&gt;
@@ -410,7 +410,7 @@ g&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mean&lt;span clas
 &lt;p&gt;&lt;em&gt;Cloud Software Infrastructure layer&lt;/em&gt; is what is commonly referred to as &lt;a href=&quot;https://en.wikipedia.org/wiki/Platform_as_a_service&quot;&gt;PaaS&lt;/a&gt;. This covers the various tools for application developers, that are used to build the SaaS application. &lt;a href=&quot;https://aws.amazon.com/cli/&quot;&gt;AWS-CLI&lt;/a&gt; in one example. This layer is where most abstractions are built for making it easier to get apps to production. Having an API for scaling, load-balancing, etc. Of course, the application developer can always bypass this layer if they want more pain :)&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Cloud Software Infrastructure Layer&lt;/em&gt; can be divided into three parts.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;Computational Resources (dubbed &lt;strong&gt;Infrastructure as a service&lt;/strong&gt;)&lt;br&gt;
+&lt;li&gt;Computational Resources (dubbed &lt;strong&gt;Infrastructure as a service&lt;/strong&gt;)&lt;br /&gt;
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Virtualization&quot;&gt;Virtualization&lt;/a&gt; is the prime enabler for cloud infrastructure. It is what allows the provider to make money - Timesharing limited hardware for multiple users. Amazon&#39;s EC2 is a good example of such a resource.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
@@ -418,11 +418,11 @@ g&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mean&lt;span clas
 &lt;/blockquote&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;
-&lt;p&gt;Data Storage&lt;br&gt;
+&lt;p&gt;Data Storage&lt;br /&gt;
 Storage services such as S3, RDS, etc.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Communication&lt;br&gt;
+&lt;p&gt;Communication&lt;br /&gt;
 This is an interesting component, where a lot of work has gone in recently. But I think most of the work in this area has come through applications that are deployed by the developer. (Such as Kafka, Apache Flink, etc.) While there are services such as Kinesis, SNS by AWS that do some of this, I think there is scope to provide services that are application independent in this layer.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -430,7 +430,7 @@ This is an interesting component, where a lot of work has gone in recently. But 
 &lt;p&gt;Consequently, cloud systems are obliged to provide some communication capability that is service oriented, configurable, schedulable, predictable, and reliable. Towards this goal, the concept of Communication as a Service (CaaS) emerged to support such requirements, as well as network security, dynamic provisioning of virtual overlays for traffic isolation or dedicated bandwidth, guaranteed message delay, communication encryption, and network monitoring.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;The authors also mention &lt;em&gt;Software Kernel&lt;/em&gt; and &lt;em&gt;Hardware/Firmware&lt;/em&gt; as the two lowest layers, but these are mostly managed by the cloud provider, rather than the consumer.&lt;/p&gt;
-&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/cloud-layers-table.png&quot; alt=&quot;Cloud Computing Systems&quot;&gt;
+&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/cloud-layers-table.png&quot; alt=&quot;Cloud Computing Systems&quot; /&gt;
 &lt;p&gt;The origins of modern cloud computing are often forgotten. . .&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Huge coperation, like Amazon and Google generally build their computing infrastructure to support the peak demand of their business. As the average demand of the system is however, several times smaller than the peak demand [18], their computing infrastructure is usually under-utilized and the cost of its operation constitutes an additional expense. In order to offset this extra expense, they have offered utilizing this surplus computing power as a service when it is not used by their business systems.  Their offerings came at very attractive prices since they have deployed their systems at a large scale, and thus benefit from the economy-of-scale.&lt;/p&gt;
@@ -442,10 +442,10 @@ This is an interesting component, where a lot of work has gone in recently. But 
   <entry>
     <title>Entropy as an Error Measure</title>
     <link href="http://subsid.github.io/blog/entropy-as-an-error-measure/"/>
-    <updated>2019-01-31T00:00:00-06:00</updated>
+    <updated>2019-01-31T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/entropy-as-an-error-measure/</id>
     <content type="html">&lt;p&gt;In Shannon&#39;s paper &lt;a href=&quot;http://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf&quot;&gt;A Mathematical Theory of Communication&lt;/a&gt;, he represented a communication system using the following schematic:&lt;/p&gt;
-&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/schematic-comm-system.png&quot;&gt;
+&lt;img class=&quot;ui centered big image&quot; src=&quot;http://subsid.github.io/img/blog/schematic-comm-system.png&quot; /&gt;
 &lt;p&gt;He defined &lt;em&gt;Entropy&lt;/em&gt;, a quantity that forms the basis of information theory.&lt;/p&gt;
 &lt;h2&gt;Entropy&lt;/h2&gt;
 &lt;p&gt;Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &lt;em&gt;&amp;quot; how much randomness is present in the state-space?&amp;quot;&lt;/em&gt; (Similar to &lt;a href=&quot;https://www.wikiwand.com/en/Boltzmann%27s_entropy_formula&quot;&gt;Boltzmann&#39;s Entropy&lt;/a&gt;). It is defined as the following:&lt;/p&gt;
@@ -519,7 +519,7 @@ This is an interesting component, where a lot of work has gone in recently. But 
   <entry>
     <title>Continuous Reasoning: Scaling the impact of formal methods</title>
     <link href="http://subsid.github.io/blog/continuous-reasoning/"/>
-    <updated>2019-02-03T00:00:00-06:00</updated>
+    <updated>2019-02-03T05:00:00Z</updated>
     <id>http://subsid.github.io/blog/continuous-reasoning/</id>
     <content type="html">&lt;p&gt;&lt;em&gt;Peter W. O’Hearn. 2018. Continuous Reasoning: Scaling the impact of formal methods. In LICS ’18: 33rd Annual ACM/IEEE Symposium on Logic in Computer Science, July 9–12, 2018, Oxford, United Kingdom. ACM, New York, NY, USA, 13 pages. &lt;a href=&quot;https://doi.org/10.1145/&quot;&gt;https://doi.org/10.1145/&lt;/a&gt; 3209108.3209109&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;This paper talks about a &lt;a href=&quot;https://en.wikipedia.org/wiki/Static_program_analysis&quot;&gt;static program analysis&lt;/a&gt; tool called &lt;a href=&quot;https://github.com/facebook/infer&quot;&gt;Infer&lt;/a&gt; and its impact at facebook. &lt;em&gt;Infer&lt;/em&gt; is based on a program analysis method called continuous reasoning.&lt;/p&gt;
@@ -546,7 +546,7 @@ This is an interesting component, where a lot of work has gone in recently. But 
 &lt;/ul&gt;
 &lt;p&gt;Both of these reasons are addressed by a diff based analysis approach. The Infer engine acts as a bot reviewer that gives the developer meaningful comments during the review process. The Impact of this system was enormous at facebook - tens of thousands of bugs reported by Infer were fixed.&lt;/p&gt;
 &lt;p&gt;A contrasting analysis tool, that relies on formal verification is s2n by Amazon. S2n does a full-fledged formal verification but does not scale to large codebases.&lt;/p&gt;
-&lt;img class=&quot;ui centered large image&quot; src=&quot;http://subsid.github.io/img/blog/s2n-vs-infer.png&quot;&gt;
+&lt;img class=&quot;ui centered large image&quot; src=&quot;http://subsid.github.io/img/blog/s2n-vs-infer.png&quot; /&gt;
 &lt;h2&gt;Reporting&lt;/h2&gt;
 &lt;p&gt;As mentioned before with ROFL, what and when to report is important. The following are some reporting possibilities:&lt;/p&gt;
 &lt;blockquote&gt;
