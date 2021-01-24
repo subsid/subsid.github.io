@@ -86,11 +86,11 @@
     <p>I had to update my system python today for some reason. Unfortunately, all my virtualenvs were pointing to the older system python, hence they all started failing. I had to delete the existing links and create new links.</p>
 <p>Here is a <a href="https://gist.github.com/tevino/1a557a0c200d61d4e4fb">gist</a> by <a href="https://gist.github.com/tevino">tevino</a> that you can use.</p>
 <p>Basic idea:</p>
-<pre class="language-bash"><code class="language-bash"><span class="token function">cd</span> .virtualenv/<span class="token punctuation">{</span>ENV<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="language-bash"><span class="token builtin class-name">cd</span> .virtualenv/<span class="token punctuation">{</span>ENV<span class="token punctuation">}</span>
 <span class="token comment"># Find all links inside env</span>
-<span class="token function">find</span> <span class="token keyword">.</span> -type l
+<span class="token function">find</span> <span class="token builtin class-name">.</span> -type l
 <span class="token comment"># After verifying its what you want</span>
-<span class="token function">find</span> <span class="token keyword">.</span> -type l -delete
+<span class="token function">find</span> <span class="token builtin class-name">.</span> -type l -delete
 <span class="token comment"># Recreate links. (Give python path if necessary)</span>
 mkvirtualenv <span class="token punctuation">{</span>ENV<span class="token punctuation">}</span>
 </code></pre>
