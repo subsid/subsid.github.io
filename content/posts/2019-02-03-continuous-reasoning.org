@@ -2,8 +2,12 @@
 title: "Continuous Reasoning: Scaling the impact of formal methods"
 date: 2019-02-03T08:36:34-05:00
 draft: false
-tags: [paper-review]
+tags: [paper review]
 ---
+
+#+begin_comment
+# [[id:28add7ce-3af3-49a8-8361-c9aaef15bca7][Paper Review]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
+#+end_comment
 
 [[https://research.facebook.com/publications/continuous-reasoning-scaling-the-impact-of-formal-methods][Paper link]]
 

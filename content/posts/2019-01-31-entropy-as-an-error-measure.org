@@ -7,6 +7,10 @@ katex: true
 markup: mmark
 ---
 
+#+begin_comment
+# [[id:98031ea4-dce0-4e52-aa57-948fecee15cc][Machine Learning]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] 
+#+end_comment
+
 In Shannon's paper [[http://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf][A Mathematical Theory of Communication]], he represented a communication system using the following schematic:
 
 {{< figure src="/img/schematic-comm-system.png" alt="" >}}

@@ -2,8 +2,12 @@
 title: "Toward a Unified Ontology of Cloud Computing"
 date: 2019-01-23T00:55:49-05:00
 draft: false
-tags: [post, paper, cloud computing]
+tags: [post, paper review]
 ---
+
+#+begin_comment
+# [[id:28add7ce-3af3-49a8-8361-c9aaef15bca7][Paper Review]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] 
+#+end_comment
 
 /[[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.176.3634&rep=rep1&type=pdf][Toward a Unified Ontology of Cloud Computing]] L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10./
 

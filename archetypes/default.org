@@ -1,5 +1,11 @@
+{{ $title :=  replace .TranslationBaseName "-" " " | title -}}
+:PROPERTIES:
+:ID: {{ delimit (shuffle (split (md5 $title) "" )) "" }}
+:END:
+#+title: "{{ $title }}"
+
 ---
-title: "{{ replace .TranslationBaseName "-" " " | title }}"
+title: "{{ $title }}"
 date: "{{ .Date }}"
 draft: true
 tags: [""]
@@ -7,3 +13,6 @@ katex: true
 markup: mmark
 ---
 
+#+begin_comment
+#
+#+end_comment

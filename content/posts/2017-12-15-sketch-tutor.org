@@ -5,6 +5,10 @@ draft: false
 tags: [post, javascript, react, sketch recognition]
 ---
 
+#+begin_comment
+# [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:1137eac6-6e72-4d1b-9b78-57c4f5185040][Java Script]]
+#+end_comment
+
 Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:
 
 - **Appearance based**
