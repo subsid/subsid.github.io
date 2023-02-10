@@ -7,10 +7,6 @@ markup: mmark
 tags: [FFT, algorithms]
 ---
 
-#+begin_comment
-# [[id:b66b0b0c-0780-4c50-a6b3-c2831f3d25cb][Algorithms]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:7a497f81-70ce-4c3a-b2a8-8487fea1d14e][FFT]]
-#+end_comment
-
 If you are in the field of software, you've probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand [[http://www.uta.edu/faculty/rcli/TopTen/topten.pdf][SIAM's top 10 algorithms of the 20th century]].
 
 [[https://en.wikipedia.org/wiki/Fast_Fourier_transform][The Fast Fourier Transform (FFT)]] algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The [[http://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf][Cooley-Tukey paper]] rediscovered (It was found in [[https://en.wikipedia.org/wiki/Fast_Fourier_transform#History][Gauss's notes]] for calculations in astronomy! 🤷) and popularized FFT. It is one of the most widely cited papers in science and engineering!
@@ -242,4 +238,11 @@ In a future post, we will discuss how its implemented, where the $e^{i\theta}$ a
 - [[http://jeffe.cs.illinois.edu/teaching/algorithms/notes/02-fft.pdf][Jeff Erickson Algorithm notes]]
 - [[http://faculty.cs.tamu.edu/klappi/csce629-f17/csce411-set4c.pdf][TAMU Klappenecker Algorithms]]
 - [[https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/lecture-videos/lecture-3-divide-conquer-fft/][OCW Erik Demaine FFT]]
+
+* Blog:The Great FFT
+:PROPERTIES:
+:ID: the-great-fft-part1
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:b66b0b0c-0780-4c50-a6b3-c2831f3d25cb][Algorithms]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:7a497f81-70ce-4c3a-b2a8-8487fea1d14e][FFT]]
 

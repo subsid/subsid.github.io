@@ -33,7 +33,7 @@ Here, we make it output the ~linux move commmand~ and pipe it to ~sh~ to execute
   foo_bar_1.txt foo_bar_2.txt foo_bar_3.txt
 #+end_src
 
-* Sed to Rename files
+* Blog:Sed to Rename files
 :PROPERTIES:
 :ID: sed-to-rename-files
 :CUSTOM_ID: hideroamtags

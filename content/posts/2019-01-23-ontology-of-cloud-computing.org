@@ -5,9 +5,7 @@ draft: false
 tags: [post, paper review]
 ---
 
-#+begin_comment
-# [[id:28add7ce-3af3-49a8-8361-c9aaef15bca7][Paper Review]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] 
-#+end_comment
+
 
 /[[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.176.3634&rep=rep1&type=pdf][Toward a Unified Ontology of Cloud Computing]] L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10./
 
@@ -65,3 +63,10 @@ Huge coperation, like Amazon and Google generally build their computing infrastr
 #+end_quote
 
 As mentioned by the authors, the biggest challenges in cloud computing are security and monitoring of large distributed services. (Still the case 10 years hence)
+
+* Blog:Ontology of Cloud Computing
+:PROPERTIES:
+:ID: ontology-of-cloud-computing
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:28add7ce-3af3-49a8-8361-c9aaef15bca7][Paper Review]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] 

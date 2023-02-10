@@ -5,12 +5,6 @@ tags: [post, javascript, threejs, graphics]
 draft: false
 ---
 
-* [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:55f23bfb-af86-47f1-ba37-e0671d409350][Programming Languages]] [[id:1137eac6-6e72-4d1b-9b78-57c4f5185040][Java Script]]
-
-#+begin_comment
-# [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:55f23bfb-af86-47f1-ba37-e0671d409350][Programming Languages]] [[id:1137eac6-6e72-4d1b-9b78-57c4f5185040][Java Script]]
-#+end_comment
-
 As a part my of [[http://courses.cs.tamu.edu/keyser/viza659/Syllabus.html][physics based modelling]] course, I implemented a [[https://subsid.github.io/flocking/dist/][flocking simulation]] using [[https://threejs.org/][threejs]].
 
 Flocking (or Swarming) is a nice example of something known as *emergent behavior* ([[https://en.wikipedia.org/wiki/Emergence][wiki]]).
@@ -38,3 +32,12 @@ At its core, each Boid (Bird-oid object!) follows three simple rules:
 And that's it! This leads to some cool emergent behavior. This can be extended in many ways, by adding some obstacle avoidance, common goal and other effects. Something I find really cool is that we can start each boid at some random initial velocity, and see them slowly come together into a nice flock.
 
 The source code is available [[https://github.com/subsid/flocking][here]], in case someone wants to play with it. The implementation is based on [[https://codepen.io/coaster/pen/QpqVjP][this one by Ellie]].
+
+* Blog:Physics of flocking
+:PROPERTIES:
+:ID: physics-of-flocking
+:CUSTOM_ID: hideroamtags
+:END:
+
+[[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:55f23bfb-af86-47f1-ba37-e0671d409350][Programming Languages]] [[id:1137eac6-6e72-4d1b-9b78-57c4f5185040][Java Script]]
+

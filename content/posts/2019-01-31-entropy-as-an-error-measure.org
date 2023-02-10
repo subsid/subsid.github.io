@@ -79,7 +79,7 @@ Thus, higher the KL divergence, higher the bit wastage.
 
 Cross-Entropy is often used as an error measure for Classification models. [[https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy][Example]]
 
-* Entropy as an Error Measure
+* Blog:Entropy as an Error Measure
 :PROPERTIES:
 :ID: entropy-as-an-error-measure
 :CUSTOM_ID: hideroamtags

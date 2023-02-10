@@ -8,7 +8,7 @@ markup: mmark
 ---
 
 #+begin_comment
-# [[id:c524a72a-29f3-42ab-9598-88132af425a9][Science]] [[id:86e71295-fe3a-498d-b755-2805397e01a7][Fun Facts]]
+
 #+end_comment
 
 [[https://www.youtube.com/watch?v=oRqOohdLrJE][Smartereveryday video]]
@@ -24,3 +24,10 @@ markup: mmark
 - This theory says that some species of moths align themselves straight towards a light source
   and fly towards it. (A light source is usually like an opening, making the insect fly towards
   it so that it can fly freely without any objects in between)
+
+* Blog:Bugs Atrracted to Light
+:PROPERTIES:
+:ID: bugs-attracted-to-light
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:b5ca1c71-fca2-4494-abc0-d555f0e9986f][Blog]] [[id:c524a72a-29f3-42ab-9598-88132af425a9][Science]] [[id:86e71295-fe3a-498d-b755-2805397e01a7][Fun Facts]]

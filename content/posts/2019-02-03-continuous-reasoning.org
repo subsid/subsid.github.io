@@ -60,7 +60,7 @@ As mentioned before with ROFL, what and when to report is important. The followi
 
 Though *automatic composability* is hard, it may be worth spending time on improving continuous analysis, due to its scalability and impact.
 
-* ContinousReasoningPost
+* Blog:Continous Reasoning
 :PROPERTIES:
 :ID: continuous-reasoning-post
 :CUSTOM_ID: hideroamtags

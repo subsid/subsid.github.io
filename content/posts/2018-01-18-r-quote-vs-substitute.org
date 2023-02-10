@@ -7,9 +7,7 @@ katex: true
 markup: mmark
 ---
 
-#+begin_comment
-# [[id:55f23bfb-af86-47f1-ba37-e0671d409350][Programming Languages]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
-#+end_comment
+
 
 *** What is the difference between the following 2 code blocks, even though they produce the same output?
 
@@ -164,3 +162,11 @@ g(mean(x))
 *** References
 - [[http://adv-r.had.co.nz/][Hadley's Advanced R]]
 - [[https://longjp.github.io/statcomp/][Stat Computing]] course by [[http://www.stat.tamu.edu/~jlong/][James Long]]
+
+* Blog:R Quote vs Substitute
+:PROPERTIES:
+:ID: r-quote-vs-substitute
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:55f23bfb-af86-47f1-ba37-e0671d409350][Programming Languages]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
+  
