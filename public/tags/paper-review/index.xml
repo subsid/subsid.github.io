@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>paper review on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/tags/paper-review/</link>
+    <description>Recent content in paper review on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 08:36:34 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/paper-review/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Continuous Reasoning: Scaling the impact of formal methods</title>
+      <link>https://subsid.github.io/posts/2019-02-03-continuous-reasoning/</link>
+      <pubDate>Sun, 03 Feb 2019 08:36:34 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-02-03-continuous-reasoning/</guid>
+      <description>Paper link
+This paper talks about a static program analysis tool called Infer and its impact at facebook. Infer is based on a program analysis method called continuous reasoning.
+Summary This paper describes work in continuous reasoning, where formal reasoning about a (changing) codebase is done in a fashion which mirrors the iterative, continuous model of software development that is increasingly practiced in industry
+Given the prevalence of CI/CD pipelines and code review processes, the author suggests that continuous reasoning will allow formal analysis to scale to large codebases if it is integrated into the programmer&amp;#39;s workflow.</description>
+    </item>
+    
+    <item>
+      <title>Toward a Unified Ontology of Cloud Computing</title>
+      <link>https://subsid.github.io/posts/2019-01-23-ontology-of-cloud-computing/</link>
+      <pubDate>Wed, 23 Jan 2019 00:55:49 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-01-23-ontology-of-cloud-computing/</guid>
+      <description>Toward a Unified Ontology of Cloud Computing L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.
+This paper is one of the early (relatively) works that summarizes the various components of Cloud Computing. At the time (2008), AWS was in the market only for a couple of years and Google cloud was just getting started. Thinking back, the classification described here is pretty much how most offerings these days are grouped.</description>
+    </item>
+    
+  </channel>
+</rss>

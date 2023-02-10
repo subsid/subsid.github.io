@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>react on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/tags/react/</link>
+    <description>Recent content in react on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Dec 2017 13:56:21 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sketch Tutor - Game based learning</title>
+      <link>https://subsid.github.io/posts/2017-12-15-sketch-tutor/</link>
+      <pubDate>Fri, 15 Dec 2017 13:56:21 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2017-12-15-sketch-tutor/</guid>
+      <description>Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:
+Appearance based This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.
+Gesture based Most useful for forensic methods, but requires user specific training. Every individual has their own quirks when sketching! Geometric based Models are built based on Geometric constraints.</description>
+    </item>
+    
+  </channel>
+</rss>
