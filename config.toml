@@ -3,6 +3,16 @@ languageCode = 'en-us'
 title = "Siddharth's Blog"
 theme = 'PaperMod'
 
+[[menu.main]]
+name = "About"
+url = "about/"
+weight = 5
+
+[[menu.main]]
+name = "Tags"
+url = "tags/"
+weight = 10
+
 [params]
   # color style
   color = 'grey'                           # linen, wheat, gray, light
@@ -11,6 +21,6 @@ theme = 'PaperMod'
   twitter = '_subsid'
   rss = true 
   # home page profile
-##  avatar = 'GRAVATAR_EMAIL'                 # gravatar email or image url
+  avatar = 'sidharth3930@gmail.com'                 # gravatar email or image url
   name = 'Siddharth'
   bio = ''

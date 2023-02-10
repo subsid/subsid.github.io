@@ -59,3 +59,11 @@ As mentioned before with ROFL, what and when to report is important. The followi
 - *Clean* is used for deployments that seek to keep a codebase entirely free of certain issues. The Amazon s2n effort uses this deployment, Infer has used it with the source code of the Buck build system, and it is commonly used with type systems.
 
 Though *automatic composability* is hard, it may be worth spending time on improving continuous analysis, due to its scalability and impact.
+
+* ContinousReasoningPost
+:PROPERTIES:
+:ID: continuous-reasoning-post
+:CUSTOM_ID: hideroamtags
+:END:
+
+[[id:b5ca1c71-fca2-4494-abc0-d555f0e9986f][Blog]] [[id:28add7ce-3af3-49a8-8361-c9aaef15bca7][Paper Review]]

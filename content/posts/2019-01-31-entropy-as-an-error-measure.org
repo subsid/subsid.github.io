@@ -7,10 +7,6 @@ katex: true
 markup: mmark
 ---
 
-#+begin_comment
-# [[id:98031ea4-dce0-4e52-aa57-948fecee15cc][Machine Learning]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] 
-#+end_comment
-
 In Shannon's paper [[http://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf][A Mathematical Theory of Communication]], he represented a communication system using the following schematic:
 
 {{< figure src="/img/schematic-comm-system.png" alt="" >}}
@@ -83,3 +79,9 @@ Thus, higher the KL divergence, higher the bit wastage.
 
 Cross-Entropy is often used as an error measure for Classification models. [[https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy][Example]]
 
+* Entropy as an Error Measure
+:PROPERTIES:
+:ID: entropy-as-an-error-measure
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:b5ca1c71-fca2-4494-abc0-d555f0e9986f][Blog]] [[id:98031ea4-dce0-4e52-aa57-948fecee15cc][Machine Learning]]

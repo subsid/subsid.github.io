@@ -7,10 +7,6 @@ katex: true
 markup: mmark
 ---
 
-#+begin_comment
-# [[id:b5ca1c71-fca2-4494-abc0-d555f0e9986f][linux hacks]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
-#+end_comment
-
 [[https://www.gnu.org/software/sed/manual/sed.html][Sed]] stands for "Stream editor". Here is a nice way to rename files with regex using sed. I was running a user study today, and mistyped the file prefix. This created 100s of files with the wrong name. My initial thought was to use a script to fix it, but then decided to lookup sed. Here is how I did it:
 
 #+begin_src shell
@@ -36,4 +32,11 @@ Here, we make it output the ~linux move commmand~ and pipe it to ~sh~ to execute
   $ ls
   foo_bar_1.txt foo_bar_2.txt foo_bar_3.txt
 #+end_src
+
+* Sed to Rename files
+:PROPERTIES:
+:ID: sed-to-rename-files
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:b5ca1c71-fca2-4494-abc0-d555f0e9986f][linux hacks]] [[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
 

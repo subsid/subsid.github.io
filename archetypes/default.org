@@ -1,8 +1,4 @@
 {{ $title :=  replace .TranslationBaseName "-" " " | title -}}
-:PROPERTIES:
-:ID: {{ delimit (shuffle (split (md5 $title) "" )) "" }}
-:END:
-#+title: "{{ $title }}"
 
 ---
 title: "{{ $title }}"
@@ -13,6 +9,10 @@ katex: true
 markup: mmark
 ---
 
-#+begin_comment
-#
-#+end_comment
+* {{ $title }}
+:PROPERTIES:
+:ID: {{ delimit (shuffle (split (md5 $title) "" )) "" }}
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]]
+
