@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>post | Siddharth&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://subsid.github.io/tags/post/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d3463410ac2a89674895602d3f9ea125f145cedaff93ae56233ad40357020e8e.css" integrity="sha256-00Y0EKwqiWdIlWAtP56hJfFFztr/k65WIzrUA1cCDo4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://subsid.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://subsid.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://subsid.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://subsid.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://subsid.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://subsid.github.io/tags/post/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="post" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://subsid.github.io/tags/post/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="post"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://subsid.github.io/" accesskey="h" title="Siddharth&#39;s Blog (Alt + H)">Siddharth&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://subsid.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://subsid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    post
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Entropy as an Error Measure
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>In Shannon&#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &#34; how much randomness is present in the state-space?&#34; (Similar to Boltzmann&#39;s Entropy). It is defined as the following:...</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-01-31 06:12:40 -0500 EST'>January 31, 2019</span></footer>
+  <a class="entry-link" aria-label="post link to Entropy as an Error Measure" href="https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Toward a Unified Ontology of Cloud Computing
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Toward a Unified Ontology of Cloud Computing L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.
+This paper is one of the early (relatively) works that summarizes the various components of Cloud Computing. At the time (2008), AWS was in the market only for a couple of years and Google cloud was just getting started. Thinking back, the classification described here is pretty much how most offerings these days are grouped....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-01-23 00:55:49 -0500 EST'>January 23, 2019</span></footer>
+  <a class="entry-link" aria-label="post link to Toward a Unified Ontology of Cloud Computing" href="https://subsid.github.io/posts/2019-01-23-ontology-of-cloud-computing/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Sketch Tutor - Game based learning
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:
+Appearance based This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.
+Gesture based Most useful for forensic methods, but requires user specific training. Every individual has their own quirks when sketching! Geometric based Models are built based on Geometric constraints....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-12-15 13:56:21 -0500 EST'>December 15, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Sketch Tutor - Game based learning" href="https://subsid.github.io/posts/2017-12-15-sketch-tutor/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Physics of Flocking
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Blog Programming Languages Java Script As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
+Flocking (or Swarming) is a nice example of something known as emergent behavior (wiki).
+Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.
+This behavior is common among various animal groups such as birds, ants, bees, fishes....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-22 04:56:54 -0500 -0500'>September 22, 2017</span></footer>
+  <a class="entry-link" aria-label="post link to Physics of Flocking" href="https://subsid.github.io/posts/2017-09-22-physics-of-flocking/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://subsid.github.io/">Siddharth&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

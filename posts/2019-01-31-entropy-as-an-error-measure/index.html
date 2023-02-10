@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Entropy as an Error Measure | Siddharth&#39;s Blog</title>
+<meta name="keywords" content="post, machine learning">
+<meta name="description" content="In Shannon&#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &#34; how much randomness is present in the state-space?&#34; (Similar to Boltzmann&#39;s Entropy). It is defined as the following:">
+<meta name="author" content="">
+<link rel="canonical" href="https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d3463410ac2a89674895602d3f9ea125f145cedaff93ae56233ad40357020e8e.css" integrity="sha256-00Y0EKwqiWdIlWAtP56hJfFFztr/k65WIzrUA1cCDo4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://subsid.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://subsid.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://subsid.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://subsid.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://subsid.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Entropy as an Error Measure" />
+<meta property="og:description" content="In Shannon&#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &#34; how much randomness is present in the state-space?&#34; (Similar to Boltzmann&#39;s Entropy). It is defined as the following:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-01-31T06:12:40-05:00" />
+<meta property="article:modified_time" content="2019-01-31T06:12:40-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Entropy as an Error Measure"/>
+<meta name="twitter:description" content="In Shannon&#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &#34; how much randomness is present in the state-space?&#34; (Similar to Boltzmann&#39;s Entropy). It is defined as the following:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://subsid.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Entropy as an Error Measure",
+      "item": "https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Entropy as an Error Measure",
+  "name": "Entropy as an Error Measure",
+  "description": "In Shannon\u0026#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:\nHe defined Entropy, a quantity that forms the basis of information theory.\nEntropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of \u0026#34; how much randomness is present in the state-space?\u0026#34; (Similar to Boltzmann\u0026#39;s Entropy). It is defined as the following:",
+  "keywords": [
+    "post", "machine learning"
+  ],
+  "articleBody": " In Shannon's paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:\nHe defined Entropy, a quantity that forms the basis of information theory.\nEntropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of \" how much randomness is present in the state-space?\" (Similar to Boltzmann's Entropy). It is defined as the following:\n$$ H = -K \\sum_{i = 1}^{n} p_i \\log{p_i} $$\nwhere $p_i$ is the probability of event i. (the constant K merely amounts to a choice of a unit of measure)\nTo get a feel for this, consider the following weather probabilities and their corresponding entropy:\nimport numpy as np H = lambda xs: - numpy.sum(map(lambda x: x * numpy.log2(x) if x != 0 else 0, xs)) return list(map(H, [[0.25, 0.25, 0.25, 0.25], [0.5, 0.2, 0.2, 0.1], [0.8, 0.1, 0.05, 0.05], [1, 0, 0, 0]])) Sunny Rainy Snowy Foggy Entropy 0.25 0.25 0.25 0.25 2.0 0.5 0.2 0.2 0.1 1.76 0.8 0.1 0.05 0.05 1.02 1 0 0 0 0 As we can see, more uncertain our state-space is, the higher the entropy. If we know something for sure, there is no entropy. What's the use of this?\nIf you notice, we used a base of 2 for the logarithm. When the base is set to 2, we refer to the corresponding logarithm value as a bit (Shannon credits [J. W. Tukey] for this) Thus, the above Entropy can be roughly interpreted as\nOn avg, how many bits do we need to transmit information?\nThis turned out to be a useful measure for building information systems (as shown in the above figure) that send information efficiently. Every time we had to send some information, we can encode them to bits, based on the probability of each event's occurrence. Maybe, more likely an event, lesser the bits we'd want to use for it.\nNow we know how many bits we need (in principle) to transmit some information, but how do we measure our system's performance? Enter cross-entropy.\nCross Entropy $$ H(p, q) = -K \\sum_{i = 1}^{n} p_i \\log{q_i} $$\nWhere $q_i$ is our predicted probability of even $i$ and $p_i$ is the true probability of event $i$.\nI think of Cross Entropy of as \"How well is our system doing?\". i.e \"How many bits did we actually send?\" (not how many do we need)\nWhat does it mean?\nStaring at this formula, we can see that if $q_i == p_i$, then cross-entropy is the same as entropy.\nRelative Entropy (or KL Divergence) The difference between Cross-Entropy and Entropy is called Relative Entropy or KL Divergence. It tells us \"How close our system is to the true entropy\". Higher the Relative Entropy, lesser is our efficiency.\n$$ D_{KL}(p || q) = H(p, q) - H(p) $$\nThus, higher the KL divergence, higher the bit wastage.\nLoss function using Cross Entropy Cross-Entropy is often used as an error measure for Classification models. Example\nEntropy as an Error Measure Blog Machine Learning\n",
+  "wordCount" : "508",
+  "inLanguage": "en",
+  "datePublished": "2019-01-31T06:12:40-05:00",
+  "dateModified": "2019-01-31T06:12:40-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Siddharth's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://subsid.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://subsid.github.io/" accesskey="h" title="Siddharth&#39;s Blog (Alt + H)">Siddharth&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://subsid.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://subsid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Entropy as an Error Measure
+    </h1>
+    <div class="post-meta"><span title='2019-01-31 06:12:40 -0500 EST'>January 31, 2019</span>
+
+</div>
+  </header> 
+  <div class="post-content">
+<p>
+In Shannon&#39;s paper <a href="http://math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf">A Mathematical Theory of Communication</a>, he represented a communication system using the following schematic:</p>
+<p>
+<figure>
+    <img loading="lazy" src="/img/schematic-comm-system.png"/> 
+</figure>
+</p>
+<p>
+He defined <strong>Entropy</strong>, a quantity that forms the basis of information theory.</p>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+Entropy
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<p>
+Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of <strong>&#34; how much randomness is present in the state-space?&#34;</strong> (Similar to <a href="https://www.wikiwand.com/en/Boltzmann%27s_entropy_formula">Boltzmann&#39;s Entropy</a>). It is defined as the following:</p>
+<p>
+$$ H = -K \sum_{i = 1}^{n} p_i \log{p_i} $$</p>
+<p>
+where $p_i$ is the probability of event <strong>i</strong>. (the constant K merely amounts to a choice of a unit of measure)</p>
+<p>
+To get a feel for this, consider the following weather probabilities and their corresponding entropy:</p>
+<div class="src src-python">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>H <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> xs: <span style="color:#f92672">-</span> numpy<span style="color:#f92672">.</span>sum(map(<span style="color:#66d9ef">lambda</span> x: x <span style="color:#f92672">*</span> numpy<span style="color:#f92672">.</span>log2(x) <span style="color:#66d9ef">if</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>, xs))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> list(map(H, [[<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.25</span>], [<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.2</span>, <span style="color:#ae81ff">0.1</span>], [<span style="color:#ae81ff">0.8</span>, <span style="color:#ae81ff">0.1</span>, <span style="color:#ae81ff">0.05</span>, <span style="color:#ae81ff">0.05</span>], [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]]))</span></span></code></pre></div>
+</div>
+<table>
+<thead>
+<tr>
+<th class="align-right">Sunny</th>
+<th class="align-right">Rainy</th>
+<th class="align-right">Snowy</th>
+<th class="align-right">Foggy</th>
+<th class="align-right">Entropy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="align-right">0.25</td>
+<td class="align-right">0.25</td>
+<td class="align-right">0.25</td>
+<td class="align-right">0.25</td>
+<td class="align-right">2.0</td>
+</tr>
+<tr>
+<td class="align-right">0.5</td>
+<td class="align-right">0.2</td>
+<td class="align-right">0.2</td>
+<td class="align-right">0.1</td>
+<td class="align-right">1.76</td>
+</tr>
+<tr>
+<td class="align-right">0.8</td>
+<td class="align-right">0.1</td>
+<td class="align-right">0.05</td>
+<td class="align-right">0.05</td>
+<td class="align-right">1.02</td>
+</tr>
+<tr>
+<td class="align-right">1</td>
+<td class="align-right">0</td>
+<td class="align-right">0</td>
+<td class="align-right">0</td>
+<td class="align-right">0</td>
+</tr>
+</tbody>
+</table>
+<p>
+As we can see, more uncertain our state-space is, the higher the entropy. If we know something for sure, there is no entropy. What&#39;s the use of this?</p>
+<p>
+If you notice, we used a base of 2 for the logarithm. When the base is set to 2, we refer to the corresponding logarithm value as a <strong>bit</strong> (Shannon credits [<a href="https://www.wikiwand.com/en/John_Tukey">J. W. Tukey</a>] for this) Thus, the above Entropy can be roughly interpreted as</p>
+<p>
+<em>On avg, how many bits do we need to transmit information?</em></p>
+<p>
+This turned out to be a useful measure for building information systems (as shown in the above figure) that send information <strong>efficiently</strong>. Every time we had to send some information, we can encode them to bits, based on the probability of each event&#39;s occurrence. Maybe, more likely an event, lesser the bits we&#39;d want to use for it.</p>
+<p>
+Now we know how many bits we need (in principle) to transmit some information, but how do we measure our system&#39;s performance? Enter cross-entropy.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Cross Entropy
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>
+$$
+  H(p, q) = -K \sum_{i = 1}^{n} p_i \log{q_i}
+$$</p>
+<p>
+Where $q_i$ is our <strong>predicted</strong> probability of even $i$ and $p_i$ is the true probability of event $i$.</p>
+<p>
+I think of Cross Entropy of as &#34;How well is our system doing?&#34;. i.e &#34;How many bits did we actually send?&#34; (not how many do we need)</p>
+<p>
+What does it mean?</p>
+<p>
+Staring at this formula, we can see that if $q_i == p_i$, then cross-entropy is the same as entropy.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+Relative Entropy (or <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL Divergence</a>)
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<p>
+The difference between Cross-Entropy and Entropy is called <strong>Relative Entropy</strong> or <strong>KL Divergence</strong>. It tells us &#34;How close our system is to the true entropy&#34;. Higher the Relative Entropy, lesser is our efficiency.</p>
+<p>
+$$
+  D_{KL}(p || q) = H(p, q) - H(p)
+$$</p>
+<p>
+Thus, higher the KL divergence, higher the bit wastage.</p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-3">
+<h3 id="headline-4">
+Loss function using Cross Entropy
+</h3>
+<div id="outline-text-headline-4" class="outline-text-3">
+<p>
+Cross-Entropy is often used as an error measure for Classification models. <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy">Example</a></p>
+</div>
+</div>
+<div id="outline-container-hideroamtags" class="outline-2">
+<h2 id="hideroamtags">
+Entropy as an Error Measure
+</h2>
+<div id="outline-text-hideroamtags" class="outline-text-2">
+<p><a href="id:b5ca1c71-fca2-4494-abc0-d555f0e9986f">Blog</a> <a href="id:98031ea4-dce0-4e52-aa57-948fecee15cc">Machine Learning</a></p>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://subsid.github.io/tags/post/">post</a></li>
+      <li><a href="https://subsid.github.io/tags/machine-learning/">machine learning</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://subsid.github.io/">Siddharth&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

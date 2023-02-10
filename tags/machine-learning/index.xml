@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>machine learning on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/tags/machine-learning/</link>
+    <description>Recent content in machine learning on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Jan 2019 06:12:40 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Entropy as an Error Measure</title>
+      <link>https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/</link>
+      <pubDate>Thu, 31 Jan 2019 06:12:40 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/</guid>
+      <description>In Shannon&amp;#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &amp;#34; how much randomness is present in the state-space?&amp;#34; (Similar to Boltzmann&amp;#39;s Entropy). It is defined as the following:</description>
+    </item>
+    
+  </channel>
+</rss>

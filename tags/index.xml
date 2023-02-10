@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/tags/</link>
+    <description>Recent content in Tags on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 Feb 2019 09:29:52 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux hacks</title>
+      <link>https://subsid.github.io/tags/linux-hacks/</link>
+      <pubDate>Wed, 20 Feb 2019 09:29:52 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/linux-hacks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>paper review</title>
+      <link>https://subsid.github.io/tags/paper-review/</link>
+      <pubDate>Sun, 03 Feb 2019 08:36:34 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/paper-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine learning</title>
+      <link>https://subsid.github.io/tags/machine-learning/</link>
+      <pubDate>Thu, 31 Jan 2019 06:12:40 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>post</title>
+      <link>https://subsid.github.io/tags/post/</link>
+      <pubDate>Thu, 31 Jan 2019 06:12:40 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>https://subsid.github.io/tags/programming/</link>
+      <pubDate>Thu, 18 Jan 2018 14:21:16 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>https://subsid.github.io/tags/r/</link>
+      <pubDate>Thu, 18 Jan 2018 14:21:16 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>algorithms</title>
+      <link>https://subsid.github.io/tags/algorithms/</link>
+      <pubDate>Wed, 10 Jan 2018 11:32:41 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/algorithms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FFT</title>
+      <link>https://subsid.github.io/tags/fft/</link>
+      <pubDate>Wed, 10 Jan 2018 11:32:41 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/fft/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://subsid.github.io/tags/javascript/</link>
+      <pubDate>Fri, 15 Dec 2017 13:56:21 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://subsid.github.io/tags/react/</link>
+      <pubDate>Fri, 15 Dec 2017 13:56:21 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sketch recognition</title>
+      <link>https://subsid.github.io/tags/sketch-recognition/</link>
+      <pubDate>Fri, 15 Dec 2017 13:56:21 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/sketch-recognition/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graphics</title>
+      <link>https://subsid.github.io/tags/graphics/</link>
+      <pubDate>Fri, 22 Sep 2017 04:56:54 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/graphics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>threejs</title>
+      <link>https://subsid.github.io/tags/threejs/</link>
+      <pubDate>Fri, 22 Sep 2017 04:56:54 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/tags/threejs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

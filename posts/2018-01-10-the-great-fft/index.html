@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Great FFT | Siddharth&#39;s Blog</title>
+<meta name="keywords" content="FFT, algorithms">
+<meta name="description" content="If you are in the field of software, you&#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM&#39;s top 10 algorithms of the 20th century.
+The Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss&#39;s notes for calculations in astronomy!">
+<meta name="author" content="">
+<link rel="canonical" href="https://subsid.github.io/posts/2018-01-10-the-great-fft/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d3463410ac2a89674895602d3f9ea125f145cedaff93ae56233ad40357020e8e.css" integrity="sha256-00Y0EKwqiWdIlWAtP56hJfFFztr/k65WIzrUA1cCDo4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://subsid.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://subsid.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://subsid.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://subsid.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://subsid.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Great FFT" />
+<meta property="og:description" content="If you are in the field of software, you&#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM&#39;s top 10 algorithms of the 20th century.
+The Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss&#39;s notes for calculations in astronomy!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://subsid.github.io/posts/2018-01-10-the-great-fft/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-01-10T11:32:41-05:00" />
+<meta property="article:modified_time" content="2018-01-10T11:32:41-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Great FFT"/>
+<meta name="twitter:description" content="If you are in the field of software, you&#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM&#39;s top 10 algorithms of the 20th century.
+The Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss&#39;s notes for calculations in astronomy!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://subsid.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "The Great FFT",
+      "item": "https://subsid.github.io/posts/2018-01-10-the-great-fft/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Great FFT",
+  "name": "The Great FFT",
+  "description": "If you are in the field of software, you\u0026#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM\u0026#39;s top 10 algorithms of the 20th century.\nThe Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss\u0026#39;s notes for calculations in astronomy!",
+  "keywords": [
+    "FFT", "algorithms"
+  ],
+  "articleBody": " If you are in the field of software, you've probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM's top 10 algorithms of the 20th century.\nThe Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss's notes for calculations in astronomy! 🤷) and popularized FFT. It is one of the most widely cited papers in science and engineering!\nFFT is something I've used a lot, but didn't quite understand fully. I always thought of it as something that makes the Fourier transform faster, in order to view time domain signals in their frequency domain. In reality, that is just one application of FFT. For me, the key view point was: FFT is all about making basic polynomial operations fast!.\nPolynomials A Polynomial is an expression of the form\n$$ A(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + ... a_{n-1}ax^{n-1} $$\nwhere $a_i$ are Real numbered coefficients(typically) and $x$ is some variable. $A(x)$ is defined to have a degree of n-1 (Yup, one less than the number of terms!)\nRepresentation of Polynomials How can polynomials be represented in a computer?\nCoefficient Representation $$ (a_0, a_1, a_2 ... a_{n-1}) $$ Simple enough, its a vector or list of numbers! This representation is often very useful, as it can represent any kind of one-dimensional data. Sure, if we care about $x$, we can write a function $A(x)$ to take some variable $x$ and do something with $x$ and these coefficents. If not, we just keep it as a vector.\nPoint-Value Representation $$(x_0, y_0), (x_1, y_1), (x_2, y_2), ... (x_{n-1}, y_{n-1})$$ Since a polynomial $A(x)$ can be thought of as a function from $x$ to $y$, another way to represent a polynomial would be by pairs of (input, output) values. Wow! Are you saying we need to define $A(x)$ at all possible values of $x$? Nope, it turns out there is a fundamental property of polynomials that states that:\nGiven $n$ pairs $(x_0,y_0)(x_{n-1},y_{n-1}),...$ all the $x_i$'s distinct, there is a unique polynomialn p(x) of degree (at most) n such that $p(x_i) = y_i$ for $0 \\le i \\le (n-1)$./\nIn other words, a polynomial of degree $(n-1)$ is uniquely specified by giving $n$ point-value pairs. Intuitively, that makes sense. How many points do we need to represent a line (which can be represented as a polynomial of the form $y = ax + b$)? 2 points! What continuous curve can we draw through 3 points? parabola! A proof can be found here.\nWhat can we do with a Polynomial? Evaluation Given a polynomial $p$ and a number x, compute p(x).\nAddition Given two polynomials $p(x)$ and $q(x)$, find a polynomial $r = p + q$, such that $r(x) = p(x) + q(x)$ for all $x$. If $p$ and $q$ both have degree $n$, then the sum also has degree $n$.\nMultiplication Given two polynomials $p(x)$ and $q(x)$, find a polynomial $r = pq$, such that $r(x) = p(x).q(x)$ for all $x$. If $p$ and $q$ both have degree $n$, then the product has degree $2n$.\nComplexity of these operations Assuming the polynomials are represented using the coefficient representation:\nEvaluation: A simple for-loop can achieve this in O(n) arithmetic operations. (We can cut down the multiplications further using horner's scheme.\nAddition: A simple for-loop can achieve this in O(n) arithmetic operations.\nMultiplication: Ha! this is more complicated and takes O($n^2$) arithmetic operations. (Sure, we can reduce the asymptotic runtime by using some fancy tricks, but the constants are still pretty large.)\nWhat if we change the representation to point-value?\nAddition: Simple! Given 2 polynomials, $(x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})$ and $(x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})$ we simply add the output values and get $(x_i, y_i + z_i)$. Thus, it requires $O(n)$ arithmetic operations.\nNote: Both polynomials need to be defined for the same n points, else we'll have to do a little more work using Lagrange interpolation.\nMultiplication: Simple! Given, 2 polynomials $(x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})$ and $(x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})$ we simply multiply the output values and get $(x_i, y_i * z_i)$. Thus, it requires $O(n)$ arithmetic operations.\nNote: When we multiply 2 polynomials, we are going to get a polynomial of higher degree, so we'll need more points to represent it. For example, multiplying 2 $(n-1)$ degree polynomials will result in a polynomial of degree (2n - 1). This can be handled by taking more samples of the 2 input polynomials before multiplication\nSummary So this is where we are:\nRepresentation Multiply Evaluate Sum Coefficient $O(n^2)$ $O(n)$ $O(n)$ Point-Value $O(n)$ $O(n^2)$ $O(n)$ Can we somehow convert between the representations efficiently so that we get the best of both? This is where the FFT comes in!\nConverting between representations For a polynomial $A(x) = a_0 + a_1x + ... a_{n-1}x^{n-1}$ of degree $(n-1)$, the conversion from coefficient representation to point-value representation at n distinct points $(x_0, x_1, ... x_n)$ can be done as follows:\n$$ \\begin{bmatrix} y_0 \\\\ y_1 \\\\ .\\\\ .\\\\ .\\\\ y_{n-1} \\\\ \\end{bmatrix} = \\begin{bmatrix} 1 \u0026 x_0 \u0026 x_0^2 \u0026 ... \u0026 x_0^{n-1} \\\\ 1 \u0026 x_1 \u0026 x_1^2 \u0026 ... \u0026 x_1^{n-1} \\\\ .\\\\ .\\\\ .\\\\ 1 \u0026 x_{n-1} \u0026 x_{n-1}^2 \u0026 ... \u0026 x_{n-1}^{n-1} \\\\ \\end{bmatrix} \\begin{bmatrix} a_0 \\\\ a_1 \\\\ .\\\\ .\\\\ .\\\\ a_{n-1} \\\\ \\end{bmatrix} $$\nwhere $\\vec{a}$ is a vector of coefficients and $\\vec{y}$ is a vector of output values. This is known as the Vandermonde matrix. It's a nice way of vectorizing the conversion and make the runtime $O(n^2) operations$. Thus, if we need the $y_i$ values for point-value representation, we simply do $$\\vec{y} = V\\vec{a}$$\nTo convert from point-value to coefficient representation, we take the inverse of $V^{-1}$.\n$$V^{-1}\\vec{y} = \\vec{a}$$\nFact: $V$ is inverttible if $x_i$'s are distinct.\nAnyways, the point is, the forward and reverse conversion takes $O(n^2)$ operations.\nCan we do better? If you look at the above matrix-vector product hard enough, you'll notice that we get to pick the x values in $V$. i.e The sample positions! If we pick these sample values with the 'right structure', maybe this conversion can be faster. Sure, it is not very generic, but we don't care! We still get to convert between point-value $\\leftrightarrow$ coefficient representation of the given polynomial.\nFFT exploits this freedom\nDivide and Conquer! What is our goal? Before we lose the forest for the trees, this is what we want:\nWe have a polynomial $A(x)$ in its coefficient form $$ and a input set $X$. We need to compute $",
+  "wordCount" : "2022",
+  "inLanguage": "en",
+  "datePublished": "2018-01-10T11:32:41-05:00",
+  "dateModified": "2018-01-10T11:32:41-05:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://subsid.github.io/posts/2018-01-10-the-great-fft/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Siddharth's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://subsid.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://subsid.github.io/" accesskey="h" title="Siddharth&#39;s Blog (Alt + H)">Siddharth&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://subsid.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://subsid.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      The Great FFT
+    </h1>
+    <div class="post-meta"><span title='2018-01-10 11:32:41 -0500 EST'>January 10, 2018</span>
+
+</div>
+  </header> 
+  <div class="post-content">
+<div class="comment-block">
+</div>
+<p>
+If you are in the field of software, you&#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand <a href="http://www.uta.edu/faculty/rcli/TopTen/topten.pdf">SIAM&#39;s top 10 algorithms of the 20th century</a>.</p>
+<p>
+<a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">The Fast Fourier Transform (FFT)</a> algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The <a href="http://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf">Cooley-Tukey paper</a> rediscovered (It was found in <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform#History">Gauss&#39;s notes</a> for calculations in astronomy! 🤷) and popularized FFT. It is one of the most widely cited papers in science and engineering!</p>
+<p>
+FFT is something I&#39;ve used a lot, but didn&#39;t quite understand fully. I always thought of it as something that makes the <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a> faster, in order to view time domain signals in their frequency domain. In reality, that is just one application of FFT. For me, the key view point was: <strong><strong>FFT is all about making basic polynomial operations fast!</strong></strong>.</p>
+<div id="outline-container-headline-1" class="outline-3">
+<h3 id="headline-1">
+Polynomials
+</h3>
+<div id="outline-text-headline-1" class="outline-text-3">
+<p>A <a href="https://en.wikipedia.org/wiki/Polynomial">Polynomial</a> is an expression of the form</p>
+<p>
+$$ A(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + ... a_{n-1}ax^{n-1} $$</p>
+<p>
+where $a_i$ are Real numbered coefficients(typically) and $x$ is some variable. $A(x)$ is defined to have a <strong><strong>degree of n-1</strong></strong> (Yup, one less than the number of terms!)</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-3">
+<h3 id="headline-2">
+Representation of Polynomials
+</h3>
+<div id="outline-text-headline-2" class="outline-text-3">
+<p>How can polynomials be represented in a computer?</p>
+<p>
+<strong>Coefficient Representation</strong>
+$$ (a_0, a_1, a_2 ... a_{n-1}) $$ Simple enough, its a vector or list of numbers! This representation is often very useful, as it can represent any kind of one-dimensional data. Sure, if we care about $x$, we can write a function $A(x)$ to take some variable $x$ and do something with $x$ and these coefficents. If not, we just keep it as a vector.</p>
+<p>
+<strong>Point-Value Representation</strong> $$(x_0, y_0), (x_1, y_1), (x_2, y_2), ... (x_{n-1}, y_{n-1})$$ Since a polynomial $A(x)$ can be thought of as a function from $x$ to $y$, another way to represent a polynomial would be by pairs of (input, output) values. Wow! Are you saying we need to define $A(x)$ at all possible values of $x$? Nope, it turns out there is a fundamental property of polynomials that states that:</p>
+<blockquote>
+<p><em>Given $n$ pairs $(x_0,y_0)(x_{n-1},y_{n-1}),...$ all the $x_i$&#39;s distinct, there is a unique polynomialn p(x) of degree (at most) n such that $p(x_i) = y_i$ for $0 \le i \le (n-1)$./</em></p>
+</blockquote>
+<p>
+In other words, a polynomial of degree $(n-1)$ is uniquely specified by giving $n$ point-value pairs. Intuitively, that makes sense. How many points do we need to represent a line (which can be represented as a polynomial of the form $y = ax + b$)? 2 points! What continuous curve can we draw through 3 points? parabola! A proof can be found <a href="https://web.stanford.edu/~dntse/classes/cs70_fall09/n6.pdf">here</a>.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-3">
+<h3 id="headline-3">
+What can we do with a Polynomial?
+</h3>
+<div id="outline-text-headline-3" class="outline-text-3">
+<div id="outline-container-headline-4" class="outline-4">
+<h4 id="headline-4">
+Evaluation
+</h4>
+<div id="outline-text-headline-4" class="outline-text-4">
+<p>Given a polynomial $p$ and a number x, compute p(x).</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-4">
+<h4 id="headline-5">
+Addition
+</h4>
+<div id="outline-text-headline-5" class="outline-text-4">
+<p>Given two polynomials $p(x)$ and $q(x)$, find a polynomial $r = p + q$, such that $r(x) = p(x) + q(x)$ for all $x$. If $p$ and $q$ both have degree $n$, then the sum also has degree $n$.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-4">
+<h4 id="headline-6">
+Multiplication
+</h4>
+<div id="outline-text-headline-6" class="outline-text-4">
+<p>Given two polynomials $p(x)$ and $q(x)$, find a polynomial $r = pq$, such that $r(x) = p(x).q(x)$ for all $x$. If $p$ and $q$ both have degree $n$, then the product has degree $2n$.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-3">
+<h3 id="headline-7">
+Complexity of these operations
+</h3>
+<div id="outline-text-headline-7" class="outline-text-3">
+<p>Assuming the polynomials are represented using the <strong>coefficient representation</strong>:</p>
+<p>
+<strong>Evaluation</strong>: A simple for-loop can achieve this in <strong>O(n)</strong> arithmetic operations. (We can cut down the multiplications further using <a href="https://en.wikipedia.org/wiki/Horner%27s_method">horner&#39;s scheme</a>.</p>
+<p>
+<strong>Addition</strong>: A simple for-loop can achieve this in <strong>O(n)</strong> arithmetic operations.</p>
+<p>
+<strong>Multiplication</strong>: Ha! this is more complicated and takes <strong>O($n^2$)</strong> arithmetic operations. (Sure, we can reduce the asymptotic runtime by using some <a href="https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm">fancy</a> tricks, but the constants are still pretty large.)</p>
+<p>
+<strong>What if we change the representation to point-value?</strong></p>
+<p>
+<strong>Addition</strong>: Simple! Given 2 polynomials, $(x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})$ and $(x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})$  we simply add the output values and get $(x_i, y_i + z_i)$. Thus, it requires <strong>$O(n)$</strong> arithmetic operations.</p>
+<p>
+<strong>Note</strong>: <em>Both polynomials need to be defined for the same n points, else we&#39;ll have to do a little more work using <a href="https://en.wikipedia.org/wiki/Lagrange_polynomial">Lagrange interpolation</a>.</em></p>
+<p>
+<strong>Multiplication</strong>: Simple! Given, 2 polynomials $(x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})$ and $(x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})$  we simply multiply the output values and get $(x_i, y_i * z_i)$. Thus, it requires <strong>$O(n)$</strong> arithmetic operations.</p>
+<p>
+<strong>Note:</strong> <em>When we multiply 2 polynomials, we are going to get a polynomial of higher degree, so we&#39;ll need more points to represent it. For example, multiplying 2 $(n-1)$ degree polynomials will result in a polynomial of degree (2n - 1). This can be handled by taking more samples of the 2 input polynomials before multiplication</em></p>
+</div>
+</div>
+<div id="outline-container-headline-8" class="outline-3">
+<h3 id="headline-8">
+Summary
+</h3>
+<div id="outline-text-headline-8" class="outline-text-3">
+<p>So this is where we are:</p>
+<table>
+<thead>
+<tr>
+<th>Representation</th>
+<th>Multiply</th>
+<th>Evaluate</th>
+<th>Sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coefficient</td>
+<td>$O(n^2)$</td>
+<td>$O(n)$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>Point-Value</td>
+<td>$O(n)$</td>
+<td>$O(n^2)$</td>
+<td>$O(n)$</td>
+</tr>
+</tbody>
+</table>
+<p>
+<em>Can we somehow convert between the representations efficiently so that we get the best of both? This is where the FFT comes in!</em></p>
+</div>
+</div>
+<div id="outline-container-headline-9" class="outline-3">
+<h3 id="headline-9">
+Converting between representations
+</h3>
+<div id="outline-text-headline-9" class="outline-text-3">
+<p>For a polynomial $A(x) = a_0 + a_1x + ... a_{n-1}x^{n-1}$ of degree $(n-1)$, the conversion from coefficient representation to point-value representation at n distinct points $(x_0, x_1, ... x_n)$ can be done as follows:</p>
+<p>
+$$
+\begin{bmatrix}
+    y_0 \\
+    y_1 \\
+    .\\
+    .\\
+    .\\
+    y_{n-1} \\
+\end{bmatrix} =
+\begin{bmatrix}
+    1 &amp; x_0 &amp; x_0^2 &amp; ... &amp; x_0^{n-1} \\
+    1 &amp; x_1 &amp; x_1^2 &amp; ... &amp; x_1^{n-1} \\
+    .\\
+    .\\
+    .\\
+    1 &amp; x_{n-1} &amp; x_{n-1}^2 &amp; ... &amp; x_{n-1}^{n-1} \\
+\end{bmatrix}
+\begin{bmatrix}
+    a_0 \\
+    a_1 \\
+    .\\
+    .\\
+    .\\
+    a_{n-1} \\
+\end{bmatrix}
+$$</p>
+<p>
+where $\vec{a}$ is a vector of coefficients and $\vec{y}$ is a vector of output values. This is known as the <a href="https://en.wikipedia.org/wiki/Vandermonde_matrix">Vandermonde matrix</a>. It&#39;s a nice way of vectorizing the conversion and make the runtime $O(n^2) operations$. Thus, if we need the $y_i$ values for point-value representation, we simply do $$\vec{y} = V\vec{a}$$</p>
+<p>
+To convert from point-value to coefficient representation, we take the inverse of $V^{-1}$.</p>
+<p>
+$$V^{-1}\vec{y} = \vec{a}$$</p>
+<p>
+<strong>Fact:</strong> $V$ is inverttible if $x_i$&#39;s are distinct.</p>
+<p>
+Anyways, the point is, the forward and reverse conversion takes $O(n^2)$ operations.</p>
+<div id="outline-container-headline-10" class="outline-4">
+<h4 id="headline-10">
+Can we do better?
+</h4>
+<div id="outline-text-headline-10" class="outline-text-4">
+<p>
+If you look at the above matrix-vector product hard enough, you&#39;ll notice that <strong>we get to pick the x values in $V$</strong>. i.e <strong>The sample positions!</strong> If we pick these sample values with the &#39;right structure&#39;, maybe this conversion can be faster. Sure, it is not very generic, but we don&#39;t care! We still get to convert between <strong>point-value</strong> $\leftrightarrow$ <strong>coefficient representation</strong> of the given polynomial.</p>
+<p>
+<strong>FFT exploits this freedom</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-11" class="outline-3">
+<h3 id="headline-11">
+Divide and Conquer!
+</h3>
+<div id="outline-text-headline-11" class="outline-text-3">
+<div id="outline-container-headline-12" class="outline-4">
+<h4 id="headline-12">
+What is our goal?
+</h4>
+<div id="outline-text-headline-12" class="outline-text-4">
+<p>
+Before we lose the forest for the trees, this is what we want:</p>
+<ul>
+<li>We have a polynomial $A(x)$ in its coefficient form $&lt;a_0, a_1, . . . a_{n-1}&gt;$ and a input set $X$.</li>
+<li>We need to compute $&lt;y_0, y_1, . . . y_{n-1}$ from $A(x) \forall x \in X$.</li>
+<li>The reason we want to do this, is so that we can quickly switch from coefficient to polynomial representation. (And vice-versa, but we&#39;ll leave that for now)</li>
+<li>The key insight from the previous section was that we are <strong>free</strong> to choose the input set $X$.</li>
+</ul>
+<p>Ok, now back to <strong>divide and conquer</strong>.</p>
+<p>
+The essence of any <a href="https://people.eecs.berkeley.edu/~vazirani/algorithms/chap2.pdf">divide and conquer algorithm strategy</a> is as follows:</p>
+<ol>
+<li>Divide problem into <strong>smaller</strong> subproblems.</li>
+<li>Recursively solve (conquer) the subproblems.</li>
+<li>Combine solutions to the subproblem into one for the original problem.</li>
+</ol>
+<p>The above link gives some basic examples in this paradigm.</p>
+</div>
+</div>
+<div id="outline-container-headline-13" class="outline-4">
+<h4 id="headline-13">
+Divide and Conquer idea for Polynomials
+</h4>
+<div id="outline-text-headline-13" class="outline-text-4">
+<p>
+Consider the polynomial $A(x) = a_0 + a_1x + a_2x^2 + . . . a_{7}x^{7}$.</p>
+<ul>
+<li><strong>Divide</strong></li>
+</ul>
+<p>Express $A(x)$ as a sum of its <strong>odd</strong> and <strong>even</strong> powers.</p>
+<p>
+$$ A_{even}(x) = a_0 + a_2x + a_4x^2 + a_6x^3 $$
+$$ A_{odd}(x) = a_1 + a_3x + a_5x^2 + a_7x^3 $$</p>
+<ul>
+<li><strong>Conquer</strong></li>
+</ul>
+<p>Recursively compute $A_{even}(z)$ and $A_{odd}(z)$ $\forall z \in \{ x^2 | x \in X \}$</p>
+<ul>
+<li><strong><strong>Combine</strong></strong></li>
+</ul>
+<p>Combine them with $O(1)$ arithmetic operations (Specifically, 1 multiplication and 1 addition) to get $A(x)$!</p>
+<p>
+$ A(x) = A_{even}(x^2) + xA_{odd}(x^2) $</p>
+<p>
+<strong>Basecase:</strong> We stop recursing, when our polynomial just has  1 coefficient</p>
+<p>
+<em>Note that we evaluate both $A_{even}$ and $A_{odd}$ at $x^2$ for the numbers to work out. That&#39;s key.</em></p>
+<p>
+<strong><strong>Do we have smaller a subproblems?</strong></strong></p>
+<p>
+i.e, is $A_{even}(z)$ and $A_{odd}(z)$ $\forall z \in \{ x^2 | x \in X \}$ smaller than $A(x) \forall x \in X$?</p>
+<p>
+If we look at the the set of input values on which $A_{even}$ and $A_{odd}$ are evaluated, we still need them to be defined for all values of $x^2$.</p>
+<p>
+For the divide and conquer technique to work, we need the subproblems to be of a smaller size.</p>
+<p>
+<strong>Can we find a set of $n$ points such that the set formed by squaring each value, is a smaller set?</strong></p>
+<p>
+If my set $X = \{x^2\}$ with one element. What can my set &#39;x&#39; be, so that it is bigger?</p>
+<p>
+Yup, it can be $X = \{x, -x\}$. Ha, squareroots can do the trick! Ok, this works if we only need 2 sample values in our set X, what if we need 3?</p>
+<p>
+Hmm, that seems complex ;)</p>
+</div>
+</div>
+<div id="outline-container-headline-14" class="outline-4">
+<h4 id="headline-14">
+Enter Complex Number!
+</h4>
+<div id="outline-text-headline-14" class="outline-text-4">
+<p>
+Restating our problem here, just so we don&#39;t get lost:</p>
+<ul>
+<li>In order to represent our polynomial of degree $(n-1)$, we need to find a set $X$ of &#39;n&#39;.</li>
+<li>From the previous section, we see that we can write a polynomial in terms of its <strong>odd</strong> and <strong>even</strong> coefficients evaluated at $x^2$.</li>
+<li>For our divide and conquer to work effectively, we need new set $Z = \{ x^2 | x \in X \} $ to be smaller than X.</li>
+</ul>
+<p><strong>So, how do we arrive at a set of n points such that everytime we square it, we get a smaller set.</strong> (I am using the term square loosely here, I mean the set we get by squaring each element in our current set)</p>
+<p>
+<strong>It turns out we can *always</strong> come up with a set of n points, such that they <strong>collapse</strong> into a set of <strong>n/2</strong> points when squared, using complex numbers (Yes, <strong>n</strong> has to be even)</p>
+<p>
+If you don&#39;t quite have an intuitive idea of what complex numbers are, I highly recommend <a href="https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/">this post on betterexplained</a> by Kalid.
+For me, the big takeaway about complex numbers was to think about them as <strong>rotations</strong>. Do read that post.</p>
+<p>
+<figure>
+    <img loading="lazy" src="https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png"/> 
+</figure>
+</p>
+<p>
+Complex numbers are just rotations.</p>
+<p>
+Let&#39;s start with a set $S_1 = \{ 1 \}$. What set can collapse into this set?</p>
+<p>
+Easy, $S_2 = \{-1, 1\}$. What set collapses to $S_2$?</p>
+<p>
+Easy, $S_3 = \{i, -i, 1, -1\}$. What set collapses to $S_3$?</p>
+<p>
+Not so easy (until you read Kalid&#39;s post!), but it&#39;s $S_4 = \{\frac{\sqrt{2}}{2}(1 + i), -\frac{\sqrt{2}}{2}(i + i), \frac{\sqrt{2}}{2}(i - 1), -\frac{\sqrt{2}}{2}(i + 1), i, -i, 1, -1\}$.</p>
+<p>
+We can keep going. In essence, <strong>we can always find a set that collapses like this, for any even n, however big!</strong> Take a minute, that is like wow!</p>
+<p>
+Formally, a set containing $n$ points that collapse as shown above, are called the <strong>nth roots of unity</strong>. If we square these $n$ points, n times, we get 1 (The basecase of our recursion)!</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-headline-15" class="outline-3">
+<h3 id="headline-15">
+Running time of our Divide and Conquer Algorithm
+</h3>
+<div id="outline-text-headline-15" class="outline-text-3">
+<p>
+Ok, let&#39;s just step back and see how well our divide and conquer algorithm would perform.</p>
+<ul>
+<li>We take our polynomial $A(x)$, to be evaluated on a set $X$ with $|X| = n$, and reduce it to two smaller problems.</li>
+<li>$A_{even}(x)$ and $A_{odd}(x)$, both evaluated on set $Y = \{x^2 | x \in X\}$ with $|Y| = n/2$.</li>
+</ul>
+<p>We can write a recurrence relation for the above algorithm as:</p>
+<p>
+$T(n) = 2T(\frac{n}{2}) + O(n)$</p>
+<p>
+where $T(n)$ is the running time of our algorithm on an input of size $n$. <a href="https://users.cs.duke.edu/~reif/courses/alglectures/skiena.lectures/lecture3.pdf">Solving this</a>, we get a <strong>runtime bound of O(n lgn)</strong></p>
+<p>
+Cool! We can now <strong>Add</strong>, <strong>Evaluate</strong> and <strong>Multiply</strong> polynomials in $O(n lg n)$ time!</p>
+<p>
+*This elegant divide and conquer algorithm, is the FFT algorithm!</p>
+<p>
+I hope this helps you understand what the FFT is all about.
+In a future post, we will discuss how its implemented, where the $e^{i\theta}$ and <strong>fourier</strong> related terms come in.</p>
+</div>
+</div>
+<div id="outline-container-headline-16" class="outline-3">
+<h3 id="headline-16">
+References
+</h3>
+<div id="outline-text-headline-16" class="outline-text-3">
+<ul>
+<li><a href="http://jeffe.cs.illinois.edu/teaching/algorithms/notes/02-fft.pdf">Jeff Erickson Algorithm notes</a></li>
+<li><a href="http://faculty.cs.tamu.edu/klappi/csce629-f17/csce411-set4c.pdf">TAMU Klappenecker Algorithms</a></li>
+<li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/lecture-videos/lecture-3-divide-conquer-fft/">OCW Erik Demaine FFT</a></li>
+</ul>
+</div>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://subsid.github.io/tags/fft/">FFT</a></li>
+      <li><a href="https://subsid.github.io/tags/algorithms/">algorithms</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://subsid.github.io/">Siddharth&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/posts/</link>
+    <description>Recent content in Posts on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 Feb 2019 09:29:52 -0500</lastBuildDate><atom:link href="https://subsid.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sed to Rename files</title>
+      <link>https://subsid.github.io/posts/2019-02-20-sed-rename/</link>
+      <pubDate>Wed, 20 Feb 2019 09:29:52 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-02-20-sed-rename/</guid>
+      <description>Sed stands for &amp;#34;Stream editor&amp;#34;. Here is a nice way to rename files with regex using sed. I was running a user study today, and mistyped the file prefix. This created 100s of files with the wrong name. My initial thought was to use a script to fix it, but then decided to lookup sed. Here is how I did it:
+$ touch fooops_1.txt fooops_2.txt fooops_3.txt $ ls Let&amp;#39;s say our goal was to type &amp;#34;foobar&amp;#34; as the prefix.</description>
+    </item>
+    
+    <item>
+      <title>Continuous Reasoning: Scaling the impact of formal methods</title>
+      <link>https://subsid.github.io/posts/2019-02-03-continuous-reasoning/</link>
+      <pubDate>Sun, 03 Feb 2019 08:36:34 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-02-03-continuous-reasoning/</guid>
+      <description>Paper link
+This paper talks about a static program analysis tool called Infer and its impact at facebook. Infer is based on a program analysis method called continuous reasoning.
+Summary This paper describes work in continuous reasoning, where formal reasoning about a (changing) codebase is done in a fashion which mirrors the iterative, continuous model of software development that is increasingly practiced in industry
+Given the prevalence of CI/CD pipelines and code review processes, the author suggests that continuous reasoning will allow formal analysis to scale to large codebases if it is integrated into the programmer&amp;#39;s workflow.</description>
+    </item>
+    
+    <item>
+      <title>Entropy as an Error Measure</title>
+      <link>https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/</link>
+      <pubDate>Thu, 31 Jan 2019 06:12:40 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-01-31-entropy-as-an-error-measure/</guid>
+      <description>In Shannon&amp;#39;s paper A Mathematical Theory of Communication, he represented a communication system using the following schematic:
+He defined Entropy, a quantity that forms the basis of information theory.
+Entropy Information Entropy is interpreted in many ways. One way that I like to think about it is in terms of &amp;#34; how much randomness is present in the state-space?&amp;#34; (Similar to Boltzmann&amp;#39;s Entropy). It is defined as the following:</description>
+    </item>
+    
+    <item>
+      <title>Toward a Unified Ontology of Cloud Computing</title>
+      <link>https://subsid.github.io/posts/2019-01-23-ontology-of-cloud-computing/</link>
+      <pubDate>Wed, 23 Jan 2019 00:55:49 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2019-01-23-ontology-of-cloud-computing/</guid>
+      <description>Toward a Unified Ontology of Cloud Computing L. Youseff, M. Butrico, and D. Da Silva, 2008 Grid Computing Environments Workshop, Austin, TX, 2008, pp. 1-10.
+This paper is one of the early (relatively) works that summarizes the various components of Cloud Computing. At the time (2008), AWS was in the market only for a couple of years and Google cloud was just getting started. Thinking back, the classification described here is pretty much how most offerings these days are grouped.</description>
+    </item>
+    
+    <item>
+      <title>R: Quote vs Substitute</title>
+      <link>https://subsid.github.io/posts/2018-01-18-r-quote-vs-substitute/</link>
+      <pubDate>Thu, 18 Jan 2018 14:21:16 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2018-01-18-r-quote-vs-substitute/</guid>
+      <description>What is the difference between the following 2 code blocks, even though they produce the same output? If you are not sure, this post will help you.
+rm(list=ls()) x &amp;lt;- 1:1e8 g &amp;lt;- function(a){ b &amp;lt;- substitute(a) print(eval(b)) print(eval(b)) } g(mean(x)) [1] 5e+07 [1] 5e+07 rm(list=ls()) x &amp;lt;- 1:1e8 g &amp;lt;- function(a){ b &amp;lt;- quote(a) print(eval(b)) print(eval(b)) } g(mean(x)) [1] 5e+07 [1] 5e+07 One of the really (really) cool features of R is the idea of Non Standard Evaluation.</description>
+    </item>
+    
+    <item>
+      <title>The Great FFT</title>
+      <link>https://subsid.github.io/posts/2018-01-10-the-great-fft/</link>
+      <pubDate>Wed, 10 Jan 2018 11:32:41 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2018-01-10-the-great-fft/</guid>
+      <description>If you are in the field of software, you&amp;#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM&amp;#39;s top 10 algorithms of the 20th century.
+The Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss&amp;#39;s notes for calculations in astronomy!</description>
+    </item>
+    
+    <item>
+      <title>Sketch Tutor - Game based learning</title>
+      <link>https://subsid.github.io/posts/2017-12-15-sketch-tutor/</link>
+      <pubDate>Fri, 15 Dec 2017 13:56:21 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2017-12-15-sketch-tutor/</guid>
+      <description>Sketch recognition is the automated recognition of hand drawn diagrams. In general, sketch recognition techniques can be classified into three types:
+Appearance based This comes more from the field of computer vision, but is not very useful for varying shapes. It does not take temporal data into account.
+Gesture based Most useful for forensic methods, but requires user specific training. Every individual has their own quirks when sketching! Geometric based Models are built based on Geometric constraints.</description>
+    </item>
+    
+    <item>
+      <title>Physics of Flocking</title>
+      <link>https://subsid.github.io/posts/2017-09-22-physics-of-flocking/</link>
+      <pubDate>Fri, 22 Sep 2017 04:56:54 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2017-09-22-physics-of-flocking/</guid>
+      <description>Blog Programming Languages Java Script As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
+Flocking (or Swarming) is a nice example of something known as emergent behavior (wiki).
+Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.
+This behavior is common among various animal groups such as birds, ants, bees, fishes.</description>
+    </item>
+    
+    <item>
+      <title>First Post!</title>
+      <link>https://subsid.github.io/posts/2017-07-01-hello-world/</link>
+      <pubDate>Sat, 01 Jul 2017 07:53:08 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2017-07-01-hello-world/</guid>
+      <description>I&amp;#39;ve wanted to start a blog for a while, but it never made it to the top of my queue. After coming back to school, finally got around to start one. Hopefully I can keep it going. Looking forward to writing something more interesting in the future.
+Inspired by Kyle&amp;#39;s post, I hope to share some of my work here.</description>
+    </item>
+    
+  </channel>
+</rss>
