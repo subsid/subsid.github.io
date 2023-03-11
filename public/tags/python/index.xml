@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>python on Siddharth&#39;s Blog</title>
+    <link>https://subsid.github.io/tags/python/</link>
+    <description>Recent content in python on Siddharth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Mar 2023 12:54:14 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Logging in Python</title>
+      <link>https://subsid.github.io/posts/2023-03-06-python-logging/</link>
+      <pubDate>Mon, 06 Mar 2023 12:54:14 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2023-03-06-python-logging/</guid>
+      <description>Python does not come with reasonable logging defaults. The following code usually prints nothing.
+import logging logging.info(&amp;#34;Hello world&amp;#34;) While it does provide `logging.basicConfig()` which kinda works (sets up stderr by default), I prefer setting this up myself.
+This snippet sets up logging, adds a formatter and outputs error/info logs to the respective std streams.
+Without setting up the filter for errors, log aggregators confuse a python error log with an info log.</description>
+    </item>
+    
+  </channel>
+</rss>

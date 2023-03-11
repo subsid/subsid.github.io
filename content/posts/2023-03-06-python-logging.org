@@ -1,0 +1,100 @@
+---
+title: "Logging in Python"
+date: "2023-03-06T12:54:14-05:00"
+draft: false
+tags: ["python", "snippets"]
+katex: true
+markup: mmark
+---
+
+Python does not come with reasonable logging defaults. The following code usually prints nothing.
+
+#+begin_src python
+import logging
+
+logging.info("Hello world")
+#+end_src
+
+While it does provide `logging.basicConfig()` which kinda works (sets up stderr by default), I prefer setting this up myself.
+
+This snippet sets up logging, adds a formatter and outputs error/info logs to the respective std streams.
+
+Without setting up the filter for errors, log aggregators confuse a python error log with an info log. I've seen this in google stackdriver logs.
+
+#+begin_src python
+def remove_handlers():
+    logger = logging.getLogger()
+    for h in list(logger.handlers):
+        logger.removeHandler(h)
+
+def setup_logging(filename=None, level="INFO"):
+    ## Reset logger
+    remove_handlers()
+
+    logger = logging.getLogger()
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+
+    consoleh = logging.StreamHandler(sys.stdout)
+    nonerror = lambda record: record.levelno != logging.ERROR
+    error = lambda record: record.levelno == logging.ERROR
+
+    errorh = logging.StreamHandler(sys.stderr)
+    errorh.setLevel(logging.ERROR)
+    errorh.setFormatter(formatter)
+
+    consoleh.setFormatter(formatter)
+    consoleh.addFilter(nonerror)
+    errorh.addFilter(error)
+
+    logger.addHandler(consoleh)
+    logger.addHandler(errorh)
+    logger.setLevel(level)
+#+end_src
+
+In notebooks/remote sessions, I prefer writing to files and not relying on the session.
+
+#+begin_src python
+import logging
+import sys
+
+def remove_handlers():
+
+    logger = logging.getLogger()
+    for h in list(logger.handlers):
+        logger.removeHandler(h)
+
+def file_logging(filename, level="INFO"):
+    ## Reset logger
+    remove_handlers()
+
+    logger = logging.getLogger()
+    fh = logging.FileHandler(f"{filename}.log")
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.setLevel(level)
+#+end_src
+
+
+#+begin_src python
+logging.info("Before setup")
+setup_logging()
+logging.info("Logs to stdout")
+file_logging("test_logs")
+logging.info("Logs to test_logs.log")
+
+####
+
+$ python test.py 
+INFO:root:Logs to stdout
+2023-03-11 13:06:39,551 root         INFO     Logs to stdout
+$ cat test_logs.log 
+2023-03-11 13:06:39,552 root         INFO     Logs to test_logs.log
+#+end_src
+
+* 2023 03 06 Python Logging
+:PROPERTIES:
+:ID: ab1085a0243e914ab6430683a8d3dad5
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:8d873c59-2164-4b5d-a412-195eb4a8daab][Snippets]] [[id:3ed62d00-ffe6-41ba-9914-16dd5433c0bc][Python]]

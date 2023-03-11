@@ -13,7 +13,7 @@
       <pubDate>Fri, 22 Sep 2017 04:56:54 -0500</pubDate>
       
       <guid>https://subsid.github.io/posts/2017-09-22-physics-of-flocking/</guid>
-      <description>Blog Programming Languages Java Script As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
+      <description>As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
 Flocking (or Swarming) is a nice example of something known as emergent behavior (wiki).
 Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.
 This behavior is common among various animal groups such as birds, ants, bees, fishes.</description>
