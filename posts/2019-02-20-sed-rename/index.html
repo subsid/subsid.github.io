@@ -101,7 +101,7 @@ $ touch fooops_1.txt fooops_2.txt fooops_3.txt $ ls Let&#39;s say our goal was t
   "keywords": [
     "linux hacks"
   ],
-  "articleBody": " Sed stands for \"Stream editor\". Here is a nice way to rename files with regex using sed. I was running a user study today, and mistyped the file prefix. This created 100s of files with the wrong name. My initial thought was to use a script to fix it, but then decided to lookup sed. Here is how I did it:\n$ touch fooops_1.txt fooops_2.txt fooops_3.txt $ ls Let's say our goal was to type \"foobar\" as the prefix. Easy to rename with sed!\n$ ls | sed 's/foo\\(ops\\)\\(.*\\)/mv \u0026 foo_bar\\2/' mv fooops_1.txt foo_bar_1.txt mv fooops_2.txt foo_bar_2.txt mv fooops_3.txt foo_bar_3.txt The key with sed is, it streams its output to stdout. Hence we can pipe it to anything! Here, we make it output the linux move commmand and pipe it to sh to execute the command. Always good to verify command before executing it.\n$ ls | sed 's/foo\\(ops\\)\\(.*\\)/mv \u0026 foo_bar\\3/' | sh $ ls foo_bar_1.txt foo_bar_2.txt foo_bar_3.txt Sed to Rename files linux hacks Blog\n",
+  "articleBody": " Sed stands for \"Stream editor\". Here is a nice way to rename files with regex using sed. I was running a user study today, and mistyped the file prefix. This created 100s of files with the wrong name. My initial thought was to use a script to fix it, but then decided to lookup sed. Here is how I did it:\n$ touch fooops_1.txt fooops_2.txt fooops_3.txt $ ls Let's say our goal was to type \"foobar\" as the prefix. Easy to rename with sed!\n$ ls | sed 's/foo\\(ops\\)\\(.*\\)/mv \u0026 foo_bar\\2/' mv fooops_1.txt foo_bar_1.txt mv fooops_2.txt foo_bar_2.txt mv fooops_3.txt foo_bar_3.txt The key with sed is, it streams its output to stdout. Hence we can pipe it to anything! Here, we make it output the linux move commmand and pipe it to sh to execute the command. Always good to verify command before executing it.\n$ ls | sed 's/foo\\(ops\\)\\(.*\\)/mv \u0026 foo_bar\\3/' | sh $ ls foo_bar_1.txt foo_bar_2.txt foo_bar_3.txt Blog:Sed to Rename files linux hacks Blog\n",
   "wordCount" : "165",
   "inLanguage": "en",
   "datePublished": "2019-02-20T09:29:52-05:00",
@@ -212,7 +212,7 @@ Here, we make it output the <code>linux move commmand</code> and pipe it to <cod
 </div>
 <div id="outline-container-hideroamtags" class="outline-2">
 <h2 id="hideroamtags">
-Sed to Rename files
+Blog:Sed to Rename files
 </h2>
 <div id="outline-text-hideroamtags" class="outline-text-2">
 <p><a href="id:b5ca1c71-fca2-4494-abc0-d555f0e9986f">linux hacks</a> <a href="id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415">Blog</a></p>

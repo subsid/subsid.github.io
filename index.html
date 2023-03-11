@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.110.0"><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.111.2"><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -137,6 +137,21 @@
 
 <article class="first-entry"> 
   <header class="entry-header">
+    <h2>Logging in Python
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Python does not come with reasonable logging defaults. The following code usually prints nothing.
+import logging logging.info(&#34;Hello world&#34;) While it does provide `logging.basicConfig()` which kinda works (sets up stderr by default), I prefer setting this up myself.
+This snippet sets up logging, adds a formatter and outputs error/info logs to the respective std streams.
+Without setting up the filter for errors, log aggregators confuse a python error log with an info log....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-03-06 12:54:14 -0500 EST'>March 6, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to Logging in Python" href="https://subsid.github.io/posts/2023-03-06-python-logging/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Sed to Rename files
     </h2>
   </header>
@@ -236,7 +251,7 @@ Gesture based Most useful for forensic methods, but requires user specific train
     </h2>
   </header>
   <div class="entry-content">
-    <p>Blog Programming Languages Java Script As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
+    <p>As a part my of physics based modelling course, I implemented a flocking simulation using threejs.
 Flocking (or Swarming) is a nice example of something known as emergent behavior (wiki).
 Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.
 This behavior is common among various animal groups such as birds, ants, bees, fishes....</p>
@@ -252,7 +267,8 @@ This behavior is common among various animal groups such as birds, ants, bees, f
   </header>
   <div class="entry-content">
     <p>I&#39;ve wanted to start a blog for a while, but it never made it to the top of my queue. After coming back to school, finally got around to start one. Hopefully I can keep it going. Looking forward to writing something more interesting in the future.
-Inspired by Kyle&#39;s post, I hope to share some of my work here.</p>
+Inspired by Kyle&#39;s post, I hope to share some of my work here.
+Blog:First Post Blog</p>
   </div>
   <footer class="entry-footer"><span title='2017-07-01 07:53:08 -0500 -0500'>July 1, 2017</span></footer>
   <a class="entry-link" aria-label="post link to First Post!" href="https://subsid.github.io/posts/2017-07-01-hello-world/"></a>
