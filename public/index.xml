@@ -6,7 +6,19 @@
     <description>Recent content on Siddharth&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Mar 2023 12:54:14 -0500</lastBuildDate><atom:link href="https://subsid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Mar 2023 10:03:11 -0500</lastBuildDate><atom:link href="https://subsid.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python: Measure Time and Memory</title>
+      <link>https://subsid.github.io/posts/2023-03-11-measure-time-and-memory-with-contextlib/</link>
+      <pubDate>Sat, 11 Mar 2023 10:03:11 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2023-03-11-measure-time-and-memory-with-contextlib/</guid>
+      <description>When debugging, I often want to measure a piece of code&amp;#39;s performance/memory characteristics. I do this with the stdlib time class and psutil module.
+These are some snippets I always have in my utils before starting a project.
+Note: I use perf_counter (i.e performance counter clock) to measure time. For more details, see this.
+Measuring time and memory I use python&amp;#39;s contextmanager to manage state. Realpython has a nice post on this.</description>
+    </item>
+    
     <item>
       <title>Logging in Python</title>
       <link>https://subsid.github.io/posts/2023-03-06-python-logging/</link>
