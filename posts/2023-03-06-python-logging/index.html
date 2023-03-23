@@ -59,7 +59,18 @@ Without setting up the filter for errors, log aggregators confuse a python error
         }
 
     </style>
-</noscript><meta property="og:title" content="Logging in Python" />
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4H9QYNJZV1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-4H9QYNJZV1', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Logging in Python" />
 <meta property="og:description" content="Python does not come with reasonable logging defaults. The following code usually prints nothing.
 import logging logging.info(&#34;Hello world&#34;) While it does provide `logging.basicConfig()` which kinda works (sets up stderr by default), I prefer setting this up myself.
 This snippet sets up logging, adds a formatter and outputs error/info logs to the respective std streams.
