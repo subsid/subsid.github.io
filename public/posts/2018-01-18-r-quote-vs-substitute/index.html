@@ -57,7 +57,18 @@ rm(list=ls()) x &lt;- 1:1e8 g &lt;- function(a){ b &lt;- substitute(a) print(eva
         }
 
     </style>
-</noscript><meta property="og:title" content="R: Quote vs Substitute" />
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4H9QYNJZV1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-4H9QYNJZV1', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="R: Quote vs Substitute" />
 <meta property="og:description" content="What is the difference between the following 2 code blocks, even though they produce the same output? If you are not sure, this post will help you.
 rm(list=ls()) x &lt;- 1:1e8 g &lt;- function(a){ b &lt;- substitute(a) print(eval(b)) print(eval(b)) } g(mean(x)) [1] 5e&#43;07 [1] 5e&#43;07 rm(list=ls()) x &lt;- 1:1e8 g &lt;- function(a){ b &lt;- quote(a) print(eval(b)) print(eval(b)) } g(mean(x)) [1] 5e&#43;07 [1] 5e&#43;07 One of the really (really) cool features of R is the idea of Non Standard Evaluation." />
 <meta property="og:type" content="article" />

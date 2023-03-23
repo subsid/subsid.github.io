@@ -59,7 +59,18 @@ Measuring time and memory I use python&#39;s contextmanager to manage state. Rea
         }
 
     </style>
-</noscript><meta property="og:title" content="Python: Measure Time and Memory" />
+</noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4H9QYNJZV1"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-4H9QYNJZV1', { 'anonymize_ip': false });
+}
+</script>
+<meta property="og:title" content="Python: Measure Time and Memory" />
 <meta property="og:description" content="When debugging, I often want to measure a piece of code&#39;s performance/memory characteristics. I do this with the stdlib time class and psutil module.
 These are some snippets I always have in my utils before starting a project.
 Note: I use perf_counter (i.e performance counter clock) to measure time. For more details, see this.

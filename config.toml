@@ -2,6 +2,7 @@ baseURL = 'https://subsid.github.io/'
 languageCode = 'en-us'
 title = "Siddharth's Blog"
 theme = 'PaperMod'
+googleAnalytics = 'G-4H9QYNJZV1'
 
 [[menu.main]]
 name = "About"
