@@ -14,14 +14,20 @@ name = "Tags"
 url = "tags/"
 weight = 10
 
+[[menu.main]]
+name = "RSS"
+url = "https://subsid.github.io/index.xml"
+weight = 12
+
 [params]
   # color style
   color = 'grey'                           # linen, wheat, gray, light
 
   # header social icons
   twitter = '_subsid'
-  rss = true 
+  rss = true
   # home page profile
   avatar = 'sidharth3930@gmail.com'                 # gravatar email or image url
   name = 'Siddharth'
   bio = ''
+
