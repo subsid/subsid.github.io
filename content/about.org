@@ -9,7 +9,7 @@ comments : false
 
 {{< figure src="/img/sid-roopkund.jpeg" alt="Avatar" class="about-profile-pic" >}}
 
-Hi! My name is Siddharth Subramaniyam. Currently focused on building [[Neural Models][https://arxiv.org/abs/2306.04833]] at Etsy. My interests broadly fall into Information Retrieval, Distributed Systems, Machine Learning, and Bioinformatics.
+Hi! My name is Siddharth Subramaniyam. Currently focused on building [[https://arxiv.org/abs/2306.04833][Neural Models]] at Etsy. My interests broadly fall into Information Retrieval, Distributed Systems, Machine Learning, and Bioinformatics.
 In the past I've worked as a full-stack engineer, SRE, and ML researcher.
 
 In Grad school, I was really fascinated by Bioinformatics. With fast and cheap DNA sequencing, we've slowly been able to understand the incredible diversity of bacteria. At the [[http://faculty.cs.tamu.edu/ioerger/][Ioerger Lab]], I helped build computational tools (like [[https://github.com/mad-lab/transit][Transit]]) for statistical analysis of this data in order to learn more about these incredible beings.
