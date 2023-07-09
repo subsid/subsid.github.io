@@ -75,6 +75,17 @@ This paper is one of the early (relatively) works that summarizes the various co
     </item>
     
     <item>
+      <title>Why are bugs attracted to light</title>
+      <link>https://subsid.github.io/posts/2018-02-20-bugs-attracted-to-light/</link>
+      <pubDate>Tue, 20 Feb 2018 02:33:19 -0500</pubDate>
+      
+      <guid>https://subsid.github.io/posts/2018-02-20-bugs-attracted-to-light/</guid>
+      <description>Smartereveryday video
+Entomology is study of insects. Phototaxis - movement of organism towards or away from light. +ve and -vely phototaxic based on towards or away from light.
+Theory 1 Moths and other bugs use heavenly bodies like the sun/moon to orient themselves while flying. They try to align themselves at a certain angle with the moon. But if the moon is brought superclose, the moth has to pitch up in order to maintain the angle, and this causes a logarithmic spiral into the source.</description>
+    </item>
+    
+    <item>
       <title>R: Quote vs Substitute</title>
       <link>https://subsid.github.io/posts/2018-01-18-r-quote-vs-substitute/</link>
       <pubDate>Thu, 18 Jan 2018 14:21:16 -0500</pubDate>
@@ -134,9 +145,11 @@ Blog:First Post Blog</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://subsid.github.io/about/</guid>
-      <description>Hi! My name is Siddharth Subramaniyam. Currently, I&amp;#39;m a Software Engineer at Etsy. I enjoy working in interdisciplinary fields and building large scale systems. My interests broadly fall into Distributed Systems, Information Retrieval, and HCI.
+      <description>Hi! My name is Siddharth Subramaniyam. Currently focused on building Neural Models at Etsy. My interests broadly fall into Information Retrieval, Distributed Systems, Machine Learning, and Bioinformatics. In the past I&amp;#39;ve worked as a full-stack engineer, SRE, and ML researcher.
 In Grad school, I was really fascinated by Bioinformatics. With fast and cheap DNA sequencing, we&amp;#39;ve slowly been able to understand the incredible diversity of bacteria. At the Ioerger Lab, I helped build computational tools (like Transit) for statistical analysis of this data in order to learn more about these incredible beings.</description>
     </item>
+    
+    
     
   </channel>
 </rss>

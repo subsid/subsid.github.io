@@ -7,17 +7,34 @@ googleAnalytics = 'G-4H9QYNJZV1'
 [[menu.main]]
 name = "About"
 url = "about/"
-weight = 5
+weight = 1
 
 [[menu.main]]
 name = "Tags"
 url = "tags/"
-weight = 10
+weight = 2
+
+[[menu.main]]
+name = "Archives"
+url = "archives/"
+weight = 3
+
+[[menu.main]]
+name = "Search"
+url = "search/"
+weight = 4
 
 [[menu.main]]
 name = "RSS"
 url = "https://subsid.github.io/index.xml"
-weight = 12
+weight = 5
+
+[[params.socialIcons]]
+name = "twitter"
+title = "Twitter"
+url = "https://twitter.com/subsid"
+
+# [[socialIcons]]
 
 [params]
   # color style
@@ -25,9 +42,15 @@ weight = 12
 
   # header social icons
   twitter = '_subsid'
+  linkedin = "subsid"
   rss = true
+
   # home page profile
   avatar = 'sidharth3930@gmail.com'                 # gravatar email or image url
   name = 'Siddharth'
   bio = ''
+  ShowCodeCopyButtons = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
