@@ -3,15 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://subsid.github.io/posts/</loc>
-    <lastmod>2023-03-11T10:03:11-05:00</lastmod>
+    <lastmod>2023-09-08T20:21:00-07:00</lastmod>
+  </url><url>
+    <loc>https://subsid.github.io/</loc>
+    <lastmod>2023-09-08T20:21:00-07:00</lastmod>
   </url><url>
     <loc>https://subsid.github.io/tags/python/</loc>
     <lastmod>2023-03-11T10:03:11-05:00</lastmod>
   </url><url>
     <loc>https://subsid.github.io/posts/2023-03-11-measure-time-and-memory-with-contextlib/</loc>
-    <lastmod>2023-03-11T10:03:11-05:00</lastmod>
-  </url><url>
-    <loc>https://subsid.github.io/</loc>
     <lastmod>2023-03-11T10:03:11-05:00</lastmod>
   </url><url>
     <loc>https://subsid.github.io/tags/snippets/</loc>
