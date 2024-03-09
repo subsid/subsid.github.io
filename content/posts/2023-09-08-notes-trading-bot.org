@@ -1,0 +1,23 @@
+---
+title: "Notes:Building a Trading Bot"
+date: "2023-09-08T20:21:00-07:00"
+draft: true
+tags: [notes]
+katex: true
+markup: mmark
+---
+* What are the components of the system
+- Trading Bot
+- Market
+
+Bot talks to market using a Broker. Bot gets data about the market using some data vendor.
+
+The goal of the bot is to maintain a portfolio based on some level of risk tolerance.
+
+* Notes:Trading Bot
+:PROPERTIES:
+:ID: 4a195b40c934577a66bf468145a04b51
+:CUSTOM_ID: hideroamtags
+:END:
+[[id:145967c8-ebfc-41c6-97ed-d9b7b8a6b415][Blog]] [[id:993a2375-2ed4-4357-b59a-21e0099df579][Finance]]
+

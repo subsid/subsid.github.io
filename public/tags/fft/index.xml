@@ -6,16 +6,15 @@
     <description>Recent content in FFT on Siddharth&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jan 2018 11:32:41 -0500</lastBuildDate><atom:link href="https://subsid.github.io/tags/fft/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Jan 2018 11:32:41 -0500</lastBuildDate>
+    <atom:link href="https://subsid.github.io/tags/fft/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Great FFT</title>
       <link>https://subsid.github.io/posts/2018-01-10-the-great-fft/</link>
       <pubDate>Wed, 10 Jan 2018 11:32:41 -0500</pubDate>
-      
       <guid>https://subsid.github.io/posts/2018-01-10-the-great-fft/</guid>
       <description>If you are in the field of software, you&amp;#39;ve probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand SIAM&amp;#39;s top 10 algorithms of the 20th century.
 The Fast Fourier Transform (FFT) algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The Cooley-Tukey paper rediscovered (It was found in Gauss&amp;#39;s notes for calculations in astronomy!</description>
     </item>
-    
   </channel>
 </rss>
