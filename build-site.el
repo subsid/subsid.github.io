@@ -60,7 +60,7 @@
 	 :publishing-function my-conditional-html-publish
          :html-metadata-timestamp-format "%B %d, %Y"
 	 :html-postamble t
-	 :html-postamble-format (("en" "<p class=\"date\">Created: %d</p>"))
+	 :html-postamble-format (("en" "<p class=\"date\">Last Modified: %C</p>"))
 	 :with-author nil
 	 :with-creator t
 	 :with-toc t
