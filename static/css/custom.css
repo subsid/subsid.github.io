@@ -1,0 +1,31 @@
+.site-header {
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+.site-nav {
+  text-align: center;
+  margin-top: 1rem;
+}
+.site-nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+.avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+  float: left;
+  margin: 4%;
+}
+
+.related-zettels {
+    display: none;
+}    
