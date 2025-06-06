@@ -26,18 +26,38 @@
   </nav>
 </div>"))
      
-)
+      )
 
+(defun my-conditional-html-publish (plist filename pub-dir)
+  "Publish to HTML if file has 'publish' tag or is in explicit filename list.
+   Remove title from export if 'notitle' tag is present."
+  (let ((explicit-files '("archive.org")))
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (goto-char (point-min))
+      (when (or (re-search-forward "^#\\+TAGS:.*publish" nil t)
+                (member (file-name-nondirectory filename) explicit-files))
+ 	(message "Exporting to blog %s" filename)
+        ;; Check for notitle tag
+        (goto-char (point-min))
+        (let ((has-notitle-tag (re-search-forward "^#\\+TAGS:.*notitle" nil t))
+              (message-log-max nil)
+              (inhibit-message t))
+          ;; Modify plist to exclude title if notitle tag is present
+          (let ((export-plist (if has-notitle-tag
+                                  (plist-put (copy-sequence plist) :with-title nil)
+                                plist)))
+            (org-html-publish-to-html export-plist filename pub-dir)))))))
 
 ;; Define the publishing project
 (setq org-publish-project-alist
       '(
 	("my-org-content"
 	 :recursive t
-	 :base-directory "./content"
+	 :base-directory "~/Dropbox/notes/org_roam_v2/pages/article"
 	 :base-extension "org"
 	 :publishing-directory "./public"
-	 :publishing-function org-html-publish-to-html
+	 :publishing-function my-conditional-html-publish
          :html-metadata-timestamp-format "%B %d, %Y"
 	 :html-postamble t
 	 :html-postamble-format (("en" "<p class=\"date\">Created: %d</p>"))
@@ -50,27 +70,36 @@
          :sitemap-filename "archive.org"
          :sitemap-title "Archive"
          :sitemap-sort-files anti-chronologically
-;	 :sitemap-format-entry (lambda (entry style project)
-;				 (unless (string-match "about\\.org" entry)
-;				   (format "[[file:%s][%s]] /%s/"
-;					   entry
-;					   (org-publish-find-title entry project)
-;					   (format-time-string "%Y-%m-%d"
-;							       (org-publish-find-date entry project)))))
-
+	 ;; (message "Entry: %s, Date: %s Date Str: %s, Published: %s" entry date date-str published-filename)
 	 :sitemap-format-entry (lambda (entry style project)
-				 (unless (string-match "about\\.org" entry)
-				   (let* ((date (org-publish-find-date entry project))
-					  (title (org-publish-find-title entry project))
-					  (date-str (if date
-							(format-time-string "%Y-%m-%d" date)
-						      "No Date"))
-					  )
-				     (message "Entry: %s, Date: %s Date Str: %s" entry date date-str)
-				     (format "[[file:%s][%s]] /%s/"
-					     entry
-					     title
-					     date-str))))
+                        ;; Check if file has publish tag and doesn't have sitemapignore tag
+                        (let ((file-info
+                               (with-temp-buffer
+                                 (insert-file-contents (expand-file-name entry 
+                                                                        (plist-get (cdr project) :base-directory)))
+                                 (let ((content (buffer-string)))
+                                   (list (string-match-p "^#\\+TAGS:.*publish" content)
+                                         (string-match-p "^#\\+TAGS:.*sitemapignore" content))))))
+                          ;; Only process if file has publish tag AND doesn't have sitemapignore tag
+                          (when (and (car file-info) (not (cadr file-info)))
+                            (let* ((date (org-publish-find-date entry project))
+                                   (title (org-publish-find-title entry project))
+                                   (date-str (if date
+                                                (format-time-string "%Y-%m-%d" date)
+                                              "No Date"))
+                                   ;; Get the actual published filename
+                                   (published-filename 
+                                    (with-temp-buffer
+                                      (insert-file-contents (expand-file-name entry 
+                                                                             (plist-get (cdr project) :base-directory)))
+                                      (goto-char (point-min))
+                                      (if (re-search-forward "^#\\+EXPORT_FILE_NAME:[ \t]*\\(.*\\)" nil t)
+                                          (concat (match-string 1) ".html")
+                                        (concat (file-name-sans-extension entry) ".html")))))
+                              (format "[[file:%s][%s]] /%s/"
+                                      published-filename
+                                      title
+                                      date-str)))))
 	 :sitemap-function (lambda (title list)
 			     (concat "#+TITLE: " title "\n\n"
 				     (org-list-to-org

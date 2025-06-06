@@ -17,4 +17,4 @@ git commit -m "$msg"
 
 echo "Deploying to main"
 # Deploy to main
-git push origin `git subtree split --prefix public org-hugo-site`:main --force
+git push origin `git subtree split --prefix public org-publish`:main --force

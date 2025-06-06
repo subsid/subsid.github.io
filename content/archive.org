@@ -1,4 +1,0 @@
-#+TITLE: Archive
-
-- [[file:index.org][index]] /2024-02-02/
-- [[file:2017-09-22-physics-of-flocking.org][Physics of flocking]] /2017-09-22/
