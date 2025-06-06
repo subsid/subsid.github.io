@@ -2,7 +2,7 @@
 
 if [ "$1" = "watch" ]; then
     echo "Watching for changes in ~/Dropbox/notes/org_roam_v2/pages/article/..."
-    find content/ \( -name "*.org" -o -name "*.css" \) -not -name "archive.org" | entr -r ./build.sh
+    find ~/Dropbox/notes/org_roam_v2/pages/article/ \( -name "*.org" -o -name "*.css" \) -not -name "archive.org" | entr -r ./build.sh
 else
     echo "Building site..."
     emacs -Q --script build-site.el
