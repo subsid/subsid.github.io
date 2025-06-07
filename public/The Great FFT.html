@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Great FFT</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="about.html">About</a>
+    <a href="archive.html">Archive</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">The Great FFT</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org5353606">Polynomials</a></li>
+<li><a href="#org8b27232">Representation of Polynomials</a></li>
+<li><a href="#org665a5ed">What can we do with a Polynomial?</a>
+<ul>
+<li><a href="#orgb804c42">Evaluation</a></li>
+<li><a href="#org93fbdaf">Addition</a></li>
+<li><a href="#org4f9cbc9">Multiplication</a></li>
+</ul>
+</li>
+<li><a href="#org0bafd18">Complexity of these operations</a></li>
+<li><a href="#orgcfa6e9c">Summary</a></li>
+<li><a href="#orgd05fd99">Converting between representations</a>
+<ul>
+<li><a href="#orgf8f315c">Can we do better?</a></li>
+</ul>
+</li>
+<li><a href="#org5b7a91a">Divide and Conquer!</a>
+<ul>
+<li><a href="#org0423b33">What is our goal?</a></li>
+<li><a href="#org26e59b6">Divide and Conquer idea for Polynomials</a></li>
+<li><a href="#orga515302">Enter Complex Number!</a></li>
+</ul>
+</li>
+<li><a href="#orgf4d0663">Running time of our Divide and Conquer Algorithm</a></li>
+<li><a href="#org44b379d">References</a></li>
+</ul>
+</div>
+</div>
+<p>
+If you are in the field of software, you've probably wondered at some point: What are the coolest algorithms ever discovered?. As a fun task, I decided to try and understand <a href="http://www.uta.edu/faculty/rcli/TopTen/topten.pdf">SIAM's top 10 algorithms of the 20th century</a>.
+</p>
+
+<p>
+<a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform">The Fast Fourier Transform (FFT)</a> algorithm is revolutionary. The applications of FFT touches nearly every area of engineering in some way. The <a href="http://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf">Cooley-Tukey paper</a> rediscovered (It was found in <a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform#History">Gauss's notes</a> for calculations in astronomy! 🤷) and popularized FFT. It is one of the most widely cited papers in science and engineering!
+</p>
+
+<p>
+FFT is something I've used a lot, but didn't quite understand fully. I always thought of it as something that makes the <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a> faster, in order to view time domain signals in their frequency domain. In reality, that is just one application of FFT. For me, the key view point was: <b><b>FFT is all about making basic polynomial operations fast!</b></b>.
+</p>
+<div id="outline-container-org5353606" class="outline-2">
+<h2 id="org5353606">Polynomials</h2>
+<div class="outline-text-2" id="text-org5353606">
+<p>
+A <a href="https://en.wikipedia.org/wiki/Polynomial">Polynomial</a> is an expression of the form
+</p>
+
+<p>
+\[ A(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + ... a_{n-1}ax^{n-1} \]
+</p>
+
+<p>
+where \(a_i\) are Real numbered coefficients(typically) and \(x\) is some variable. \(A(x)\) is defined to have a <b><b>degree of n-1</b></b> (Yup, one less than the number of terms!)
+</p>
+</div>
+</div>
+<div id="outline-container-org8b27232" class="outline-2">
+<h2 id="org8b27232">Representation of Polynomials</h2>
+<div class="outline-text-2" id="text-org8b27232">
+<p>
+How can polynomials be represented in a computer?
+</p>
+
+<p>
+<b>Coefficient Representation</b>
+\[ (a_0, a_1, a_2 ... a_{n-1}) \] Simple enough, its a vector or list of numbers! This representation is often very useful, as it can represent any kind of one-dimensional data. Sure, if we care about \(x\), we can write a function \(A(x)\) to take some variable \(x\) and do something with \(x\) and these coefficents. If not, we just keep it as a vector.
+</p>
+
+<p>
+<b>Point-Value Representation</b> \[(x_0, y_0), (x_1, y_1), (x_2, y_2), ... (x_{n-1}, y_{n-1})\] Since a polynomial \(A(x)\) can be thought of as a function from \(x\) to \(y\), another way to represent a polynomial would be by pairs of (input, output) values. Wow! Are you saying we need to define \(A(x)\) at all possible values of \(x\)? Nope, it turns out there is a fundamental property of polynomials that states that:
+</p>
+
+<blockquote>
+<p>
+<i>Given \(n\) pairs $(x<sub>0,y</sub><sub>0</sub>)(x<sub>n-1</sub>,y<sub>n-1</sub>),&#x2026;$ all the \(x_i\)'s distinct, there is a unique polynomialn p(x) of degree (at most) n such that \(p(x_i) = y_i\) for \(0 \le i \le (n-1)\)./</i>
+</p>
+</blockquote>
+
+<p>
+In other words, a polynomial of degree \((n-1)\) is uniquely specified by giving \(n\) point-value pairs. Intuitively, that makes sense. How many points do we need to represent a line (which can be represented as a polynomial of the form \(y = ax + b\))? 2 points! What continuous curve can we draw through 3 points? parabola! A proof can be found <a href="https://web.stanford.edu/~dntse/classes/cs70_fall09/n6.pdf">here</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-org665a5ed" class="outline-2">
+<h2 id="org665a5ed">What can we do with a Polynomial?</h2>
+<div class="outline-text-2" id="text-org665a5ed">
+</div>
+<div id="outline-container-orgb804c42" class="outline-3">
+<h3 id="orgb804c42">Evaluation</h3>
+<div class="outline-text-3" id="text-orgb804c42">
+<p>
+Given a polynomial \(p\) and a number x, compute p(x).
+</p>
+</div>
+</div>
+<div id="outline-container-org93fbdaf" class="outline-3">
+<h3 id="org93fbdaf">Addition</h3>
+<div class="outline-text-3" id="text-org93fbdaf">
+<p>
+Given two polynomials \(p(x)\) and \(q(x)\), find a polynomial \(r = p + q\), such that \(r(x) = p(x) + q(x)\) for all \(x\). If \(p\) and \(q\) both have degree \(n\), then the sum also has degree \(n\).
+</p>
+</div>
+</div>
+<div id="outline-container-org4f9cbc9" class="outline-3">
+<h3 id="org4f9cbc9">Multiplication</h3>
+<div class="outline-text-3" id="text-org4f9cbc9">
+<p>
+Given two polynomials \(p(x)\) and \(q(x)\), find a polynomial \(r = pq\), such that \(r(x) = p(x).q(x)\) for all \(x\). If \(p\) and \(q\) both have degree \(n\), then the product has degree \(2n\).
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org0bafd18" class="outline-2">
+<h2 id="org0bafd18">Complexity of these operations</h2>
+<div class="outline-text-2" id="text-org0bafd18">
+<p>
+Assuming the polynomials are represented using the <b>coefficient representation</b>:
+</p>
+
+<p>
+<b>Evaluation</b>: A simple for-loop can achieve this in <b>O(n)</b> arithmetic operations. (We can cut down the multiplications further using <a href="https://en.wikipedia.org/wiki/Horner%27s_method">horner's scheme</a>.
+</p>
+
+<p>
+<b>Addition</b>: A simple for-loop can achieve this in <b>O(n)</b> arithmetic operations.
+</p>
+
+<p>
+<b>Multiplication</b>: Ha! this is more complicated and takes <b>O(\(n^2\))</b> arithmetic operations. (Sure, we can reduce the asymptotic runtime by using some <a href="https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm">fancy</a> tricks, but the constants are still pretty large.)
+</p>
+
+<p>
+<b>What if we change the representation to point-value?</b>
+</p>
+
+<p>
+<b>Addition</b>: Simple! Given 2 polynomials, \((x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})\) and \((x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})\)  we simply add the output values and get \((x_i, y_i + z_i)\). Thus, it requires <b>\(O(n)\)</b> arithmetic operations.
+</p>
+
+<p>
+<b>Note</b>: <i>Both polynomials need to be defined for the same n points, else we'll have to do a little more work using <a href="https://en.wikipedia.org/wiki/Lagrange_polynomial">Lagrange interpolation</a>.</i>
+</p>
+
+<p>
+<b>Multiplication</b>: Simple! Given, 2 polynomials \((x_1, y_1), (x_2, y_2), . . . (x_{n-1}, y_{n-1})\) and \((x_1, z_1), (x_2, z_2), . . . (x_{n-1}, z_{n-1})\)  we simply multiply the output values and get \((x_i, y_i * z_i)\). Thus, it requires <b>\(O(n)\)</b> arithmetic operations.
+</p>
+
+<p>
+<b>Note:</b> <i>When we multiply 2 polynomials, we are going to get a polynomial of higher degree, so we'll need more points to represent it. For example, multiplying 2 \((n-1)\) degree polynomials will result in a polynomial of degree (2n - 1). This can be handled by taking more samples of the 2 input polynomials before multiplication</i>
+</p>
+</div>
+</div>
+<div id="outline-container-orgcfa6e9c" class="outline-2">
+<h2 id="orgcfa6e9c">Summary</h2>
+<div class="outline-text-2" id="text-orgcfa6e9c">
+<p>
+So this is where we are:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Representation</th>
+<th scope="col" class="org-left">Multiply</th>
+<th scope="col" class="org-left">Evaluate</th>
+<th scope="col" class="org-left">Sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Coefficient</td>
+<td class="org-left">\(O(n^2)\)</td>
+<td class="org-left">\(O(n)\)</td>
+<td class="org-left">\(O(n)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Point-Value</td>
+<td class="org-left">\(O(n)\)</td>
+<td class="org-left">\(O(n^2)\)</td>
+<td class="org-left">\(O(n)\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<i>Can we somehow convert between the representations efficiently so that we get the best of both? This is where the FFT comes in!</i>
+</p>
+</div>
+</div>
+<div id="outline-container-orgd05fd99" class="outline-2">
+<h2 id="orgd05fd99">Converting between representations</h2>
+<div class="outline-text-2" id="text-orgd05fd99">
+<p>
+For a polynomial \(A(x) = a_0 + a_1x + ... a_{n-1}x^{n-1}\) of degree \((n-1)\), the conversion from coefficient representation to point-value representation at n distinct points \((x_0, x_1, ... x_n)\) can be done as follows:
+</p>
+
+<p>
+$$
+</p>
+\begin{bmatrix}
+    y_0 \\
+    y_1 \\
+    .\\
+    .\\
+    .\\
+    y_{n-1} \\
+\end{bmatrix} =
+\begin{bmatrix}
+    1 & x_0 & x_0^2 & ... & x_0^{n-1} \\
+    1 & x_1 & x_1^2 & ... & x_1^{n-1} \\
+    .\\
+    .\\
+    .\\
+    1 & x_{n-1} & x_{n-1}^2 & ... & x_{n-1}^{n-1} \\
+\end{bmatrix}
+\begin{bmatrix}
+    a_0 \\
+    a_1 \\
+    .\\
+    .\\
+    .\\
+    a_{n-1} \\
+\end{bmatrix}
+<p>
+$$
+</p>
+
+<p>
+where \(\vec{a}\) is a vector of coefficients and \(\vec{y}\) is a vector of output values. This is known as the <a href="https://en.wikipedia.org/wiki/Vandermonde_matrix">Vandermonde matrix</a>. It's a nice way of vectorizing the conversion and make the runtime \(O(n^2) operations\). Thus, if we need the \(y_i\) values for point-value representation, we simply do \[\vec{y} = V\vec{a}\]
+</p>
+
+<p>
+To convert from point-value to coefficient representation, we take the inverse of \(V^{-1}\).
+</p>
+
+<p>
+\[V^{-1}\vec{y} = \vec{a}\]
+</p>
+
+<p>
+<b>Fact:</b> \(V\) is inverttible if \(x_i\)'s are distinct.
+</p>
+
+<p>
+Anyways, the point is, the forward and reverse conversion takes \(O(n^2)\) operations.
+</p>
+</div>
+<div id="outline-container-orgf8f315c" class="outline-3">
+<h3 id="orgf8f315c">Can we do better?</h3>
+<div class="outline-text-3" id="text-orgf8f315c">
+<p>
+If you look at the above matrix-vector product hard enough, you'll notice that <b>we get to pick the x values in \(V\)</b>. i.e <b>The sample positions!</b> If we pick these sample values with the 'right structure', maybe this conversion can be faster. Sure, it is not very generic, but we don't care! We still get to convert between <b>point-value</b> \(\leftrightarrow\) <b>coefficient representation</b> of the given polynomial.
+</p>
+
+<p>
+<b>FFT exploits this freedom</b>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5b7a91a" class="outline-2">
+<h2 id="org5b7a91a">Divide and Conquer!</h2>
+<div class="outline-text-2" id="text-org5b7a91a">
+</div>
+<div id="outline-container-org0423b33" class="outline-3">
+<h3 id="org0423b33">What is our goal?</h3>
+<div class="outline-text-3" id="text-org0423b33">
+<p>
+Before we lose the forest for the trees, this is what we want:
+</p>
+
+<ul class="org-ul">
+<li>We have a polynomial \(A(x)\) in its coefficient form \(<a_0, a_1, . . . a_{n-1}>\) and a input set \(X\).</li>
+<li>We need to compute \(<y_0, y_1, . . . y_{n-1}\) from \(A(x) \forall x \in X\).</li>
+<li>The reason we want to do this, is so that we can quickly switch from coefficient to polynomial representation. (And vice-versa, but we'll leave that for now)</li>
+<li>The key insight from the previous section was that we are <b>free</b> to choose the input set \(X\).</li>
+</ul>
+
+<p>
+Ok, now back to <b>divide and conquer</b>.
+</p>
+
+<p>
+The essence of any <a href="https://people.eecs.berkeley.edu/~vazirani/algorithms/chap2.pdf">divide and conquer algorithm strategy</a> is as follows:
+</p>
+
+<ol class="org-ol">
+<li>Divide problem into <b>smaller</b> subproblems.</li>
+<li>Recursively solve (conquer) the subproblems.</li>
+<li>Combine solutions to the subproblem into one for the original problem.</li>
+</ol>
+
+<p>
+The above link gives some basic examples in this paradigm.
+</p>
+</div>
+</div>
+<div id="outline-container-org26e59b6" class="outline-3">
+<h3 id="org26e59b6">Divide and Conquer idea for Polynomials</h3>
+<div class="outline-text-3" id="text-org26e59b6">
+<p>
+Consider the polynomial \(A(x) = a_0 + a_1x + a_2x^2 + . . . a_{7}x^{7}\).
+</p>
+
+<ul class="org-ul">
+<li><b>Divide</b></li>
+</ul>
+
+<p>
+Express \(A(x)\) as a sum of its <b>odd</b> and <b>even</b> powers.
+</p>
+
+<p>
+\[ A_{even}(x) = a_0 + a_2x + a_4x^2 + a_6x^3 \]
+\[ A_{odd}(x) = a_1 + a_3x + a_5x^2 + a_7x^3 \]
+</p>
+
+<ul class="org-ul">
+<li><b>Conquer</b></li>
+</ul>
+
+<p>
+Recursively compute \(A_{even}(z)\) and \(A_{odd}(z)\) \(\forall z \in \{ x^2 | x \in X \}\)
+</p>
+
+<ul class="org-ul">
+<li><b><b>Combine</b></b></li>
+</ul>
+
+<p>
+Combine them with \(O(1)\) arithmetic operations (Specifically, 1 multiplication and 1 addition) to get \(A(x)\)!
+</p>
+
+<p>
+$ A(x) = A<sub>even</sub>(x<sup>2</sup>) + xA<sub>odd</sub>(x<sup>2</sup>) $
+</p>
+
+<p>
+<b>Basecase:</b> We stop recursing, when our polynomial just has  1 coefficient
+</p>
+
+<p>
+<i>Note that we evaluate both \(A_{even}\) and \(A_{odd}\) at \(x^2\) for the numbers to work out. That's key.</i>
+</p>
+
+
+<p>
+<b><b>Do we have smaller a subproblems?</b></b>
+</p>
+
+<p>
+i.e, is \(A_{even}(z)\) and \(A_{odd}(z)\) \(\forall z \in \{ x^2 | x \in X \}\) smaller than \(A(x) \forall x \in X\)?
+</p>
+
+<p>
+If we look at the the set of input values on which \(A_{even}\) and \(A_{odd}\) are evaluated, we still need them to be defined for all values of \(x^2\).
+</p>
+
+<p>
+For the divide and conquer technique to work, we need the subproblems to be of a smaller size.
+</p>
+
+<p>
+<b>Can we find a set of \(n\) points such that the set formed by squaring each value, is a smaller set?</b>
+</p>
+
+<p>
+If my set \(X = \{x^2\}\) with one element. What can my set 'x' be, so that it is bigger?
+</p>
+
+<p>
+Yup, it can be \(X = \{x, -x\}\). Ha, squareroots can do the trick! Ok, this works if we only need 2 sample values in our set X, what if we need 3?
+</p>
+
+<p>
+Hmm, that seems complex ;)
+</p>
+</div>
+</div>
+<div id="outline-container-orga515302" class="outline-3">
+<h3 id="orga515302">Enter Complex Number!</h3>
+<div class="outline-text-3" id="text-orga515302">
+<p>
+Restating our problem here, just so we don't get lost:
+</p>
+
+<ul class="org-ul">
+<li>In order to represent our polynomial of degree \((n-1)\), we need to find a set \(X\) of 'n'.</li>
+<li>From the previous section, we see that we can write a polynomial in terms of its <b>odd</b> and <b>even</b> coefficients evaluated at \(x^2\).</li>
+<li>For our divide and conquer to work effectively, we need new set $Z = \{ x<sup>2</sup> | x &isin; X \} $ to be smaller than X.</li>
+</ul>
+
+<p>
+<b>So, how do we arrive at a set of n points such that everytime we square it, we get a smaller set.</b> (I am using the term square loosely here, I mean the set we get by squaring each element in our current set)
+</p>
+
+<p>
+<b>It turns out we can *always</b> come up with a set of n points, such that they <b>collapse</b> into a set of <b>n/2</b> points when squared, using complex numbers (Yes, <b>n</b> has to be even)
+</p>
+
+<p>
+If you don't quite have an intuitive idea of what complex numbers are, I highly recommend <a href="https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/">this post on betterexplained</a> by Kalid.
+For me, the big takeaway about complex numbers was to think about them as <b>rotations</b>. Do read that post.
+</p>
+
+
+<p>
+{{&lt; figure src="<img src="https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png" alt="positive_negative_rotation.png" />" &gt;}}
+</p>
+
+<p>
+Complex numbers are just rotations.
+</p>
+
+<p>
+Let's start with a set \(S_1 = \{ 1 \}\). What set can collapse into this set?
+</p>
+
+<p>
+Easy, \(S_2 = \{-1, 1\}\). What set collapses to \(S_2\)?
+</p>
+
+<p>
+Easy, \(S_3 = \{i, -i, 1, -1\}\). What set collapses to \(S_3\)?
+</p>
+
+<p>
+Not so easy (until you read Kalid's post!), but it's \(S_4 = \{\frac{\sqrt{2}}{2}(1 + i), -\frac{\sqrt{2}}{2}(i + i), \frac{\sqrt{2}}{2}(i - 1), -\frac{\sqrt{2}}{2}(i + 1), i, -i, 1, -1\}\).
+</p>
+
+<p>
+We can keep going. In essence, <b>we can always find a set that collapses like this, for any even n, however big!</b> Take a minute, that is like wow!
+</p>
+
+<p>
+Formally, a set containing \(n\) points that collapse as shown above, are called the <b>nth roots of unity</b>. If we square these \(n\) points, n times, we get 1 (The basecase of our recursion)!
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf4d0663" class="outline-2">
+<h2 id="orgf4d0663">Running time of our Divide and Conquer Algorithm</h2>
+<div class="outline-text-2" id="text-orgf4d0663">
+<p>
+Ok, let's just step back and see how well our divide and conquer algorithm would perform.
+</p>
+
+<ul class="org-ul">
+<li>We take our polynomial \(A(x)\), to be evaluated on a set \(X\) with \(|X| = n\), and reduce it to two smaller problems.</li>
+<li>\(A_{even}(x)\) and \(A_{odd}(x)\), both evaluated on set \(Y = \{x^2 | x \in X\}\) with \(|Y| = n/2\).</li>
+</ul>
+
+<p>
+We can write a recurrence relation for the above algorithm as:
+</p>
+
+<p>
+\(T(n) = 2T(\frac{n}{2}) + O(n)\)
+</p>
+
+<p>
+where \(T(n)\) is the running time of our algorithm on an input of size \(n\). <a href="https://users.cs.duke.edu/~reif/courses/alglectures/skiena.lectures/lecture3.pdf">Solving this</a>, we get a <b>runtime bound of O(n lgn)</b>
+</p>
+
+<p>
+Cool! We can now <b>Add</b>, <b>Evaluate</b> and <b>Multiply</b> polynomials in \(O(n lg n)\) time!
+</p>
+
+<p>
+This elegant divide and conquer algorithm, is the FFT algorithm!
+</p>
+
+<p>
+I hope this helps you understand what the FFT is all about.
+In a future post, we will discuss how its implemented, where the \(e^{i\theta}\) and <b>fourier</b> related terms come in.
+</p>
+</div>
+</div>
+<div id="outline-container-org44b379d" class="outline-2">
+<h2 id="org44b379d">References</h2>
+<div class="outline-text-2" id="text-org44b379d">
+<ul class="org-ul">
+<li><a href="http://jeffe.cs.illinois.edu/teaching/algorithms/notes/02-fft.pdf">Jeff Erickson Algorithm notes</a></li>
+<li><a href="http://faculty.cs.tamu.edu/klappi/csce629-f17/csce411-set4c.pdf">TAMU Klappenecker Algorithms</a></li>
+<li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/lecture-videos/lecture-3-divide-conquer-fft/">OCW Erik Demaine FFT</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Last Modified: June 06, 2025</p>
+</div>
+</body>
+</html>
