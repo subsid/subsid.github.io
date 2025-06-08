@@ -27,7 +27,20 @@
 (setq org-html-validation-link nil
       org-html-head-include-scripts nil
       org-html-head-include-default-style nil
-      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" /><link rel=\"stylesheet\" href=\"static/css/custom.css\" /><script src=\"js/main.js\"></script>"
+      org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
+<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css\" integrity=\"sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js\"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js\"></script>
+<script src=\"https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js\"></script>
+<link
+  rel=\"stylesheet\"
+  href=\"https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css\"
+/>
+<link rel=\"stylesheet\" href=\"static/css/custom.css\" />
+<script src=\"js/main.js\"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+"
       org-html-preamble t
       org-html-preamble-format (list (list "en" my-site-preamble))
       )
@@ -213,6 +226,18 @@
 </html>" my-site-preamble)))
     (with-temp-file "./public/index.html"
       (insert index-content))))
+
+;; ;; I did not write this , i found it from a stackoverflow post but i am unable to find a link to it
+ (defun my/org-html-src-block (html)
+  "Modify the output of org-html-src-block for highlight.js"
+  (replace-regexp-in-string
+   "</pre>" "</code></pre>"
+   (replace-regexp-in-string
+    "<pre class=\"src src-\\(.*\\)\">"
+    "<pre><code class=\"\\1\">"
+    html)))
+
+(advice-add 'org-html-src-block :filter-return #'my/org-html-src-block)
 
 ;; Generate the site output
 (org-publish-project "my-org-blog" t)

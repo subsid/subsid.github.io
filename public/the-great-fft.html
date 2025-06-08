@@ -7,7 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Great FFT</title>
 <meta name="generator" content="Org Mode" />
-<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="static/css/custom.css" />
+<script src="js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 <script>
   window.MathJax = {
     tex: {
@@ -60,8 +72,8 @@
 <li><a href="#org5353606">Polynomials</a></li>
 <li><a href="#org3cb1344">Representing Polynomials</a>
 <ul>
-<li><a href="#org5607162">Coefficient Representation</a></li>
-<li><a href="#orgcb7e47b">Point-Value Representation</a></li>
+<li><a href="#org08523aa">Coefficient Representation</a></li>
+<li><a href="#orgefd85e0">Point-Value Representation</a></li>
 </ul>
 </li>
 <li><a href="#org146c5e8">Operations on Polynomials</a>
@@ -73,8 +85,8 @@
 </li>
 <li><a href="#orgc2055a7">Complexity Analysis</a>
 <ul>
-<li><a href="#orgd58d130">Coefficient Representation</a></li>
-<li><a href="#org2ce8f58">Point-Value Representation</a></li>
+<li><a href="#org0ce4723">Coefficient Representation</a></li>
+<li><a href="#org7a55a9f">Point-Value Representation</a></li>
 <li><a href="#orgcfa6e9c">Summary</a></li>
 </ul>
 </li>
@@ -131,9 +143,9 @@ where \(a_i\) are coefficients (typically real numbers) and \(x\) is a variable.
 How can we represent polynomials in a computer? There are two fundamental approaches:
 </p>
 </div>
-<div id="outline-container-org5607162" class="outline-3">
-<h3 id="org5607162">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-org5607162">
+<div id="outline-container-org08523aa" class="outline-3">
+<h3 id="org08523aa">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-org08523aa">
 <p>
 \[ (a_0, a_1, a_2, \ldots, a_{n-1}) \]
 </p>
@@ -143,9 +155,9 @@ Simple—it's just a vector of numbers! This representation handles any one-dime
 </p>
 </div>
 </div>
-<div id="outline-container-orgcb7e47b" class="outline-3">
-<h3 id="orgcb7e47b">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-orgcb7e47b">
+<div id="outline-container-orgefd85e0" class="outline-3">
+<h3 id="orgefd85e0">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-orgefd85e0">
 <p>
 \[(x_0, y_0), (x_1, y_1), (x_2, y_2), \ldots, (x_{n-1}, y_{n-1})\]
 </p>
@@ -205,9 +217,9 @@ Given polynomials \(p(x)\) and \(q(x)\), find polynomial \(r = p \cdot q\) such 
 Let's analyze the time complexity for each representation:
 </p>
 </div>
-<div id="outline-container-orgd58d130" class="outline-3">
-<h3 id="orgd58d130">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-orgd58d130">
+<div id="outline-container-org0ce4723" class="outline-3">
+<h3 id="org0ce4723">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-org0ce4723">
 <p>
 <b>Evaluation</b>: Simple loop achieves \(O(n)\) operations (can be optimized further with <a href="https://en.wikipedia.org/wiki/Horner%27s_method">Horner's method</a>).
 </p>
@@ -221,9 +233,9 @@ Let's analyze the time complexity for each representation:
 </p>
 </div>
 </div>
-<div id="outline-container-org2ce8f58" class="outline-3">
-<h3 id="org2ce8f58">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-org2ce8f58">
+<div id="outline-container-org7a55a9f" class="outline-3">
+<h3 id="org7a55a9f">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-org7a55a9f">
 <p>
 <b>Addition</b>: Given polynomials \((x_i, y_i)\) and \((x_i, z_i)\), simply compute \((x_i, y_i + z_i)\). This takes \(O(n)\) operations.
 </p>
@@ -432,7 +444,7 @@ Think of complex numbers as rotations in the plane. The key insight from <a href
 </p>
 
 
-<div id="orgad7b4a0" class="figure">
+<div id="orga8fccde" class="figure">
 <p><img src="https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png" alt="&quot;Comple Numbers as Rotations&quot;" />
 </p>
 </div>

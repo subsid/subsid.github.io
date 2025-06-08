@@ -7,7 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Python - Measure Time and Memory Usage</title>
 <meta name="generator" content="Org Mode" />
-<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="static/css/custom.css" />
+<script src="js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -56,7 +68,7 @@ I use python's <a href="https://realpython.com/python-with-statement/#measuring-
 <h3 id="org5678130">Using the context manager class</h3>
 <div class="outline-text-3" id="text-org5678130">
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">import</span> time
+<pre><code class="python"><span style="font-weight: bold;">import</span> time
 <span style="font-weight: bold;">import</span> psutil
 
 <span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">TimeMem</span>():
@@ -95,7 +107,7 @@ I use python's <a href="https://realpython.com/python-with-statement/#measuring-
         logging.info(f<span style="font-style: italic;">"Done </span>{<span style="font-weight: bold;">self</span>.step_desc}<span style="font-style: italic;"> "</span>
                      f<span style="font-style: italic;">"Time </span>{<span style="font-weight: bold;">self</span>.delta():.2f}<span style="font-style: italic;"> seconds "</span>
                      f<span style="font-style: italic;">"Mem </span>{<span style="font-weight: bold;">self</span>.mem_consumed(1024**2):.2f}<span style="font-style: italic;"> MB"</span>)    
-</pre>
+</code></pre>
 </div>
 </div>
 </div>
@@ -107,7 +119,7 @@ The context manager API can be verbose. Using the <a href="https://docs.python.o
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">from</span> contextlib <span style="font-weight: bold;">import</span> contextmanager
+<pre><code class="python"><span style="font-weight: bold;">from</span> contextlib <span style="font-weight: bold;">import</span> contextmanager
 
 <span style="font-weight: bold;">class</span> <span style="font-weight: bold; text-decoration: underline;">Timer</span>():
     <span style="font-weight: bold;">def</span> <span style="font-weight: bold;">__init__</span>(<span style="font-weight: bold;">self</span>):
@@ -152,11 +164,11 @@ The context manager API can be verbose. Using the <a href="https://docs.python.o
         logging.info(f<span style="font-style: italic;">"Done </span>{step_name}<span style="font-style: italic;"> "</span>
              f<span style="font-style: italic;">"Time </span>{t.delta():.2f}<span style="font-style: italic;"> seconds "</span>
              f<span style="font-style: italic;">"Mem </span>{m.mem_consumed(1024**2):.2f}<span style="font-style: italic;"> MB"</span>)
-</pre>
+</code></pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">import</span> numpy
+<pre><code class="python"><span style="font-weight: bold;">import</span> numpy
 
 <span style="font-weight: bold;">with</span>(TimeMem(<span style="font-style: italic;">"TimMem: Init numpy array"</span>)):
     <span style="font-weight: bold; font-style: italic;">result</span> = numpy.arange(10**9, dtype=numpy.int64)
@@ -170,14 +182,14 @@ The context manager API can be verbose. Using the <a href="https://docs.python.o
 2023-03-11 13:43:45,541 root         INFO     Done TimMem: Init numpy array Time 0.97 seconds Mem 7629.34 MB
 2023-03-11 13:43:45,542 root         INFO     Start decorator: Init numpy array
 2023-03-11 13:43:46,523 root         INFO     Done decorator: Init numpy array Time 0.98 seconds Mem 7629.34 MB
-</pre>
+</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date"><i>Last Modified: June 07, 2025</i></p>
+<p class="date"><i>Last Modified: June 08, 2025</i></p>
 </div>
 </body>
 </html>
