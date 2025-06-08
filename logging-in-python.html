@@ -7,7 +7,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Logging in Python</title>
 <meta name="generator" content="Org Mode" />
-<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="static/css/custom.css" />
+<script src="js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -37,9 +49,9 @@ Python's logging module doesn't work out of the box. Try running this code and y
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">import</span> logging
+<pre><code class="python"><span style="font-weight: bold;">import</span> logging
 logging.info(<span style="font-style: italic;">"Hello world"</span>)
-</pre>
+</code></pre>
 </div>
 
 <p>
@@ -57,7 +69,7 @@ Here's my go-to logging setup that actually makes sense. It sends info logs to s
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
+<pre><code class="python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
     <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
     <span style="font-weight: bold;">for</span> h <span style="font-weight: bold;">in</span> <span style="font-weight: bold;">list</span>(logger.handlers):
         logger.removeHandler(h)
@@ -83,7 +95,7 @@ Here's my go-to logging setup that actually makes sense. It sends info logs to s
     logger.addHandler(consoleh)
     logger.addHandler(errorh)
     logger.setLevel(level)
-</pre>
+</code></pre>
 </div>
 </div>
 </div>
@@ -103,7 +115,7 @@ When I'm working in Jupyter notebooks or remote sessions, I prefer logging to fi
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="font-weight: bold;">import</span> logging
+<pre><code class="python"><span style="font-weight: bold;">import</span> logging
 <span style="font-weight: bold;">import</span> sys
 
 <span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
@@ -120,7 +132,7 @@ When I'm working in Jupyter notebooks or remote sessions, I prefer logging to fi
     fh.setFormatter(formatter)
     logger.addHandler(fh)
     logger.setLevel(level)
-</pre>
+</code></pre>
 </div>
 </div>
 </div>
@@ -132,24 +144,24 @@ Here's what this actually looks like when you run it:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">This prints nothing</span>
+<pre><code class="python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">This prints nothing</span>
 setup_logging()
 logging.info(<span style="font-style: italic;">"Logs to stdout"</span>)
 file_logging(<span style="font-style: italic;">"test_logs"</span>)
 logging.info(<span style="font-style: italic;">"Logs to test_logs.log"</span>)
-</pre>
+</code></pre>
 </div>
 
 <p>
 Output:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">$ python test.py 
+<pre><code class="bash">$ python test.py 
 2023-03-11 13:06:39,551 root         INFO     Logs to stdout
 
 $ cat test_logs.log 
 2023-03-11 13:06:39,552 root         INFO     Logs to test_logs.log
-</pre>
+</code></pre>
 </div>
 
 <p>
