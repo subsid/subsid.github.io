@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Logging in Python</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="about.html">About</a>
+    <a href="articles.html">Articles</a>
+    <a href="snippets.html">Snippets</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">Logging in Python</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc839e68">A Better Setup</a></li>
+<li><a href="#orge4abc33">Why Split stdout and stderr?</a></li>
+<li><a href="#org2ef4cc7">For Notebooks and Remote Sessions</a></li>
+<li><a href="#org051aed6">Seeing It in Action</a></li>
+</ul>
+</div>
+</div>
+<p>
+Python's logging module doesn't work out of the box. Try running this code and you'll see what I mean:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="font-weight: bold;">import</span> logging
+logging.info(<span style="font-style: italic;">"Hello world"</span>)
+</pre>
+</div>
+
+<p>
+Yep, it prints nothing.
+</p>
+
+<p>
+Sure, there's `logging.basicConfig()` which sorta works (it dumps everything to stderr), but honestly, I'd rather set this up properly myself.
+</p>
+<div id="outline-container-orgc839e68" class="outline-2">
+<h2 id="orgc839e68">A Better Setup</h2>
+<div class="outline-text-2" id="text-orgc839e68">
+<p>
+Here's my go-to logging setup that actually makes sense. It sends info logs to stdout and error logs to stderr, plus adds decent formatting so you can actually read the output:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
+    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
+    <span style="font-weight: bold;">for</span> h <span style="font-weight: bold;">in</span> <span style="font-weight: bold;">list</span>(logger.handlers):
+        logger.removeHandler(h)
+
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">setup_logging</span>(filename=<span style="font-weight: bold; text-decoration: underline;">None</span>, level=<span style="font-style: italic;">"INFO"</span>):
+    <span style="font-weight: bold; font-style: italic;">## </span><span style="font-weight: bold; font-style: italic;">Reset logger</span>
+    remove_handlers()
+    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
+    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(<span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>)
+
+    <span style="font-weight: bold; font-style: italic;">consoleh</span> = logging.StreamHandler(sys.stdout)
+    <span style="font-weight: bold; font-style: italic;">nonerror</span> = <span style="font-weight: bold;">lambda</span> <span style="font-weight: bold; font-style: italic;">record</span>: <span style="font-weight: bold; text-decoration: underline;">record</span>.<span style="font-weight: bold; text-decoration: underline;">levelno</span> != logging.ERROR
+    <span style="font-weight: bold; font-style: italic;">error</span> = <span style="font-weight: bold;">lambda</span> record: record.levelno == logging.ERROR
+
+    <span style="font-weight: bold; font-style: italic;">errorh</span> = logging.StreamHandler(sys.stderr)
+    errorh.setLevel(logging.ERROR)
+    errorh.setFormatter(formatter)
+
+    consoleh.setFormatter(formatter)
+    consoleh.addFilter(nonerror)
+    errorh.addFilter(error)
+
+    logger.addHandler(consoleh)
+    logger.addHandler(errorh)
+    logger.setLevel(level)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge4abc33" class="outline-2">
+<h2 id="orge4abc33">Why Split stdout and stderr?</h2>
+<div class="outline-text-2" id="text-orge4abc33">
+<p>
+The key thing here is separating error logs from info logs using filters. Without this, log aggregators (looking at you, Google Stackdriver) get confused and treat Python error logs the same as info logs. I've been burned by this more times than I care to admit.
+</p>
+</div>
+</div>
+<div id="outline-container-org2ef4cc7" class="outline-2">
+<h2 id="org2ef4cc7">For Notebooks and Remote Sessions</h2>
+<div class="outline-text-2" id="text-org2ef4cc7">
+<p>
+When I'm working in Jupyter notebooks or remote sessions, I prefer logging to files instead of relying on the session staying alive:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="font-weight: bold;">import</span> logging
+<span style="font-weight: bold;">import</span> sys
+
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
+    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
+    <span style="font-weight: bold;">for</span> h <span style="font-weight: bold;">in</span> <span style="font-weight: bold;">list</span>(logger.handlers):
+        logger.removeHandler(h)
+
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">file_logging</span>(filename, level=<span style="font-style: italic;">"INFO"</span>):
+    <span style="font-weight: bold; font-style: italic;">## </span><span style="font-weight: bold; font-style: italic;">Reset logger</span>
+    remove_handlers()
+    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
+    <span style="font-weight: bold; font-style: italic;">fh</span> = logging.FileHandler(f<span style="font-style: italic;">"</span>{filename}<span style="font-style: italic;">.log"</span>)
+    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(<span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>)
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    logger.setLevel(level)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org051aed6" class="outline-2">
+<h2 id="org051aed6">Seeing It in Action</h2>
+<div class="outline-text-2" id="text-org051aed6">
+<p>
+Here's what this actually looks like when you run it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">This prints nothing</span>
+setup_logging()
+logging.info(<span style="font-style: italic;">"Logs to stdout"</span>)
+file_logging(<span style="font-style: italic;">"test_logs"</span>)
+logging.info(<span style="font-style: italic;">"Logs to test_logs.log"</span>)
+</pre>
+</div>
+
+<p>
+Output:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">$ python test.py 
+2023-03-11 13:06:39,551 root         INFO     Logs to stdout
+
+$ cat test_logs.log 
+2023-03-11 13:06:39,552 root         INFO     Logs to test_logs.log
+</pre>
+</div>
+
+<p>
+Much better than Python's default of "just pretend logging doesn't exist," right?
+</p>
+
+<p>
+The `remove<sub>handlers</sub>()` function is important because Python's logging system loves to accumulate handlers if you call your setup function multiple times. Without it, you end up with duplicate log messages, which is super annoying when you're debugging.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: June 08, 2025</i></p>
+</div>
+</body>
+</html>

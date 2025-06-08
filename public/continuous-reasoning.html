@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Continuous Reasoning</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="about.html">About</a>
+    <a href="articles.html">Articles</a>
+    <a href="snippets.html">Snippets</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">Continuous Reasoning</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge2cdfb0">The Big Idea</a></li>
+<li><a href="#org657af5f">How They Made It Fast: Automatic Composability</a></li>
+<li><a href="#orgf138940">The ROFL Episode (Yes, That's What They Called It)</a></li>
+<li><a href="#orgea2fbb5">Contrast with Traditional Approaches</a></li>
+<li><a href="#org23a9fbc">Getting the Reporting Right</a></li>
+<li><a href="#org90188da">The Bottom Line</a></li>
+</ul>
+</div>
+</div>
+<p>
+<a href="https://research.facebook.com/publications/continuous-reasoning-scaling-the-impact-of-formal-methods">Paper link</a>
+</p>
+
+<p>
+This paper is all about <a href="https://github.com/facebook/infer">Infer</a>, Facebook's <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, and how they managed to make formal program analysis actually useful in the real world. The secret sauce? Something called continuous reasoning.
+</p>
+<div id="outline-container-orge2cdfb0" class="outline-2">
+<h2 id="orge2cdfb0">The Big Idea</h2>
+<div class="outline-text-2" id="text-orge2cdfb0">
+<p>
+The core insight here is pretty simple: instead of running massive formal verification tools that take forever and annoy everyone, why not integrate lightweight analysis directly into the development workflow? You know, where developers actually live - in code reviews, CI/CD pipelines, and all that.
+</p>
+
+<p>
+Infer analyzes C, C++, Java, and Objective-C code (it's written in OCaml, if you care about that sort of thing). The killer feature is that it runs on code diffs rather than rebuilding your entire codebase from scratch. This means it finishes in the low tens of minutes instead of hours or days, which makes it actually usable for developers who want feedback during code reviews rather than finding out about bugs weeks later on some forgotten bug board.
+</p>
+</div>
+</div>
+<div id="outline-container-org657af5f" class="outline-2">
+<h2 id="org657af5f">How They Made It Fast: Automatic Composability</h2>
+<div class="outline-text-2" id="text-org657af5f">
+<p>
+The reason Infer doesn't crawl to a halt on large codebases is something called <b>Automatic Composability</b>. Here's how the authors explain it:
+</p>
+
+<blockquote>
+<p>
+The technical feature which enables Infer's diff-time deployment is compositionality. The idea of compositionality comes from language semantics: a semantics is compositional if the meaning of a complex phrase is defined in terms of the meanings of its parts and a means of combining them.
+</p>
+</blockquote>
+
+<p>
+They took this idea from language theory and applied it to program analysis, calling it <b>Compositional Analysis</b>:
+</p>
+
+<blockquote>
+<p>
+Compositional Analysis: an automatic program analysis is compositional if the analysis result of a composite program is defined in terms of the analysis results of its parts and a means of combining them.
+</p>
+</blockquote>
+
+<p>
+Basically, instead of needing to understand your entire program at once, Infer can analyze pieces independently and then combine the results. This is what lets it work on just the changed parts of your code.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf138940" class="outline-2">
+<h2 id="orgf138940">The ROFL Episode (Yes, That's What They Called It)</h2>
+<div class="outline-text-2" id="text-orgf138940">
+<p>
+Here's my favorite part of the paper. Facebook initially deployed an earlier version of Infer as a batch job that ran overnight and dumped a bunch of bug reports. They called this <b>*ROFL (Report Only Failure List)</b>
+</p>
+
+<p>
+Guess what happened? Developers completely ignored it. The tool found real bugs, but nobody fixed them. Why?
+</p>
+
+<ul class="org-ul">
+<li><b>Mental effort of context switching</b>: Nobody wants to dive back into some random commit from last week to fix a bug</li>
+<li><b>Relevance</b>: Figuring out which developer should fix which bug is actually pretty hard</li>
+</ul>
+
+<p>
+The diff-based approach solves both problems. Instead of getting a random bug report for old code, you get feedback during code review for code you just wrote. Infer basically becomes another reviewer that happens to be really good at spotting memory safety issues.
+</p>
+
+<p>
+The impact was huge once they got this right - tens of thousands of bugs reported by Infer actually got fixed.
+</p>
+</div>
+</div>
+<div id="outline-container-orgea2fbb5" class="outline-2">
+<h2 id="orgea2fbb5">Contrast with Traditional Approaches</h2>
+<div class="outline-text-2" id="text-orgea2fbb5">
+<p>
+The paper contrasts Infer with something like <a href="https://d1.awsstatic.com/Security/pdfs/Continuous_Formal_Verification_Of_Amazon_s2n.pdf">Amazon's s2n</a>, which does full formal verification. S2n is incredibly thorough but doesn't scale to large codebases - it's more like having a team of mathematicians prove your crypto library is correct rather than catching everyday bugs in your web app.
+</p>
+
+
+<div id="org334aaf7" class="figure">
+<p><img src="static/images/s2n-vs-infer.png" alt="s2n-vs-infer.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org23a9fbc" class="outline-2">
+<h2 id="org23a9fbc">Getting the Reporting Right</h2>
+<div class="outline-text-2" id="text-org23a9fbc">
+<p>
+One thing the paper emphasizes is that <b>when</b> and <b>what</b> you report matters a lot. They break down different reporting strategies:
+</p>
+
+<ul class="org-ul">
+<li><b>Lean</b> reporting: Only show new errors in changed files. This is Infer's default during code review. The philosophy is "Don't spam the developer" - if you didn't touch that code, you probably don't want to hear about its existing problems.</li>
+
+<li><b>Bulky</b> reporting: Show everything, including pre-existing issues. This can be overwhelming on legacy codebases but sometimes makes sense for certain bug types.</li>
+
+<li><b>Cautious</b> reporting: Used for periodic runs on the entire codebase. Companies like Coverity use this approach.</li>
+
+<li><b>Clean</b> reporting: Keep the codebase completely free of certain issues. This is what Amazon does with s2n, and what you'd typically see with type systems.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org90188da" class="outline-2">
+<h2 id="org90188da">The Bottom Line</h2>
+<div class="outline-text-2" id="text-org90188da">
+<p>
+Even though making automatic composability work is hard, the authors argue it's worth the effort because of how much better continuous analysis scales compared to traditional batch verification. Instead of formal methods being this academic thing that nobody uses, you can actually integrate them into real development workflows where they make a difference.
+</p>
+
+<p>
+The key insight is that the best analysis tool isn't necessarily the most sophisticated one - it's the one that developers will actually use and respond to.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: June 08, 2025</i></p>
+</div>
+</body>
+</html>
