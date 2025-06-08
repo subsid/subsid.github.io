@@ -24,6 +24,9 @@
   </nav>
 </div>")
 
+;; Javascript/CSS I include
+;; Minimal styling with simple.css
+;; Code highlighting and copy badge - highlight.js and highlighjs-copy
 (setq org-html-validation-link nil
       org-html-head-include-scripts nil
       org-html-head-include-default-style nil
