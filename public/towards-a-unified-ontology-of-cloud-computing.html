@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Towards a Unified Ontology of Cloud Computing</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" /><link rel="stylesheet" href="static/css/custom.css" /><script src="js/main.js"></script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="about.html">About</a>
+    <a href="articles.html">Articles</a>
+    <a href="snippets.html">Snippets</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">Towards a Unified Ontology of Cloud Computing</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc09e2fb">What These Guys Got Right</a></li>
+<li><a href="#org5367d51">Breaking Down the Layers</a>
+<ul>
+<li><a href="#orgbf6a023">Cloud Application Layer (aka SaaS)</a></li>
+<li><a href="#org2ce5e66">Cloud Software Infrastructure Layer (PaaS Territory)</a></li>
+<li><a href="#org7f58d93">Cloud Software Environment Layer (The Foundation)</a>
+<ul>
+<li><a href="#orgbf87160">1. Computational Resources (Good Old IaaS)</a></li>
+<li><a href="#orgc3e2a97">2. Data Storage</a></li>
+<li><a href="#org5d53247">3. Communication (The Sleeper Hit)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org9bb60d4">The Real Origin Story</a></li>
+<li><a href="#org1e5c68d">Still Fighting the Same Battles</a></li>
+<li><a href="#org102380b">Looking Back</a></li>
+</ul>
+</div>
+</div>
+<p>
+<a href="https://d1wqtxts1xzle7.cloudfront.net/96375996/Toward-a-Unified-Ontology-of-Cloud-Computing-libre.pdf?1672064428=&amp;response-content-disposition=inline%3B+filename%3DToward_a_Unified_Ontology_of_Cloud_Compu.pdf&amp;Expires=1749407301&amp;Signature=ARQF7Vx7NVaHgnwcJIUK1mLZfEwJeTjRP2exm-fKORFqa2aUiOWd8RvEAkAexNyvRMDME7xiqoxSWzA~3JzrmkYJg6haAjnYvhIdpSlCjskTnszljwvg5jbHbou3a-SNBXoYDqe0YSHOIweGLCguOlUrvPvvTe8Rswe3Lf41uod8GfmcG30DhQH~TASdCKf6fkAtU13x~tERmW87uNauOol-Z9u5vpFlGsmzxko3UhbakOYtOOGxXUI9Kx3bFBJwvoc0mmkweZO~6ldve3pWgdwURcNrLgfuBmMFn0bWy3af~oZBNZ~QqyNpP5QWNP9jLjO-ATeFgaIFEaLnOywezw__&amp;Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">Toward a Unified Ontology of Cloud Computing</a> by L. Youseff, M. Butrico, and D. Da Silva (2008 Grid Computing Environments Workshop, Austin, TX, pp. 1-10)
+</p>
+
+<p>
+This paper is one of the early (relatively) works that really nails down what cloud computing is all about. Back in 2008, AWS was barely a toddler - only a couple years in the market - and Google Cloud was just getting its feet wet. Looking back now, it's pretty wild how spot-on their classification was. This is basically how we still think about cloud services today.
+</p>
+<div id="outline-container-orgc09e2fb" class="outline-2">
+<h2 id="orgc09e2fb">What These Guys Got Right</h2>
+<div class="outline-text-2" id="text-orgc09e2fb">
+<blockquote>
+<p>
+Cloud Computing is one contemporary technology in which the research community has recently embarked. Manifesting itself as the descendant of several other computing research areas such as Service-Oriented Architecture, distributed and grid computing, and virtualization, cloud computing inherits their advancements and limitations.
+</p>
+</blockquote>
+
+<p>
+The authors kept it simple with two big ideas: <b>composability</b> and <b>layering</b>. Basically, bigger cloud components are built from smaller ones (borrowed from <a href="https://en.wikipedia.org/wiki/Service-oriented_architecture">SOA</a>), and each layer sits on top of the layer below it. Pretty straightforward, but it works.
+</p>
+
+
+<div id="orga37cdb5" class="figure">
+<p><img src="static/images/cloud-layers.png" alt="&quot;Cloud Computing Layers&quot;" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5367d51" class="outline-2">
+<h2 id="org5367d51">Breaking Down the Layers</h2>
+<div class="outline-text-2" id="text-org5367d51">
+</div>
+<div id="outline-container-orgbf6a023" class="outline-3">
+<h3 id="orgbf6a023">Cloud Application Layer (aka SaaS)</h3>
+<div class="outline-text-3" id="text-orgbf6a023">
+<p>
+The <b>Cloud Application Layer</b> is what regular people actually see when they use cloud stuff. This is <b><b>Software as a Service</b></b> - something we totally take for granted now. It's probably what kicked off the whole software startup boom. Think about it - suddenly you could get an app to market without worrying about installations, maintenance, or all the headaches that come with <b><b>on-prem</b></b> deployments.
+</p>
+
+<p>
+But even back then, they saw the problems coming:
+</p>
+
+<blockquote>
+<p>
+Despite all the advantageous benefits of this model, several deployment issues hinder its wide adoption. Specifically, the security and availability of cloud applications are two of the major issues in this model, and they are currently avoided by the use of lenient service level agreements (SLA)
+</p>
+</blockquote>
+
+<p>
+Honestly, we've come a <b>long</b> way since then. The whole ecosystem exploded with monitoring tools (<a href="https://prometheus.io/">Prometheus</a>, <a href="https://www.datadoghq.com/">Datadog</a>), containerization (<a href="https://www.docker.com">Docker</a>), orchestration (<a href="https://kubernetes.io/">K8s</a>), and solid <a href="https://en.wikipedia.org/wiki/Continuous_integration">CI</a>/<a href="https://en.wikipedia.org/wiki/Continuous_delivery">CD</a> pipelines (<a href="https://stackify.com/top-continuous-integration-tools/">Jenkins, TeamCity, Travis</a>). Most of those deployment nightmares? Pretty much solved.
+</p>
+</div>
+</div>
+<div id="outline-container-org2ce5e66" class="outline-3">
+<h3 id="org2ce5e66">Cloud Software Infrastructure Layer (PaaS Territory)</h3>
+<div class="outline-text-3" id="text-org2ce5e66">
+<p>
+This is what we'd call <a href="https://en.wikipedia.org/wiki/Platform_as_a_service">Platform as a Service</a> nowadays. It's all the developer tools and abstractions that make building SaaS apps way easier. The <a href="https://aws.amazon.com/cli/">AWS CLI</a> is a perfect example - you get APIs for scaling, load balancing, all that infrastructure stuff without having to think too hard about it.
+</p>
+
+<p>
+This layer is where most of the magic happens for developers. It's where all those nice abstractions live that make getting from code to production less painful. Of course, you can always skip this layer if you want more control (and more pain, let's be honest).
+</p>
+</div>
+</div>
+<div id="outline-container-org7f58d93" class="outline-3">
+<h3 id="org7f58d93">Cloud Software Environment Layer (The Foundation)</h3>
+<div class="outline-text-3" id="text-org7f58d93">
+<p>
+This is where things get interesting. The authors broke this down into three chunks:
+</p>
+</div>
+<div id="outline-container-orgbf87160" class="outline-4">
+<h4 id="orgbf87160">1. Computational Resources (Good Old IaaS)</h4>
+<div class="outline-text-4" id="text-orgbf87160">
+<p>
+<a href="https://en.wikipedia.org/wiki/Virtualization">Virtualization</a> is what makes this whole thing work. It's literally how cloud providers make money - they take expensive hardware and time-share it across a bunch of users. Amazon's EC2 is the poster child here.
+</p>
+
+<p>
+But here's where the authors got really smart about the problems:
+</p>
+
+<blockquote>
+<p>
+This was specifically enabled by two virtualization technologies: paravirtualization and hardware-assisted virtualization. Although both virtualization technologies have addressed performance isolation between virtual machines contending on common resources, performance interference between VMs sharing the same cache and TLB hierarchy cannot yet be avoided. Further, the emergence of multicore machines into mainstream servers exacerbate this performance interference problem. In turn, the lack of strict performance isolation between VMs sharing the same physical node has resulted in the inability of cloud providers to give strong guarantees for performance to their clients. Instead, they offer them unsatisfactory SLAs in order to provide competitive pricing for the service. Such weak guarantees, unfortunately, can inject themselves up the layers of the cloud stack, and affect the SLAs of the cloud systems built above the IaaS's SLAs.
+</p>
+</blockquote>
+
+<p>
+They basically predicted the "noisy neighbor" problem that still drives cloud engineers crazy today. Pretty impressive for 2008.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc3e2a97" class="outline-4">
+<h4 id="orgc3e2a97">2. Data Storage</h4>
+<div class="outline-text-4" id="text-orgc3e2a97">
+<p>
+Storage services like S3, RDS, and all their cousins. The authors didn't dive deep here, but this ended up being huge.
+</p>
+</div>
+</div>
+<div id="outline-container-org5d53247" class="outline-4">
+<h4 id="org5d53247">3. Communication (The Sleeper Hit)</h4>
+<div class="outline-text-4" id="text-org5d53247">
+<p>
+This is where things get really interesting. The authors were way ahead of their time on this one:
+</p>
+
+<blockquote>
+<p>
+Consequently, cloud systems are obliged to provide some communication capability that is service oriented, configurable, schedulable, predictable, and reliable. Towards this goal, the concept of Communication as a Service (CaaS) emerged to support such requirements, as well as network security, dynamic provisioning of virtual overlays for traffic isolation or dedicated bandwidth, guaranteed message delay, communication encryption, and network monitoring.
+</p>
+</blockquote>
+
+<p>
+They basically described what we'd later see with Kafka, Apache Flink, AWS Kinesis, SNS - all that messaging infrastructure stuff. Most of the innovation here has come from applications that developers deploy themselves, though we're starting to see more cloud-native options. I still think there's room for better application-independent communication services at this layer.
+</p>
+
+<p>
+The authors also mentioned <b>Software Kernel</b> and <b>Hardware/Firmware</b> layers, but those are mostly the cloud provider's problem, not ours.
+</p>
+
+
+<div id="orgdf59e40" class="figure">
+<p><img src="static/images/cloud-layers-table.png" alt="cloud-layers-table.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org9bb60d4" class="outline-2">
+<h2 id="org9bb60d4">The Real Origin Story</h2>
+<div class="outline-text-2" id="text-org9bb60d4">
+<p>
+Here's one of my favorite parts of the paper - they actually explain <b>why</b> cloud computing happened:
+</p>
+
+<blockquote>
+<p>
+Huge corporations, like Amazon and Google generally build their computing infrastructure to support the peak demand of their business. As the average demand of the system is however, several times smaller than the peak demand, their computing infrastructure is usually under-utilized and the cost of its operation constitutes an additional expense. In order to offset this extra expense, they have offered utilizing this surplus computing power as a service when it is not used by their business systems. Their offerings came at very attractive prices since they have deployed their systems at a large scale, and thus benefit from the economy-of-scale.
+</p>
+</blockquote>
+
+<p>
+This is the real origin story that everyone forgets. Cloud computing didn't start as some grand vision to transform how we build software. It started because Amazon and Google had a bunch of servers sitting around doing nothing most of the time, and they figured they might as well make some money off them.
+</p>
+</div>
+</div>
+<div id="outline-container-org1e5c68d" class="outline-2">
+<h2 id="org1e5c68d">Still Fighting the Same Battles</h2>
+<div class="outline-text-2" id="text-org1e5c68d">
+<p>
+The authors called out security and monitoring of large distributed services as the biggest challenges. Guess what? We're still dealing with these exact same problems 15+ years later. Some things never change.
+</p>
+</div>
+</div>
+<div id="outline-container-org102380b" class="outline-2">
+<h2 id="org102380b">Looking Back</h2>
+<div class="outline-text-2" id="text-org102380b">
+<p>
+Reading this paper now is pretty mind-blowing. These guys basically predicted the entire structure of modern cloud computing when AWS was still figuring out what it wanted to be. Their layered model became the industry standard, they spotted all the major challenges we'd face, and they understood that cloud wasn't just another tech trend - it was the natural evolution of a bunch of existing ideas coming together.
+</p>
+
+<p>
+The fact that their framework still makes sense today tells you they were onto something fundamental about how this stuff actually works.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: June 08, 2025</i></p>
+</div>
+</body>
+</html>
