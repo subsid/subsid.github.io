@@ -276,8 +276,13 @@
          :sitemap-title "All Articles (Private)"
          :sitemap-sort-files anti-chronologically
 	 :sitemap-format-entry (lambda (entry style project)
-                        ;; Include ALL files - no filtering
-                        (create-sitemap-entry-all entry project))
+                        ;; Include ALL files - no filtering, but exclude sitemap files
+                        (let ((filename (file-name-nondirectory entry)))
+                          (unless (or (string= filename "snippets.org")
+                                     (string= filename "articles.org")
+                                     (string= filename "archive.org")
+                                     (string= filename "all-articles.org"))
+                            (create-sitemap-entry-all entry project))))
 	 :sitemap-function (lambda (title list)
 			     (concat "#+TITLE: " title "\n\n"
 				     "All articles and notes (private export).\n\n"
