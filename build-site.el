@@ -24,6 +24,17 @@
   </nav>
 </div>")
 
+;; Define the preamble as a variable
+(defvar my-private-site-preamble 
+  "<div class=\"site-header\">
+  <nav class=\"site-nav\">
+    <a href=\"about.html\">About</a>
+    <a href=\"articles.html\">Articles</a>
+    <a href=\"snippets.html\">Snippets</a>
+    <a href=\"all-articles.html\">All Articles (Private)</a>
+  </nav>
+</div>")
+
 ;; Javascript/CSS I include
 ;; Minimal styling with simple.css
 ;; Code highlighting and copy badge - highlight.js and highlighjs-copy
@@ -244,6 +255,15 @@
 	 :publishing-directory "./private"
 	 :publishing-function my-publish-all-html
          :html-metadata-timestamp-format "%B %d, %Y"
+   :html-preamble t
+	 :html-preamble-format (("en" "<div class=\"site-header\">
+  <nav class=\"site-nav\">
+    <a href=\"about.html\">About</a>
+    <a href=\"articles.html\">Articles</a>
+    <a href=\"snippets.html\">Snippets</a>
+    <a href=\"all-articles.html\">All Articles (Private)</a>
+  </nav>
+</div>"))
 	 :html-postamble t
 	 :html-postamble-format (("en" "<p class=\"date\"><i>Last Modified: %C</i></p>"))
 	 :with-author nil
@@ -334,7 +354,7 @@
         <p>Redirecting to <a href=\"all-articles.html\">all articles</a>...</p>
     </main>
 </body>
-</html>" my-site-preamble)))
+</html>" my-private-site-preamble)))
     (with-temp-file "./private/index.html"
       (insert index-content))))
 
