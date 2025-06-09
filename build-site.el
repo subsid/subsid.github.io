@@ -69,6 +69,24 @@
                                 plist)))
             (org-html-publish-to-html export-plist filename pub-dir)))))))
 
+;; NEW: Function to publish ALL files without filtering
+(defun my-publish-all-html (plist filename pub-dir)
+  "Publish ALL org files to HTML without any tag filtering.
+   Remove title from export if 'notitle' tag is present."
+  (message "Exporting to private blog %s" filename)
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (goto-char (point-min))
+    ;; Check for notitle tag
+    (let ((has-notitle-tag (re-search-forward "^#\\+TAGS:.*notitle" nil t))
+          (message-log-max nil)
+          (inhibit-message t))
+      ;; Modify plist to exclude title if notitle tag is present
+      (let ((export-plist (if has-notitle-tag
+                              (plist-put (copy-sequence plist) :with-title nil)
+                            plist)))
+        (org-html-publish-to-html export-plist filename pub-dir)))))
+
 (defun has-tag-p (file-path tag)
   "Check if file has a specific tag."
   (with-temp-buffer
@@ -79,6 +97,28 @@
 
 (defun create-sitemap-entry (entry project)
   "Create a sitemap entry for a file."
+  (let* ((date (org-publish-find-date entry project))
+         (title (org-publish-find-title entry project))
+         (date-str (if date
+                      (format-time-string "%Y-%m-%d" date)
+                    "No Date"))
+         ;; Get the actual published filename
+         (published-filename 
+          (with-temp-buffer
+            (insert-file-contents (expand-file-name entry 
+                                                   (plist-get (cdr project) :base-directory)))
+            (goto-char (point-min))
+            (if (re-search-forward "^#\\+EXPORT_FILE_NAME:[ \t]*\\(.*\\)" nil t)
+                (concat (match-string 1) ".html")
+              (concat (file-name-sans-extension entry) ".html")))))
+    (format "[[file:%s][%s]] /%s/"
+            published-filename
+            title
+            date-str)))
+
+;; NEW: Function to create sitemap entry for ALL files
+(defun create-sitemap-entry-all (entry project)
+  "Create a sitemap entry for ANY file (no filtering)."
   (let* ((date (org-publish-find-date entry project))
          (title (org-publish-find-title entry project))
          (date-str (if date
@@ -196,6 +236,42 @@
 							(cdr list))))))
 	 )
 
+	;; NEW: Private blog project that exports ALL files
+	("my-private-blog-content"
+	 :recursive t
+	 :base-directory "~/Dropbox/notes/org_roam_v2/pages/article"
+	 :base-extension "org"
+	 :publishing-directory "./private"
+	 :publishing-function my-publish-all-html
+         :html-metadata-timestamp-format "%B %d, %Y"
+	 :html-postamble t
+	 :html-postamble-format (("en" "<p class=\"date\"><i>Last Modified: %C</i></p>"))
+	 :with-author nil
+	 :with-creator t
+	 :with-toc t
+	 :section-numbers nil
+	 :time-stamp-file nil
+	 :auto-sitemap t
+         :sitemap-filename "all-articles.org"
+         :sitemap-title "All Articles (Private)"
+         :sitemap-sort-files anti-chronologically
+	 :sitemap-format-entry (lambda (entry style project)
+                        ;; Include ALL files - no filtering
+                        (create-sitemap-entry-all entry project))
+	 :sitemap-function (lambda (title list)
+			     (concat "#+TITLE: " title "\n\n"
+				     "All articles and notes (private export).\n\n"
+				     (org-list-to-org
+				      (cons (car list)  ; Keep list type
+					    (seq-filter (lambda (item)
+							  ;; Filter out nil items and lists containing only nil
+							  (and item 
+							       (not (and (listp item) 
+									 (= (length item) 1) 
+									 (null (car item))))))
+							(cdr list))))))
+	 )
+
 	("my-org-static"
 	 :base-directory "./content"
 	 :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
@@ -204,7 +280,17 @@
 	 :publishing-function org-publish-attachment
 	 )
 
+	;; NEW: Static files for private blog
+	("my-private-blog-static"
+	 :base-directory "./content"
+	 :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	 :publishing-directory "./private"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	 )
+
 	("my-org-blog" :components ("my-org-static" "my-org-content" "my-org-snippets"))
+	("my-private-blog" :components ("my-private-blog-static" "my-private-blog-content"))
 	)
       )
 
@@ -230,6 +316,28 @@
     (with-temp-file "./public/index.html"
       (insert index-content))))
 
+;; NEW: Create index redirect for private blog
+(defun create-private-index-redirect ()
+  "Create an index.html for private blog that redirects to all-articles.html"
+  (let ((index-content (format "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta http-equiv=\"refresh\" content=\"0; url=all-articles.html\">
+    <title>Redirecting...</title>
+    <link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
+    <link rel=\"stylesheet\" href=\"static/css/custom.css\" />
+</head>
+<body>
+    %s
+    <main>
+        <p>Redirecting to <a href=\"all-articles.html\">all articles</a>...</p>
+    </main>
+</body>
+</html>" my-site-preamble)))
+    (with-temp-file "./private/index.html"
+      (insert index-content))))
+
 ;; ;; I did not write this , i found it from a stackoverflow post but i am unable to find a link to it
  (defun my/org-html-src-block (html)
   "Modify the output of org-html-src-block for highlight.js"
@@ -245,4 +353,9 @@
 ;; Generate the site output
 (org-publish-project "my-org-blog" t)
 (create-index-redirect)
-(message "Build complete")
+
+;; NEW: Generate the private blog
+(org-publish-project "my-private-blog" t)
+(create-private-index-redirect)
+
+(message "Build complete - both public and private blogs generated")
