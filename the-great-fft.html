@@ -72,8 +72,8 @@
 <li><a href="#org5353606">Polynomials</a></li>
 <li><a href="#org3cb1344">Representing Polynomials</a>
 <ul>
-<li><a href="#orgb682a25">Coefficient Representation</a></li>
-<li><a href="#org3f21461">Point-Value Representation</a></li>
+<li><a href="#orgb0cc9d7">Coefficient Representation</a></li>
+<li><a href="#orgd5e9513">Point-Value Representation</a></li>
 </ul>
 </li>
 <li><a href="#org146c5e8">Operations on Polynomials</a>
@@ -85,8 +85,8 @@
 </li>
 <li><a href="#orgc2055a7">Complexity Analysis</a>
 <ul>
-<li><a href="#org680e31f">Coefficient Representation</a></li>
-<li><a href="#org847a0bc">Point-Value Representation</a></li>
+<li><a href="#org705fee6">Coefficient Representation</a></li>
+<li><a href="#org3db8baf">Point-Value Representation</a></li>
 <li><a href="#orgcfa6e9c">Summary</a></li>
 </ul>
 </li>
@@ -143,9 +143,9 @@ where \(a_i\) are coefficients (typically real numbers) and \(x\) is a variable.
 How can we represent polynomials in a computer? There are two fundamental approaches:
 </p>
 </div>
-<div id="outline-container-orgb682a25" class="outline-3">
-<h3 id="orgb682a25">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-orgb682a25">
+<div id="outline-container-orgb0cc9d7" class="outline-3">
+<h3 id="orgb0cc9d7">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-orgb0cc9d7">
 <p>
 \[ (a_0, a_1, a_2, \ldots, a_{n-1}) \]
 </p>
@@ -155,9 +155,9 @@ Simple—it's just a vector of numbers! This representation handles any one-dime
 </p>
 </div>
 </div>
-<div id="outline-container-org3f21461" class="outline-3">
-<h3 id="org3f21461">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-org3f21461">
+<div id="outline-container-orgd5e9513" class="outline-3">
+<h3 id="orgd5e9513">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-orgd5e9513">
 <p>
 \[(x_0, y_0), (x_1, y_1), (x_2, y_2), \ldots, (x_{n-1}, y_{n-1})\]
 </p>
@@ -217,9 +217,9 @@ Given polynomials \(p(x)\) and \(q(x)\), find polynomial \(r = p \cdot q\) such 
 Let's analyze the time complexity for each representation:
 </p>
 </div>
-<div id="outline-container-org680e31f" class="outline-3">
-<h3 id="org680e31f">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-org680e31f">
+<div id="outline-container-org705fee6" class="outline-3">
+<h3 id="org705fee6">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-org705fee6">
 <p>
 <b>Evaluation</b>: Simple loop achieves \(O(n)\) operations (can be optimized further with <a href="https://en.wikipedia.org/wiki/Horner%27s_method">Horner's method</a>).
 </p>
@@ -233,9 +233,9 @@ Let's analyze the time complexity for each representation:
 </p>
 </div>
 </div>
-<div id="outline-container-org847a0bc" class="outline-3">
-<h3 id="org847a0bc">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-org847a0bc">
+<div id="outline-container-org3db8baf" class="outline-3">
+<h3 id="org3db8baf">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-org3db8baf">
 <p>
 <b>Addition</b>: Given polynomials \((x_i, y_i)\) and \((x_i, z_i)\), simply compute \((x_i, y_i + z_i)\). This takes \(O(n)\) operations.
 </p>
@@ -444,7 +444,7 @@ Think of complex numbers as rotations in the plane. The key insight from <a href
 </p>
 
 
-<div id="org00b6bed" class="figure">
+<div id="orgc9c36bb" class="figure">
 <p><img src="https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png" alt="&quot;Comple Numbers as Rotations&quot;" />
 </p>
 </div>
