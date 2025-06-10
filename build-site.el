@@ -31,7 +31,7 @@
     <a href=\"about.html\">About</a>
     <a href=\"articles.html\">Articles</a>
     <a href=\"snippets.html\">Snippets</a>
-    <a href=\"all-articles.html\">All Articles (Private)</a>
+    <a href=\"private.html\">Unpublished/Private</a>
   </nav>
 </div>")
 
@@ -247,55 +247,77 @@
 							(cdr list))))))
 	 )
 
-	;; NEW: Private blog project that exports ALL files
-	("my-private-blog-content"
-	 :recursive t
-	 :base-directory "~/Dropbox/notes/org_roam_v2/pages/article"
-	 :base-extension "org"
-	 :publishing-directory "./private"
-	 :publishing-function my-publish-all-html
-         :html-metadata-timestamp-format "%B %d, %Y"
+  ;; NEW: Private blog project that exports ALL files but sitemap excludes published ones
+  ("my-private-blog-content"
+   :recursive t
+   :base-directory "~/Dropbox/notes/org_roam_v2/pages/article"
+   :base-extension "org"
+   :publishing-directory "./private"
+   :publishing-function my-publish-all-html
+   :html-metadata-timestamp-format "%B %d, %Y"
    :html-preamble t
-	 :html-preamble-format (("en" "<div class=\"site-header\">
-  <nav class=\"site-nav\">
-    <a href=\"about.html\">About</a>
-    <a href=\"articles.html\">Articles</a>
-    <a href=\"snippets.html\">Snippets</a>
-    <a href=\"all-articles.html\">All Articles (Private)</a>
-  </nav>
-</div>"))
-	 :html-postamble t
-	 :html-postamble-format (("en" "<p class=\"date\"><i>Last Modified: %C</i></p>"))
-	 :with-author nil
-	 :with-creator t
-	 :with-toc t
-	 :section-numbers nil
-	 :time-stamp-file nil
-	 :auto-sitemap t
-         :sitemap-filename "all-articles.org"
-         :sitemap-title "All Articles (Private)"
-         :sitemap-sort-files anti-chronologically
-	 :sitemap-format-entry (lambda (entry style project)
-                        ;; Include ALL files - no filtering, but exclude sitemap files
-                        (let ((filename (file-name-nondirectory entry)))
-                          (unless (or (string= filename "snippets.org")
-                                     (string= filename "articles.org")
-                                     (string= filename "archive.org")
-                                     (string= filename "all-articles.org"))
-                            (create-sitemap-entry-all entry project))))
-	 :sitemap-function (lambda (title list)
-			     (concat "#+TITLE: " title "\n\n"
-				     "All articles and notes (private export).\n\n"
-				     (org-list-to-org
-				      (cons (car list)  ; Keep list type
-					    (seq-filter (lambda (item)
-							  ;; Filter out nil items and lists containing only nil
-							  (and item 
-							       (not (and (listp item) 
-									 (= (length item) 1) 
-									 (null (car item))))))
-							(cdr list))))))
-	 )
+   :html-preamble-format (("en" "<div class=\"site-header\">
+    <nav class=\"site-nav\">
+      <a href=\"about.html\">About</a>
+      <a href=\"articles.html\">Articles</a>
+      <a href=\"snippets.html\">Snippets</a>
+      <a href=\"private.html\">Private Articles</a>
+    </nav>
+  </div>"))
+   :html-postamble t
+   :html-postamble-format (("en" "<p class=\"date\"><i>Last Modified: %C</i></p>"))
+   :with-author nil
+   :with-creator t
+   :with-toc t
+   :section-numbers nil
+   :time-stamp-file nil
+   :auto-sitemap t
+   :sitemap-filename "private.org"
+   :sitemap-title "Private Articles"
+   :sitemap-sort-files anti-chronologically
+   :sitemap-format-entry (lambda (entry style project)
+                      ;; Only include files that are NOT published in public blog
+                      (let ((filename (file-name-nondirectory entry)))
+                        ;; Exclude sitemap files themselves
+                        (unless (or (string= filename "snippets.org")
+                                   (string= filename "articles.org")
+                                   (string= filename "archive.org")
+                                   (string= filename "private.org"))
+                          (let ((file-path (expand-file-name entry 
+                                                            (plist-get (cdr project) :base-directory))))
+                            (let ((file-info
+                                   (with-temp-buffer
+                                     (insert-file-contents file-path)
+                                     (let ((content (buffer-string)))
+                                       (list (string-match-p "^#\\+TAGS:.*publish" content)
+                                             (string-match-p "^#\\+TAGS:.*sitemapignore" content)
+                                             (string-match-p "^#\\+TAGS:.*snippet" content))))))
+                              ;; Include files that either:
+                              ;; 1. Don't have publish tag (unpublished)
+                              ;; 2. Have sitemapignore tag (excluded from public sitemaps)
+                              ;; But exclude files that would appear in public articles or snippets
+                              (let ((has-publish (car file-info))
+                                    (has-sitemapignore (cadr file-info))
+                                    (has-snippet (caddr file-info)))
+                                (when (and 
+                                       ;; Don't include files that appear in public articles sitemap
+                                       (not (and has-publish (not has-sitemapignore) (not has-snippet)))
+                                       ;; Don't include files that appear in public snippets sitemap  
+                                       (not (and has-publish (not has-sitemapignore) has-snippet)))
+                                  (create-sitemap-entry-all entry project))))))))
+   :sitemap-function (lambda (title list)
+           (concat "#+TITLE: " title "\n\n"
+             "Articles not published on the public blog.\n\n"
+             (org-list-to-org
+              (cons (car list)  ; Keep list type
+              (seq-filter (lambda (item)
+                ;; Filter out nil items and lists containing only nil
+                (and item 
+                     (not (and (listp item) 
+                   (= (length item) 1) 
+                   (null (car item))))))
+              (cdr list))))))
+   )
 
 	("my-org-static"
 	 :base-directory "./content"
@@ -343,12 +365,12 @@
 
 ;; NEW: Create index redirect for private blog
 (defun create-private-index-redirect ()
-  "Create an index.html for private blog that redirects to all-articles.html"
+  "Create an index.html for private blog that redirects to private.html"
   (let ((index-content (format "<!DOCTYPE html>
 <html lang=\"en\">
 <head>
     <meta charset=\"UTF-8\">
-    <meta http-equiv=\"refresh\" content=\"0; url=all-articles.html\">
+    <meta http-equiv=\"refresh\" content=\"0; url=private.html\">
     <title>Redirecting...</title>
     <link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
     <link rel=\"stylesheet\" href=\"static/css/custom.css\" />
@@ -356,7 +378,7 @@
 <body>
     %s
     <main>
-        <p>Redirecting to <a href=\"all-articles.html\">all articles</a>...</p>
+        <p>Redirecting to <a href=\"private.html\">all articles</a>...</p>
     </main>
 </body>
 </html>" my-private-site-preamble)))
