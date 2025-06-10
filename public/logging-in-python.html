@@ -37,10 +37,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc839e68">A Better Setup</a></li>
-<li><a href="#orge4abc33">Why Split stdout and stderr?</a></li>
-<li><a href="#org2ef4cc7">For Notebooks and Remote Sessions</a></li>
-<li><a href="#org051aed6">Seeing It in Action</a></li>
+<li><a href="#orgcf897d3">A Better Setup</a></li>
+<li><a href="#orgcfcd105">Why Split stdout and stderr?</a></li>
+<li><a href="#org24794c8">For Notebooks and Remote Sessions</a></li>
+<li><a href="#orgca1a989">Seeing It in Action</a></li>
 </ul>
 </div>
 </div>
@@ -61,9 +61,9 @@ Yep, it prints nothing.
 <p>
 Sure, there's `logging.basicConfig()` which sorta works (it dumps everything to stderr), but honestly, I'd rather set this up properly myself.
 </p>
-<div id="outline-container-orgc839e68" class="outline-2">
-<h2 id="orgc839e68">A Better Setup</h2>
-<div class="outline-text-2" id="text-orgc839e68">
+<div id="outline-container-orgcf897d3" class="outline-2">
+<h2 id="orgcf897d3">A Better Setup</h2>
+<div class="outline-text-2" id="text-orgcf897d3">
 <p>
 Here's my go-to logging setup that actually makes sense. It sends info logs to stdout and error logs to stderr, plus adds decent formatting so you can actually read the output:
 </p>
@@ -99,17 +99,17 @@ Here's my go-to logging setup that actually makes sense. It sends info logs to s
 </div>
 </div>
 </div>
-<div id="outline-container-orge4abc33" class="outline-2">
-<h2 id="orge4abc33">Why Split stdout and stderr?</h2>
-<div class="outline-text-2" id="text-orge4abc33">
+<div id="outline-container-orgcfcd105" class="outline-2">
+<h2 id="orgcfcd105">Why Split stdout and stderr?</h2>
+<div class="outline-text-2" id="text-orgcfcd105">
 <p>
 The key thing here is separating error logs from info logs using filters. Without this, log aggregators (looking at you, Google Stackdriver) get confused and treat Python error logs the same as info logs. I've been burned by this more times than I care to admit.
 </p>
 </div>
 </div>
-<div id="outline-container-org2ef4cc7" class="outline-2">
-<h2 id="org2ef4cc7">For Notebooks and Remote Sessions</h2>
-<div class="outline-text-2" id="text-org2ef4cc7">
+<div id="outline-container-org24794c8" class="outline-2">
+<h2 id="org24794c8">For Notebooks and Remote Sessions</h2>
+<div class="outline-text-2" id="text-org24794c8">
 <p>
 When I'm working in Jupyter notebooks or remote sessions, I prefer logging to files instead of relying on the session staying alive:
 </p>
@@ -136,9 +136,9 @@ When I'm working in Jupyter notebooks or remote sessions, I prefer logging to fi
 </div>
 </div>
 </div>
-<div id="outline-container-org051aed6" class="outline-2">
-<h2 id="org051aed6">Seeing It in Action</h2>
-<div class="outline-text-2" id="text-org051aed6">
+<div id="outline-container-orgca1a989" class="outline-2">
+<h2 id="orgca1a989">Seeing It in Action</h2>
+<div class="outline-text-2" id="text-orgca1a989">
 <p>
 Here's what this actually looks like when you run it:
 </p>

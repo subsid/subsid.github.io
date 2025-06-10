@@ -37,12 +37,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge2cdfb0">The Big Idea</a></li>
-<li><a href="#org657af5f">How They Made It Fast: Automatic Composability</a></li>
-<li><a href="#orgf138940">The ROFL Episode (Yes, That's What They Called It)</a></li>
-<li><a href="#orgea2fbb5">Contrast with Traditional Approaches</a></li>
-<li><a href="#org23a9fbc">Getting the Reporting Right</a></li>
-<li><a href="#org90188da">The Bottom Line</a></li>
+<li><a href="#org6d780ae">The Big Idea</a></li>
+<li><a href="#org57af0b9">How They Made It Fast: Automatic Composability</a></li>
+<li><a href="#org8509103">The ROFL Episode (Yes, That's What They Called It)</a></li>
+<li><a href="#orgfdce346">Contrast with Traditional Approaches</a></li>
+<li><a href="#org6f0f99e">Getting the Reporting Right</a></li>
+<li><a href="#org4fae4ac">The Bottom Line</a></li>
 </ul>
 </div>
 </div>
@@ -53,9 +53,9 @@
 <p>
 This paper is all about <a href="https://github.com/facebook/infer">Infer</a>, Facebook's <a href="https://en.wikipedia.org/wiki/Static_program_analysis">static analysis</a> tool, and how they managed to make formal program analysis actually useful in the real world. The secret sauce? Something called continuous reasoning.
 </p>
-<div id="outline-container-orge2cdfb0" class="outline-2">
-<h2 id="orge2cdfb0">The Big Idea</h2>
-<div class="outline-text-2" id="text-orge2cdfb0">
+<div id="outline-container-org6d780ae" class="outline-2">
+<h2 id="org6d780ae">The Big Idea</h2>
+<div class="outline-text-2" id="text-org6d780ae">
 <p>
 The core insight here is pretty simple: instead of running massive formal verification tools that take forever and annoy everyone, why not integrate lightweight analysis directly into the development workflow? You know, where developers actually live - in code reviews, CI/CD pipelines, and all that.
 </p>
@@ -65,9 +65,9 @@ Infer analyzes C, C++, Java, and Objective-C code (it's written in OCaml, if you
 </p>
 </div>
 </div>
-<div id="outline-container-org657af5f" class="outline-2">
-<h2 id="org657af5f">How They Made It Fast: Automatic Composability</h2>
-<div class="outline-text-2" id="text-org657af5f">
+<div id="outline-container-org57af0b9" class="outline-2">
+<h2 id="org57af0b9">How They Made It Fast: Automatic Composability</h2>
+<div class="outline-text-2" id="text-org57af0b9">
 <p>
 The reason Infer doesn't crawl to a halt on large codebases is something called <b>Automatic Composability</b>. Here's how the authors explain it:
 </p>
@@ -93,9 +93,9 @@ Basically, instead of needing to understand your entire program at once, Infer c
 </p>
 </div>
 </div>
-<div id="outline-container-orgf138940" class="outline-2">
-<h2 id="orgf138940">The ROFL Episode (Yes, That's What They Called It)</h2>
-<div class="outline-text-2" id="text-orgf138940">
+<div id="outline-container-org8509103" class="outline-2">
+<h2 id="org8509103">The ROFL Episode (Yes, That's What They Called It)</h2>
+<div class="outline-text-2" id="text-org8509103">
 <p>
 Here's my favorite part of the paper. Facebook initially deployed an earlier version of Infer as a batch job that ran overnight and dumped a bunch of bug reports. They called this <b>*ROFL (Report Only Failure List)</b>
 </p>
@@ -118,23 +118,23 @@ The impact was huge once they got this right - tens of thousands of bugs reporte
 </p>
 </div>
 </div>
-<div id="outline-container-orgea2fbb5" class="outline-2">
-<h2 id="orgea2fbb5">Contrast with Traditional Approaches</h2>
-<div class="outline-text-2" id="text-orgea2fbb5">
+<div id="outline-container-orgfdce346" class="outline-2">
+<h2 id="orgfdce346">Contrast with Traditional Approaches</h2>
+<div class="outline-text-2" id="text-orgfdce346">
 <p>
 The paper contrasts Infer with something like <a href="https://d1.awsstatic.com/Security/pdfs/Continuous_Formal_Verification_Of_Amazon_s2n.pdf">Amazon's s2n</a>, which does full formal verification. S2n is incredibly thorough but doesn't scale to large codebases - it's more like having a team of mathematicians prove your crypto library is correct rather than catching everyday bugs in your web app.
 </p>
 
 
-<div id="orgc975a72" class="figure">
+<div id="org8b815d9" class="figure">
 <p><img src="static/images/s2n-vs-infer.png" alt="s2n-vs-infer.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org23a9fbc" class="outline-2">
-<h2 id="org23a9fbc">Getting the Reporting Right</h2>
-<div class="outline-text-2" id="text-org23a9fbc">
+<div id="outline-container-org6f0f99e" class="outline-2">
+<h2 id="org6f0f99e">Getting the Reporting Right</h2>
+<div class="outline-text-2" id="text-org6f0f99e">
 <p>
 One thing the paper emphasizes is that <b>when</b> and <b>what</b> you report matters a lot. They break down different reporting strategies:
 </p>
@@ -150,9 +150,9 @@ One thing the paper emphasizes is that <b>when</b> and <b>what</b> you report ma
 </ul>
 </div>
 </div>
-<div id="outline-container-org90188da" class="outline-2">
-<h2 id="org90188da">The Bottom Line</h2>
-<div class="outline-text-2" id="text-org90188da">
+<div id="outline-container-org4fae4ac" class="outline-2">
+<h2 id="org4fae4ac">The Bottom Line</h2>
+<div class="outline-text-2" id="text-org4fae4ac">
 <p>
 Even though making automatic composability work is hard, the authors argue it's worth the effort because of how much better continuous analysis scales compared to traditional batch verification. Instead of formal methods being this academic thing that nobody uses, you can actually integrate them into real development workflows where they make a difference.
 </p>

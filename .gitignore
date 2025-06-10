@@ -2,6 +2,7 @@ _site/*
 .DS_Store
 
 node_modules/
+content/unpublished
 private/
 package-lock.json
 .hugo_build.lock

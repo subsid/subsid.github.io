@@ -320,7 +320,7 @@
    )
 
 	("my-org-static"
-	 :base-directory "./content"
+	 :base-directory "./content/published"
 	 :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	 :publishing-directory "./public"
 	 :recursive t
@@ -329,15 +329,23 @@
 
 	;; NEW: Static files for private blog
 	("my-private-blog-static"
-	 :base-directory "./content"
+	 :base-directory "./content/published"
 	 :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	 :publishing-directory "./private"
 	 :recursive t
 	 :publishing-function org-publish-attachment
 	 )
 
+	("my-private-unpublished-static"
+	 :base-directory "./content/unpublished"
+	 :base-extension "css\\|js\\|png\\|jpg\\|jpeg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	 :publishing-directory "./private"
+	 :recursive t
+	 :publishing-function org-publish-attachment
+	)
+
 	("my-org-blog" :components ("my-org-static" "my-org-content" "my-org-snippets"))
-	("my-private-blog" :components ("my-private-blog-static" "my-private-blog-content"))
+	("my-private-blog" :components ("my-private-unpublished-static" "my-private-blog-static" "my-private-blog-content"))
 	)
       )
 
@@ -396,6 +404,10 @@
     html)))
 
 (advice-add 'org-html-src-block :filter-return #'my/org-html-src-block)
+;; Clear the org-publish cache to avoid cache errors
+(setq org-publish-cache nil)
+(when (file-exists-p org-publish-timestamp-directory)
+  (delete-directory org-publish-timestamp-directory t))
 
 ;; Generate the site output
 (org-publish-project "my-org-blog" t)
