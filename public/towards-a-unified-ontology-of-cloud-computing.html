@@ -26,8 +26,7 @@
 <div class="site-header">
   <nav class="site-nav">
     <a href="about.html">About</a>
-    <a href="articles.html">Articles</a>
-    <a href="snippets.html">Snippets</a>
+    <a href="notes.html">Notes</a>
   </nav>
 </div>
 </div>
@@ -37,23 +36,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org709a9ae">What These Guys Got Right</a></li>
-<li><a href="#org613e86a">Breaking Down the Layers</a>
+<li><a href="#org7353396">What These Guys Got Right</a></li>
+<li><a href="#orgc581189">Breaking Down the Layers</a>
 <ul>
-<li><a href="#orge223113">Cloud Application Layer (aka SaaS)</a></li>
-<li><a href="#orgd34ddcc">Cloud Software Infrastructure Layer (PaaS Territory)</a></li>
-<li><a href="#org524dacf">Cloud Software Environment Layer (The Foundation)</a>
+<li><a href="#org10fd4a6">Cloud Application Layer (aka SaaS)</a></li>
+<li><a href="#orgf1bcf8e">Cloud Software Infrastructure Layer (PaaS Territory)</a></li>
+<li><a href="#org0fccda1">Cloud Software Environment Layer (The Foundation)</a>
 <ul>
-<li><a href="#org174b171">1. Computational Resources (Good Old IaaS)</a></li>
-<li><a href="#org5743b1a">2. Data Storage</a></li>
-<li><a href="#org24bb5ba">3. Communication (The Sleeper Hit)</a></li>
+<li><a href="#org0345197">1. Computational Resources (Good Old IaaS)</a></li>
+<li><a href="#orgeb761d9">2. Data Storage</a></li>
+<li><a href="#org0ee2f42">3. Communication (The Sleeper Hit)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org51e70ab">The Real Origin Story</a></li>
-<li><a href="#org6cf583c">Still Fighting the Same Battles</a></li>
-<li><a href="#org1abcbb6">Looking Back</a></li>
+<li><a href="#org3223598">The Real Origin Story</a></li>
+<li><a href="#orge0d026f">Still Fighting the Same Battles</a></li>
+<li><a href="#org0855de3">Looking Back</a></li>
 </ul>
 </div>
 </div>
@@ -64,9 +63,9 @@
 <p>
 This paper is one of the early (relatively) works that really nails down what cloud computing is all about. Back in 2008, AWS was barely a toddler - only a couple years in the market - and Google Cloud was just getting its feet wet. Looking back now, it's pretty wild how spot-on their classification was. This is basically how we still think about cloud services today.
 </p>
-<div id="outline-container-org709a9ae" class="outline-2">
-<h2 id="org709a9ae">What These Guys Got Right</h2>
-<div class="outline-text-2" id="text-org709a9ae">
+<div id="outline-container-org7353396" class="outline-2">
+<h2 id="org7353396">What These Guys Got Right</h2>
+<div class="outline-text-2" id="text-org7353396">
 <blockquote>
 <p>
 Cloud Computing is one contemporary technology in which the research community has recently embarked. Manifesting itself as the descendant of several other computing research areas such as Service-Oriented Architecture, distributed and grid computing, and virtualization, cloud computing inherits their advancements and limitations.
@@ -78,19 +77,19 @@ The authors kept it simple with two big ideas: <b>composability</b> and <b>layer
 </p>
 
 
-<div id="org2ad5bd0" class="figure">
+<div id="org08aea70" class="figure">
 <p><img src="static/images/cloud-layers.png" alt="&quot;Cloud Computing Layers&quot;" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org613e86a" class="outline-2">
-<h2 id="org613e86a">Breaking Down the Layers</h2>
-<div class="outline-text-2" id="text-org613e86a">
+<div id="outline-container-orgc581189" class="outline-2">
+<h2 id="orgc581189">Breaking Down the Layers</h2>
+<div class="outline-text-2" id="text-orgc581189">
 </div>
-<div id="outline-container-orge223113" class="outline-3">
-<h3 id="orge223113">Cloud Application Layer (aka SaaS)</h3>
-<div class="outline-text-3" id="text-orge223113">
+<div id="outline-container-org10fd4a6" class="outline-3">
+<h3 id="org10fd4a6">Cloud Application Layer (aka SaaS)</h3>
+<div class="outline-text-3" id="text-org10fd4a6">
 <p>
 The <b>Cloud Application Layer</b> is what regular people actually see when they use cloud stuff. This is <b><b>Software as a Service</b></b> - something we totally take for granted now. It's probably what kicked off the whole software startup boom. Think about it - suddenly you could get an app to market without worrying about installations, maintenance, or all the headaches that come with <b><b>on-prem</b></b> deployments.
 </p>
@@ -110,9 +109,9 @@ Honestly, we've come a <b>long</b> way since then. The whole ecosystem exploded 
 </p>
 </div>
 </div>
-<div id="outline-container-orgd34ddcc" class="outline-3">
-<h3 id="orgd34ddcc">Cloud Software Infrastructure Layer (PaaS Territory)</h3>
-<div class="outline-text-3" id="text-orgd34ddcc">
+<div id="outline-container-orgf1bcf8e" class="outline-3">
+<h3 id="orgf1bcf8e">Cloud Software Infrastructure Layer (PaaS Territory)</h3>
+<div class="outline-text-3" id="text-orgf1bcf8e">
 <p>
 This is what we'd call <a href="https://en.wikipedia.org/wiki/Platform_as_a_service">Platform as a Service</a> nowadays. It's all the developer tools and abstractions that make building SaaS apps way easier. The <a href="https://aws.amazon.com/cli/">AWS CLI</a> is a perfect example - you get APIs for scaling, load balancing, all that infrastructure stuff without having to think too hard about it.
 </p>
@@ -122,16 +121,16 @@ This layer is where most of the magic happens for developers. It's where all tho
 </p>
 </div>
 </div>
-<div id="outline-container-org524dacf" class="outline-3">
-<h3 id="org524dacf">Cloud Software Environment Layer (The Foundation)</h3>
-<div class="outline-text-3" id="text-org524dacf">
+<div id="outline-container-org0fccda1" class="outline-3">
+<h3 id="org0fccda1">Cloud Software Environment Layer (The Foundation)</h3>
+<div class="outline-text-3" id="text-org0fccda1">
 <p>
 This is where things get interesting. The authors broke this down into three chunks:
 </p>
 </div>
-<div id="outline-container-org174b171" class="outline-4">
-<h4 id="org174b171">1. Computational Resources (Good Old IaaS)</h4>
-<div class="outline-text-4" id="text-org174b171">
+<div id="outline-container-org0345197" class="outline-4">
+<h4 id="org0345197">1. Computational Resources (Good Old IaaS)</h4>
+<div class="outline-text-4" id="text-org0345197">
 <p>
 <a href="https://en.wikipedia.org/wiki/Virtualization">Virtualization</a> is what makes this whole thing work. It's literally how cloud providers make money - they take expensive hardware and time-share it across a bunch of users. Amazon's EC2 is the poster child here.
 </p>
@@ -151,17 +150,17 @@ They basically predicted the "noisy neighbor" problem that still drives cloud en
 </p>
 </div>
 </div>
-<div id="outline-container-org5743b1a" class="outline-4">
-<h4 id="org5743b1a">2. Data Storage</h4>
-<div class="outline-text-4" id="text-org5743b1a">
+<div id="outline-container-orgeb761d9" class="outline-4">
+<h4 id="orgeb761d9">2. Data Storage</h4>
+<div class="outline-text-4" id="text-orgeb761d9">
 <p>
 Storage services like S3, RDS, and all their cousins. The authors didn't dive deep here, but this ended up being huge.
 </p>
 </div>
 </div>
-<div id="outline-container-org24bb5ba" class="outline-4">
-<h4 id="org24bb5ba">3. Communication (The Sleeper Hit)</h4>
-<div class="outline-text-4" id="text-org24bb5ba">
+<div id="outline-container-org0ee2f42" class="outline-4">
+<h4 id="org0ee2f42">3. Communication (The Sleeper Hit)</h4>
+<div class="outline-text-4" id="text-org0ee2f42">
 <p>
 This is where things get really interesting. The authors were way ahead of their time on this one:
 </p>
@@ -181,7 +180,7 @@ The authors also mentioned <b>Software Kernel</b> and <b>Hardware/Firmware</b> l
 </p>
 
 
-<div id="org6091f94" class="figure">
+<div id="org6841803" class="figure">
 <p><img src="static/images/cloud-layers-table.png" alt="cloud-layers-table.png" />
 </p>
 </div>
@@ -189,9 +188,9 @@ The authors also mentioned <b>Software Kernel</b> and <b>Hardware/Firmware</b> l
 </div>
 </div>
 </div>
-<div id="outline-container-org51e70ab" class="outline-2">
-<h2 id="org51e70ab">The Real Origin Story</h2>
-<div class="outline-text-2" id="text-org51e70ab">
+<div id="outline-container-org3223598" class="outline-2">
+<h2 id="org3223598">The Real Origin Story</h2>
+<div class="outline-text-2" id="text-org3223598">
 <p>
 Here's one of my favorite parts of the paper - they actually explain <b>why</b> cloud computing happened:
 </p>
@@ -207,17 +206,17 @@ This is the real origin story that everyone forgets. Cloud computing didn't star
 </p>
 </div>
 </div>
-<div id="outline-container-org6cf583c" class="outline-2">
-<h2 id="org6cf583c">Still Fighting the Same Battles</h2>
-<div class="outline-text-2" id="text-org6cf583c">
+<div id="outline-container-orge0d026f" class="outline-2">
+<h2 id="orge0d026f">Still Fighting the Same Battles</h2>
+<div class="outline-text-2" id="text-orge0d026f">
 <p>
 The authors called out security and monitoring of large distributed services as the biggest challenges. Guess what? We're still dealing with these exact same problems 15+ years later. Some things never change.
 </p>
 </div>
 </div>
-<div id="outline-container-org1abcbb6" class="outline-2">
-<h2 id="org1abcbb6">Looking Back</h2>
-<div class="outline-text-2" id="text-org1abcbb6">
+<div id="outline-container-org0855de3" class="outline-2">
+<h2 id="org0855de3">Looking Back</h2>
+<div class="outline-text-2" id="text-org0855de3">
 <p>
 Reading this paper now is pretty mind-blowing. These guys basically predicted the entire structure of modern cloud computing when AWS was still figuring out what it wanted to be. Their layered model became the industry standard, they spotted all the major challenges we'd face, and they understood that cloud wasn't just another tech trend - it was the natural evolution of a bunch of existing ideas coming together.
 </p>

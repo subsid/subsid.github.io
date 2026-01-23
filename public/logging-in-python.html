@@ -26,8 +26,7 @@
 <div class="site-header">
   <nav class="site-nav">
     <a href="about.html">About</a>
-    <a href="articles.html">Articles</a>
-    <a href="snippets.html">Snippets</a>
+    <a href="notes.html">Notes</a>
   </nav>
 </div>
 </div>
@@ -37,10 +36,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2369f4f">A Better Setup</a></li>
-<li><a href="#orgf568489">Why Split stdout and stderr?</a></li>
-<li><a href="#org36ae190">For Notebooks and Remote Sessions</a></li>
-<li><a href="#org8d86a52">Seeing It in Action</a></li>
+<li><a href="#org419c55b">A Better Setup</a></li>
+<li><a href="#orgea9ad26">Why Split stdout and stderr?</a></li>
+<li><a href="#orge7ae121">For Notebooks and Remote Sessions</a></li>
+<li><a href="#org38cd1b6">Seeing It in Action</a></li>
 </ul>
 </div>
 </div>
@@ -61,9 +60,9 @@ Yep, it prints nothing.
 <p>
 Sure, there's `logging.basicConfig()` which sorta works (it dumps everything to stderr), but honestly, I'd rather set this up properly myself.
 </p>
-<div id="outline-container-org2369f4f" class="outline-2">
-<h2 id="org2369f4f">A Better Setup</h2>
-<div class="outline-text-2" id="text-org2369f4f">
+<div id="outline-container-org419c55b" class="outline-2">
+<h2 id="org419c55b">A Better Setup</h2>
+<div class="outline-text-2" id="text-org419c55b">
 <p>
 Here's my go-to logging setup that actually makes sense. It sends info logs to stdout and error logs to stderr, plus adds decent formatting so you can actually read the output:
 </p>
@@ -99,17 +98,17 @@ Here's my go-to logging setup that actually makes sense. It sends info logs to s
 </div>
 </div>
 </div>
-<div id="outline-container-orgf568489" class="outline-2">
-<h2 id="orgf568489">Why Split stdout and stderr?</h2>
-<div class="outline-text-2" id="text-orgf568489">
+<div id="outline-container-orgea9ad26" class="outline-2">
+<h2 id="orgea9ad26">Why Split stdout and stderr?</h2>
+<div class="outline-text-2" id="text-orgea9ad26">
 <p>
 The key thing here is separating error logs from info logs using filters. Without this, log aggregators (looking at you, Google Stackdriver) get confused and treat Python error logs the same as info logs. I've been burned by this more times than I care to admit.
 </p>
 </div>
 </div>
-<div id="outline-container-org36ae190" class="outline-2">
-<h2 id="org36ae190">For Notebooks and Remote Sessions</h2>
-<div class="outline-text-2" id="text-org36ae190">
+<div id="outline-container-orge7ae121" class="outline-2">
+<h2 id="orge7ae121">For Notebooks and Remote Sessions</h2>
+<div class="outline-text-2" id="text-orge7ae121">
 <p>
 When I'm working in Jupyter notebooks or remote sessions, I prefer logging to files instead of relying on the session staying alive:
 </p>
@@ -136,9 +135,9 @@ When I'm working in Jupyter notebooks or remote sessions, I prefer logging to fi
 </div>
 </div>
 </div>
-<div id="outline-container-org8d86a52" class="outline-2">
-<h2 id="org8d86a52">Seeing It in Action</h2>
-<div class="outline-text-2" id="text-org8d86a52">
+<div id="outline-container-org38cd1b6" class="outline-2">
+<h2 id="org38cd1b6">Seeing It in Action</h2>
+<div class="outline-text-2" id="text-org38cd1b6">
 <p>
 Here's what this actually looks like when you run it:
 </p>

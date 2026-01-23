@@ -5,6 +5,6 @@ if [ "$1" = "watch" ]; then
     find ~/Dropbox/notes/org_roam_v2/pages/article/ -name "*.org" -not -name "*articles.org" -not -name "*snippets.org" -not -name "*private.org" | entr -r ./build.sh
 else
     echo "Building site..."
-    emacs -Q --script build-site-2.el
+    emacs -Q --script v2.el
     echo "Build complete!"
 fi
