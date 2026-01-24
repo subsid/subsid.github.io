@@ -4,7 +4,7 @@ set -euo pipefail
 
 echo "Building site"
 # Build site
-./build.sh
+./scripts/build.sh
 
 echo "Committing changes"
 # Commit changes

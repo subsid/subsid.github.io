@@ -69,11 +69,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8084e03">What is Entropy Anyway?</a></li>
-<li><a href="#orgc739dc3">Why Should You Care?</a></li>
-<li><a href="#org95e4517">Cross Entropy: How Bad Are You Actually?</a></li>
-<li><a href="#org1503bb8">KL Divergence: The Reality Check</a></li>
-<li><a href="#org13b7ff9">Why Machine Learning People Love This Stuff</a></li>
+<li><a href="#orgd01f328">What is Entropy Anyway?</a></li>
+<li><a href="#org0a1e419">Why Should You Care?</a></li>
+<li><a href="#orge866b43">Cross Entropy: How Bad Are You Actually?</a></li>
+<li><a href="#org2d93d51">KL Divergence: The Reality Check</a></li>
+<li><a href="#org1bcd868">Why Machine Learning People Love This Stuff</a></li>
 </ul>
 </div>
 </div>
@@ -82,7 +82,7 @@ So Shannon dropped this master's thesis - <a href="https://people.math.harvard.e
 </p>
 
 
-<div id="org24ff8d3" class="figure">
+<div id="orge172b42" class="figure">
 <p><img src="static/images/schematic-comm-system.png" alt="schematic-comm-system.png" />
 </p>
 </div>
@@ -90,9 +90,9 @@ So Shannon dropped this master's thesis - <a href="https://people.math.harvard.e
 <p>
 And then he went ahead and defined <b>Entropy</b> - this thing that became the foundation of pretty much everything we do with information.
 </p>
-<div id="outline-container-org8084e03" class="outline-2">
-<h2 id="org8084e03">What is Entropy Anyway?</h2>
-<div class="outline-text-2" id="text-org8084e03">
+<div id="outline-container-orgd01f328" class="outline-2">
+<h2 id="orgd01f328">What is Entropy Anyway?</h2>
+<div class="outline-text-2" id="text-orgd01f328">
 <p>
 Information Entropy gets explained in a million different ways, but here's how I like to think about it: <b>"how much randomness is floating around in your data?"</b> It's pretty similar to <a href="https://www.wikiwand.com/en/Boltzmann%27s_entropy_formula">Boltzmann's Entropy</a> from physics, if you're into that sort of thing.
 </p>
@@ -180,9 +180,9 @@ See the pattern? The more uncertain things are, the higher the entropy. If you k
 </p>
 </div>
 </div>
-<div id="outline-container-orgc739dc3" class="outline-2">
-<h2 id="orgc739dc3">Why Should You Care?</h2>
-<div class="outline-text-2" id="text-orgc739dc3">
+<div id="outline-container-org0a1e419" class="outline-2">
+<h2 id="org0a1e419">Why Should You Care?</h2>
+<div class="outline-text-2" id="text-org0a1e419">
 <p>
 Notice I used base 2 for the log? When you do that, Shannon called the units <b>bits</b> (apparently <a href="https://www.wikiwand.com/en/John_Tukey">J. W. Tukey</a> came up with that name). So you can think of entropy as:
 </p>
@@ -200,9 +200,9 @@ But here's the thing - knowing how many bits you <b>should</b> need is great, bu
 </p>
 </div>
 </div>
-<div id="outline-container-org95e4517" class="outline-2">
-<h2 id="org95e4517">Cross Entropy: How Bad Are You Actually?</h2>
-<div class="outline-text-2" id="text-org95e4517">
+<div id="outline-container-orge866b43" class="outline-2">
+<h2 id="orge866b43">Cross Entropy: How Bad Are You Actually?</h2>
+<div class="outline-text-2" id="text-orge866b43">
 <p>
 \[
   H(p, q) = -K \sum_{i = 1}^{n} p_i \log{q_i}
@@ -222,9 +222,9 @@ The cool thing is, if your system is perfect and \(q_i = p_i\) for everything, t
 </p>
 </div>
 </div>
-<div id="outline-container-org1503bb8" class="outline-2">
-<h2 id="org1503bb8">KL Divergence: The Reality Check</h2>
-<div class="outline-text-2" id="text-org1503bb8">
+<div id="outline-container-org2d93d51" class="outline-2">
+<h2 id="org2d93d51">KL Divergence: The Reality Check</h2>
+<div class="outline-text-2" id="text-org2d93d51">
 <p>
 The difference between cross-entropy and entropy is called <b>Relative Entropy</b> or <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL Divergence</a>. This tells you "How far off are you from perfect?"
 </p>
@@ -240,9 +240,9 @@ Higher KL divergence means you're wasting more bits. Your system isn't as effici
 </p>
 </div>
 </div>
-<div id="outline-container-org13b7ff9" class="outline-2">
-<h2 id="org13b7ff9">Why Machine Learning People Love This Stuff</h2>
-<div class="outline-text-2" id="text-org13b7ff9">
+<div id="outline-container-org1bcd868" class="outline-2">
+<h2 id="org1bcd868">Why Machine Learning People Love This Stuff</h2>
+<div class="outline-text-2" id="text-org1bcd868">
 <p>
 Cross-entropy shows up everywhere in ML as a loss function, especially for classification problems. <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy">Here's a good example</a> if you want to dive deeper.
 </p>
