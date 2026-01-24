@@ -17,17 +17,17 @@
   rel="stylesheet"
   href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
 />
-<link rel="stylesheet" href="static/css/custom.css" />
-<script src="js/main.js"></script>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
 <script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 </head>
 <body>
 <div id="preamble" class="status">
 <div class="site-header">
   <nav class="site-nav">
-    <a href="about.html">About</a>
-    <a href="notes.html">Notes</a>
-    <a href="references.html">References</a>
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
   </nav>
 </div>
 </div>
@@ -37,15 +37,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd187acf">A Better Setup</a></li>
-<li><a href="#org297476f">Why Split stdout and stderr?</a></li>
-<li><a href="#org3592f33">For Notebooks and Remote Sessions</a></li>
-<li><a href="#org6418963">Seeing It in Action</a></li>
+<li><a href="#org0a53a33">Setting Up Python Logging Properly</a>
+<ul>
+<li><a href="#org8d7dd01">My Custom Logging Setup</a></li>
+<li><a href="#orgaa99c27">Why Split stdout and stderr?</a></li>
+<li><a href="#orge04ef6f">For Notebooks and Long-Running Jobs</a></li>
+<li><a href="#org73c23be">Temporarily Disabling Logs in Notebooks</a></li>
+<li><a href="#orgc14062b">Example Usage</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
+<div id="outline-container-org0a53a33" class="outline-2">
+<h2 id="org0a53a33">Setting Up Python Logging Properly</h2>
+<div class="outline-text-2" id="text-org0a53a33">
 <p>
-Python's logging module doesn't work out of the box. Try running this code and you'll see what I mean:
+Python's logging module requires configuration before it works. This code prints nothing:
 </p>
 
 <div class="org-src-container">
@@ -55,100 +63,116 @@ logging.info(<span style="font-style: italic;">"Hello world"</span>)
 </div>
 
 <p>
-Yep, it prints nothing.
-</p>
-
-<p>
-Sure, there's `logging.basicConfig()` which sorta works (it dumps everything to stderr), but honestly, I'd rather set this up properly myself.
-</p>
-<div id="outline-container-orgd187acf" class="outline-2">
-<h2 id="orgd187acf">A Better Setup</h2>
-<div class="outline-text-2" id="text-orgd187acf">
-<p>
-Here's my go-to logging setup that actually makes sense. It sends info logs to stdout and error logs to stderr, plus adds decent formatting so you can actually read the output:
-</p>
-
-<div class="org-src-container">
-<pre><code class="python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
-    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
-    <span style="font-weight: bold;">for</span> h <span style="font-weight: bold;">in</span> <span style="font-weight: bold;">list</span>(logger.handlers):
-        logger.removeHandler(h)
-
-<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">setup_logging</span>(filename=<span style="font-weight: bold; text-decoration: underline;">None</span>, level=<span style="font-style: italic;">"INFO"</span>):
-    <span style="font-weight: bold; font-style: italic;">## </span><span style="font-weight: bold; font-style: italic;">Reset logger</span>
-    remove_handlers()
-    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
-    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(<span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>)
-
-    <span style="font-weight: bold; font-style: italic;">consoleh</span> = logging.StreamHandler(sys.stdout)
-    <span style="font-weight: bold; font-style: italic;">nonerror</span> = <span style="font-weight: bold;">lambda</span> <span style="font-weight: bold; font-style: italic;">record</span>: <span style="font-weight: bold; text-decoration: underline;">record</span>.<span style="font-weight: bold; text-decoration: underline;">levelno</span> != logging.ERROR
-    <span style="font-weight: bold; font-style: italic;">error</span> = <span style="font-weight: bold;">lambda</span> record: record.levelno == logging.ERROR
-
-    <span style="font-weight: bold; font-style: italic;">errorh</span> = logging.StreamHandler(sys.stderr)
-    errorh.setLevel(logging.ERROR)
-    errorh.setFormatter(formatter)
-
-    consoleh.setFormatter(formatter)
-    consoleh.addFilter(nonerror)
-    errorh.addFilter(error)
-
-    logger.addHandler(consoleh)
-    logger.addHandler(errorh)
-    logger.setLevel(level)
-</code></pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org297476f" class="outline-2">
-<h2 id="org297476f">Why Split stdout and stderr?</h2>
-<div class="outline-text-2" id="text-org297476f">
-<p>
-The key thing here is separating error logs from info logs using filters. Without this, log aggregators (looking at you, Google Stackdriver) get confused and treat Python error logs the same as info logs. I've been burned by this more times than I care to admit.
+By default, the root logger only shows WARNING and above. While <code>logging.basicConfig()</code> exists, here's a more flexible setup.
 </p>
 </div>
-</div>
-<div id="outline-container-org3592f33" class="outline-2">
-<h2 id="org3592f33">For Notebooks and Remote Sessions</h2>
-<div class="outline-text-2" id="text-org3592f33">
+<div id="outline-container-org8d7dd01" class="outline-3">
+<h3 id="org8d7dd01">My Custom Logging Setup</h3>
+<div class="outline-text-3" id="text-org8d7dd01">
 <p>
-When I'm working in Jupyter notebooks or remote sessions, I prefer logging to files instead of relying on the session staying alive:
+This configuration routes INFO+ logs to stdout and ERROR logs to stderr, with readable formatting:
 </p>
 
 <div class="org-src-container">
 <pre><code class="python"><span style="font-weight: bold;">import</span> logging
 <span style="font-weight: bold;">import</span> sys
 
-<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">remove_handlers</span>():
+<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">setup_logging</span>(level=<span style="font-style: italic;">"INFO"</span>):
     <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
-    <span style="font-weight: bold;">for</span> h <span style="font-weight: bold;">in</span> <span style="font-weight: bold;">list</span>(logger.handlers):
-        logger.removeHandler(h)
-
-<span style="font-weight: bold;">def</span> <span style="font-weight: bold;">file_logging</span>(filename, level=<span style="font-style: italic;">"INFO"</span>):
-    <span style="font-weight: bold; font-style: italic;">## </span><span style="font-weight: bold; font-style: italic;">Reset logger</span>
-    remove_handlers()
-    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
-    <span style="font-weight: bold; font-style: italic;">fh</span> = logging.FileHandler(f<span style="font-style: italic;">"</span>{filename}<span style="font-style: italic;">.log"</span>)
-    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(<span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>)
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
+    logger.handlers.clear()  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Remove existing handlers</span>
     logger.setLevel(level)
+
+    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(
+        <span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>
+    )
+
+    <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">INFO/DEBUG/WARNING to stdout</span>
+    <span style="font-weight: bold; font-style: italic;">stdout_handler</span> = logging.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(logging.DEBUG)
+    stdout_handler.addFilter(<span style="font-weight: bold;">lambda</span> record: record.levelno &lt; logging.ERROR)
+    stdout_handler.setFormatter(formatter)
+
+    <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">ERROR/CRITICAL to stderr</span>
+    <span style="font-weight: bold; font-style: italic;">stderr_handler</span> = logging.StreamHandler(sys.stderr)
+    stderr_handler.setLevel(logging.ERROR)
+    stderr_handler.setFormatter(formatter)
+
+    logger.addHandler(stdout_handler)
+    logger.addHandler(stderr_handler)
 </code></pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org6418963" class="outline-2">
-<h2 id="org6418963">Seeing It in Action</h2>
-<div class="outline-text-2" id="text-org6418963">
+<div id="outline-container-orgaa99c27" class="outline-3">
+<h3 id="orgaa99c27">Why Split stdout and stderr?</h3>
+<div class="outline-text-3" id="text-orgaa99c27">
 <p>
-Here's what this actually looks like when you run it:
+Separating streams helps log aggregators (like Google Cloud Logging) correctly categorize error vs. info logs. Without this, all logs may be treated as the same severity level.
+</p>
+</div>
+</div>
+<div id="outline-container-orge04ef6f" class="outline-3">
+<h3 id="orge04ef6f">For Notebooks and Long-Running Jobs</h3>
+<div class="outline-text-3" id="text-orge04ef6f">
+<p>
+For Jupyter notebooks or remote sessions, logging to a file is more reliable:
 </p>
 
 <div class="org-src-container">
-<pre><code class="python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">This prints nothing</span>
+<pre><code class="python"><span style="font-weight: bold;">def</span> <span style="font-weight: bold;">file_logging</span>(filename, level=<span style="font-style: italic;">"INFO"</span>):
+    <span style="font-weight: bold; font-style: italic;">logger</span> = logging.getLogger()
+    logger.handlers.clear()
+    logger.setLevel(level)
+
+    <span style="font-weight: bold; font-style: italic;">formatter</span> = logging.Formatter(
+        <span style="font-style: italic;">"%(asctime)s %(name)-12s %(levelname)-8s %(message)s"</span>
+    )
+
+    <span style="font-weight: bold; font-style: italic;">file_handler</span> = logging.FileHandler(f<span style="font-style: italic;">"</span>{filename}<span style="font-style: italic;">.log"</span>)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org73c23be" class="outline-3">
+<h3 id="org73c23be">Temporarily Disabling Logs in Notebooks</h3>
+<div class="outline-text-3" id="text-org73c23be">
+<p>
+When running tests or code that generates excessive logs, you can temporarily suppress output:
+</p>
+
+<div class="org-src-container">
+<pre><code class="python"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Save current level</span>
+<span style="font-weight: bold; font-style: italic;">pre_disable</span> = logging.getLogger().getEffectiveLevel()
+
+<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Disable all logging</span>
+logging.disable(logging.CRITICAL)
+
+<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">no logging from libraries, etc.</span>
+
+<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Re-enable logging</span>
+logging.disable(pre_disable)
+</code></pre>
+</div>
+
+<p>
+This is particularly useful in Jupyter notebooks to keep output cells clean during testing or data processing.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc14062b" class="outline-3">
+<h3 id="orgc14062b">Example Usage</h3>
+<div class="outline-text-3" id="text-orgc14062b">
+<div class="org-src-container">
+<pre><code class="python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Prints nothing</span>
+
 setup_logging()
-logging.info(<span style="font-style: italic;">"Logs to stdout"</span>)
-file_logging(<span style="font-style: italic;">"test_logs"</span>)
-logging.info(<span style="font-style: italic;">"Logs to test_logs.log"</span>)
+logging.info(<span style="font-style: italic;">"Goes to stdout"</span>)
+logging.error(<span style="font-style: italic;">"Goes to stderr"</span>)
+
+file_logging(<span style="font-style: italic;">"myapp"</span>)
+logging.info(<span style="font-style: italic;">"Goes to myapp.log"</span>)
 </code></pre>
 </div>
 
@@ -156,26 +180,24 @@ logging.info(<span style="font-style: italic;">"Logs to test_logs.log"</span>)
 Output:
 </p>
 <div class="org-src-container">
-<pre><code class="bash">$ python test.py 
-2023-03-11 13:06:39,551 root         INFO     Logs to stdout
+<pre><code class="bash">$ python test.py
+2025-01-24 10:15:22,331 root         INFO     Goes to stdout
+2025-01-24 10:15:22,331 root         ERROR    Goes to stderr
 
-$ cat test_logs.log 
-2023-03-11 13:06:39,552 root         INFO     Logs to test_logs.log
+$ cat myapp.log
+2025-01-24 10:15:22,332 root         INFO     Goes to myapp.log
 </code></pre>
 </div>
 
 <p>
-Much better than Python's default of "just pretend logging doesn't exist," right?
+<b>Note:</b> <code>handlers.clear()</code> prevents duplicate log messages when reconfiguring the logger.
 </p>
-
-<p>
-The `remove<sub>handlers</sub>()` function is important because Python's logging system loves to accumulate handlers if you call your setup function multiple times. Without it, you end up with duplicate log messages, which is super annoying when you're debugging.
-</p>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date"><i>Last Modified: June 08, 2025</i></p>
+<p class="date"><i>Last Modified: January 24, 2026</i></p>
 </div>
 </body>
 </html>

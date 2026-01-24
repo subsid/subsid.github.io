@@ -19,22 +19,22 @@
 (require 'ox-publish)
 
 ;; Define preambles
-(defvar my-site-preamble 
+(defvar my-site-preamble
   "<div class=\"site-header\">
   <nav class=\"site-nav\">
-    <a href=\"about.html\">About</a>
-    <a href=\"notes.html\">Notes</a>
-    <a href=\"references.html\">References</a>
+    <a href=\"/about.html\">About</a>
+    <a href=\"/notes.html\">Notes</a>
+    <a href=\"/references.html\">References</a>
   </nav>
 </div>")
 
-(defvar my-private-site-preamble 
+(defvar my-private-site-preamble
   "<div class=\"site-header\">
   <nav class=\"site-nav\">
-    <a href=\"about.html\">About</a>
-    <a href=\"notes.html\">Notes</a>
-    <a href=\"references.html\">References</a>
-    <a href=\"private.html\">Unpublished/Private</a>
+    <a href=\"/about.html\">About</a>
+    <a href=\"/notes.html\">Notes</a>
+    <a href=\"/references.html\">References</a>
+    <a href=\"/private.html\">Unpublished/Private</a>
   </nav>
 </div>")
 
@@ -54,8 +54,8 @@
   rel=\"stylesheet\"
   href=\"https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css\"
 />
-<link rel=\"stylesheet\" href=\"static/css/custom.css\" />
-<script src=\"js/main.js\"></script>
+<link rel=\"stylesheet\" href=\"/static/css/custom.css\" />
+<script src=\"/js/main.js\"></script>
 <script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 "
       org-html-preamble t
@@ -96,7 +96,7 @@
 ;; Specific filter for conditional publishing
 (defun my-conditional-html-publish (plist filename pub-dir)
   "Publish to HTML if file has 'publish' tag or is in explicit filename list."
-  (my-html-publish-with-tags 
+  (my-html-publish-with-tags
    plist filename pub-dir
    (lambda (filename file-info explicit-files)
      (or (car file-info)  ; has-publish
@@ -127,7 +127,7 @@
                           (format-time-string "%Y-%m-%d" date)
                         "No Date"))
              ;; Get the actual published filename
-             (published-filename 
+             (published-filename
               (with-temp-buffer
                 (insert-file-contents full-path)
                 (goto-char (point-min))
@@ -139,31 +139,26 @@
                 title
                 date-str)))))
 
-;; Helper function to recursively filter nil values from nested lists
-(defun filter-nil-recursive (lst)
-  "Recursively filter out nil values and empty lists from LST."
+;; Helper function to flatten nested list and extract only string entries
+(defun flatten-sitemap-list (lst)
+  "Flatten nested list LST and extract only string entries (the actual links)."
   (cond
    ((null lst) nil)
-   ((not (listp lst)) lst)
-   ((stringp lst) lst)
-   (t (let ((filtered (delq nil (mapcar #'filter-nil-recursive lst))))
-        (if (and (listp filtered) 
-                 (> (length filtered) 0)
-                 (not (and (= (length filtered) 1) (null (car filtered)))))
-            filtered
-          nil)))))
+   ((stringp lst) (list lst))
+   ((not (listp lst)) nil)
+   (t (apply #'append (mapcar #'flatten-sitemap-list lst)))))
 
 ;; Unified sitemap function
 (defun create-sitemap-with-description (title description list)
   "Create a sitemap with TITLE and DESCRIPTION, filtering nil entries from LIST."
-  (let* ((filtered-list (filter-nil-recursive list))
-         (final-list (if filtered-list
-                        (cons (car list) (cdr filtered-list))
-                      (car list))))
+  (let* ((entries (flatten-sitemap-list list))
+         (filtered-entries (delq nil entries)))
     (concat "#+TITLE: " title "\n\n"
             description "\n\n"
-            (if (and final-list (cdr final-list))
-                (org-list-to-org final-list)
+            (if filtered-entries
+                (org-list-to-org
+                 (cons 'unordered
+                       (mapcar (lambda (entry) (list entry)) filtered-entries)))
               ""))))
 
 ;; Common project properties
@@ -214,7 +209,7 @@
    :sitemap-filename "notes.org"
    :sitemap-title "Notes"
    :sitemap-format-entry (lambda (entry style project)
-                        (let ((file-path (expand-file-name entry 
+                        (let ((file-path (expand-file-name entry
                                                           (plist-get (cdr project) :base-directory))))
                           ;; Only process regular files, skip directories
                           (when (file-regular-p file-path)
@@ -222,12 +217,12 @@
                               (when file-info  ; file-info will be nil for directories
                                 (let ((has-publish (car file-info))
                                       (has-sitemapignore (cadr file-info)))
-                                  (when (and has-publish 
+                                  (when (and has-publish
                                             (not has-sitemapignore))
                                     (create-sitemap-entry entry project))))))))
    :sitemap-function (lambda (title list)
-                       (create-sitemap-with-description 
-                        title 
+                       (create-sitemap-with-description
+                        title
                         "A collection of notes, articles, and snippets."
                         list)))
 
@@ -242,23 +237,103 @@
    :sitemap-filename "references.org"
    :sitemap-title "References"
    :sitemap-format-entry (lambda (entry style project)
-                        (let ((file-path (expand-file-name entry 
+                        (let ((file-path (expand-file-name entry
                                                           (plist-get (cdr project) :base-directory))))
                           (when (file-regular-p file-path)
                             (let ((file-info (get-file-tags-info file-path)))
                               (when file-info
                                 (let ((has-publish (car file-info))
                                       (has-sitemapignore (cadr file-info)))
-                                  (when (and has-publish 
+                                  (when (and has-publish
                                             (not has-sitemapignore))
                                     (create-sitemap-entry entry project))))))))
    :sitemap-function (lambda (title list)
-                       (create-sitemap-with-description 
-                        title 
+                       (create-sitemap-with-description
+                        title
+                        "Reference materials/snippets/resources."
+                        list)))
+
+  ;; Private versions of notes and references (same content, published to ./private)
+  ("my-private-notes-articles"
+   :recursive t
+   :base-directory "~/Dropbox/notes/org_roam_v2/pages/article"
+   :base-extension "org"
+   :publishing-directory "./private"
+   :publishing-function my-conditional-html-publish
+   :html-preamble t
+   :html-preamble-format (("en" ,my-private-site-preamble))
+   ,@common-html-properties
+   :auto-sitemap nil)
+
+  ("my-private-notes-main"
+   :recursive t
+   :base-directory "~/Dropbox/notes/org_roam_v2/pages/main"
+   :base-extension "org"
+   :publishing-directory "./private"
+   :publishing-function my-conditional-html-publish
+   :html-preamble t
+   :html-preamble-format (("en" ,my-private-site-preamble))
+   ,@common-html-properties
+   :auto-sitemap nil)
+
+  ("my-private-notes-sitemap"
+   :recursive t
+   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-extension "org"
+   :publishing-directory "./private"
+   :publishing-function my-conditional-html-publish
+   :exclude "^\\(reference\\|project\\|work\\)/.*\\.org$\\|^Inbox\\.org$"
+   :html-preamble t
+   :html-preamble-format (("en" ,my-private-site-preamble))
+   ,@common-html-properties
+   :sitemap-filename "notes.org"
+   :sitemap-title "Notes"
+   :sitemap-format-entry (lambda (entry style project)
+                        (let ((file-path (expand-file-name entry
+                                                          (plist-get (cdr project) :base-directory))))
+                          (when (file-regular-p file-path)
+                            (let ((file-info (get-file-tags-info file-path)))
+                              (when file-info
+                                (let ((has-publish (car file-info))
+                                      (has-sitemapignore (cadr file-info)))
+                                  (when (and has-publish
+                                            (not has-sitemapignore))
+                                    (create-sitemap-entry entry project))))))))
+   :sitemap-function (lambda (title list)
+                       (create-sitemap-with-description
+                        title
+                        "A collection of notes, articles, and snippets."
+                        list)))
+
+  ("my-private-references-content"
+   :recursive t
+   :base-directory "~/Dropbox/notes/org_roam_v2/pages/reference"
+   :base-extension "org"
+   :publishing-directory "./private"
+   :publishing-function my-conditional-html-publish
+   :html-preamble t
+   :html-preamble-format (("en" ,my-private-site-preamble))
+   ,@common-html-properties
+   :sitemap-filename "references.org"
+   :sitemap-title "References"
+   :sitemap-format-entry (lambda (entry style project)
+                        (let ((file-path (expand-file-name entry
+                                                          (plist-get (cdr project) :base-directory))))
+                          (when (file-regular-p file-path)
+                            (let ((file-info (get-file-tags-info file-path)))
+                              (when file-info
+                                (let ((has-publish (car file-info))
+                                      (has-sitemapignore (cadr file-info)))
+                                  (when (and has-publish
+                                            (not has-sitemapignore))
+                                    (create-sitemap-entry entry project))))))))
+   :sitemap-function (lambda (title list)
+                       (create-sitemap-with-description
+                        title
                         "Reference materials and resources."
                         list)))
 
-  ;; Private blog project that exports ALL files
+  ;; Private blog project that exports ALL files (unpublished content)
   ("my-private-blog-content"
    :recursive t
    :base-directory "~/Dropbox/notes/org_roam_v2/pages"
@@ -276,7 +351,7 @@
                       (let ((filename (file-name-nondirectory entry)))
                         ;; Exclude sitemap files themselves
                         (unless (member filename '("notes.org" "references.org" "archive.org" "private.org"))
-                          (let* ((file-path (expand-file-name entry 
+                          (let* ((file-path (expand-file-name entry
                                                             (plist-get (cdr project) :base-directory))))
                             (when (file-regular-p file-path)
                               (let ((file-info (get-file-tags-info file-path)))
@@ -287,8 +362,8 @@
                                     (when (not (and has-publish (not has-sitemapignore)))
                                       (create-sitemap-entry entry project))))))))))
    :sitemap-function (lambda (title list)
-                       (create-sitemap-with-description 
-                        title 
+                       (create-sitemap-with-description
+                        title
                         "Articles not published on the public blog."
                         list)))
 
@@ -317,7 +392,7 @@
   )
 
   ("my-org-blog" :components ("my-org-static" "my-org-notes-articles" "my-org-notes-main" "my-org-notes-sitemap" "my-org-references-content"))
-  ("my-private-blog" :components ("my-private-unpublished-static" "my-private-blog-static" "my-private-blog-content"))
+  ("my-private-blog" :components ("my-private-unpublished-static" "my-private-blog-static" "my-private-notes-articles" "my-private-notes-main" "my-private-notes-sitemap" "my-private-references-content" "my-private-blog-content"))
   )
       )
 
@@ -331,7 +406,7 @@
     <meta http-equiv=\"refresh\" content=\"0; url=%s\">
     <title>Redirecting...</title>
     <link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />
-    <link rel=\"stylesheet\" href=\"static/css/custom.css\" />
+    <link rel=\"stylesheet\" href=\"/static/css/custom.css\" />
 </head>
 <body>
     %s
@@ -359,13 +434,3 @@
 (setq org-publish-cache nil)
 (when (file-exists-p org-publish-timestamp-directory)
   (delete-directory org-publish-timestamp-directory t))
-
-;; Generate the site output
-(org-publish-project "my-org-blog" t)
-(create-index-redirect "./public" "notes.html" my-site-preamble "notes")
-
-;; Generate the private blog
-(org-publish-project "my-private-blog" t)
-(create-index-redirect "./private" "private.html" my-private-site-preamble "all articles")
-
-(message "Build complete - both public and private blogs generated")

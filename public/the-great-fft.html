@@ -17,8 +17,8 @@
   rel="stylesheet"
   href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
 />
-<link rel="stylesheet" href="static/css/custom.css" />
-<script src="js/main.js"></script>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
 <script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
 <script>
   window.MathJax = {
@@ -57,9 +57,9 @@
 <div id="preamble" class="status">
 <div class="site-header">
   <nav class="site-nav">
-    <a href="about.html">About</a>
-    <a href="notes.html">Notes</a>
-    <a href="references.html">References</a>
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
   </nav>
 </div>
 </div>
@@ -69,43 +69,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcbaa54c">Polynomials</a></li>
-<li><a href="#org19b7c9b">Representing Polynomials</a>
+<li><a href="#org7cdacd5">Polynomials</a></li>
+<li><a href="#org04de6dd">Representing Polynomials</a>
 <ul>
-<li><a href="#org056d53f">Coefficient Representation</a></li>
-<li><a href="#org0b89682">Point-Value Representation</a></li>
+<li><a href="#org1da23a5">Coefficient Representation</a></li>
+<li><a href="#orge1d432d">Point-Value Representation</a></li>
 </ul>
 </li>
-<li><a href="#org89035b4">Operations on Polynomials</a>
+<li><a href="#org217b7f4">Operations on Polynomials</a>
 <ul>
-<li><a href="#orgbf3a3d7">Evaluation</a></li>
-<li><a href="#org1c8dddc">Addition</a></li>
-<li><a href="#org9bd76f8">Multiplication</a></li>
+<li><a href="#org1807e55">Evaluation</a></li>
+<li><a href="#org517c8f2">Addition</a></li>
+<li><a href="#orgb7a5dcf">Multiplication</a></li>
 </ul>
 </li>
-<li><a href="#org90696d4">Complexity Analysis</a>
+<li><a href="#orge48613f">Complexity Analysis</a>
 <ul>
-<li><a href="#org796f56c">Coefficient Representation</a></li>
-<li><a href="#orgfe9aaa3">Point-Value Representation</a></li>
-<li><a href="#org339f8c1">Summary</a></li>
+<li><a href="#orgef2e53e">Coefficient Representation</a></li>
+<li><a href="#org48def59">Point-Value Representation</a></li>
+<li><a href="#org71caaaa">Summary</a></li>
 </ul>
 </li>
-<li><a href="#org480bf1c">Converting Between Representations</a>
+<li><a href="#org89f5533">Converting Between Representations</a>
 <ul>
-<li><a href="#orgf39ede7">The Key Insight</a></li>
+<li><a href="#org8c5f65d">The Key Insight</a></li>
 </ul>
 </li>
-<li><a href="#org238c440">Divide and Conquer Strategy</a>
+<li><a href="#org07ca3b9">Divide and Conquer Strategy</a>
 <ul>
-<li><a href="#org5c0d714">Our Goal</a></li>
-<li><a href="#org3e44f7e">Divide and Conquer for Polynomials</a></li>
-<li><a href="#org96dfa6b">Making Subproblems Smaller</a></li>
-<li><a href="#orgc680d57">Enter Complex Numbers</a></li>
+<li><a href="#org99c90a6">Our Goal</a></li>
+<li><a href="#org898fa92">Divide and Conquer for Polynomials</a></li>
+<li><a href="#org68d6c18">Making Subproblems Smaller</a></li>
+<li><a href="#org63368cc">Enter Complex Numbers</a></li>
 </ul>
 </li>
-<li><a href="#org80d9abf">Runtime Analysis</a></li>
-<li><a href="#org650cd7b">Looking Forward</a></li>
-<li><a href="#orgb789649">References</a></li>
+<li><a href="#org2eefa9f">Runtime Analysis</a></li>
+<li><a href="#org2ee7ae7">Looking Forward</a></li>
+<li><a href="#org835f754">References</a></li>
 </ul>
 </div>
 </div>
@@ -120,9 +120,9 @@ Every time you make a phone call, compress an image, or use noise-canceling head
 <p>
 FFT is something I've used extensively but never fully understood. I always thought of it as something that makes the <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transform</a> faster for viewing time-domain signals in frequency domain. While that's one application, the key insight is much broader: <b><b>FFT is fundamentally about making polynomial operations blazingly fast</b></b>.
 </p>
-<div id="outline-container-orgcbaa54c" class="outline-2">
-<h2 id="orgcbaa54c">Polynomials</h2>
-<div class="outline-text-2" id="text-orgcbaa54c">
+<div id="outline-container-org7cdacd5" class="outline-2">
+<h2 id="org7cdacd5">Polynomials</h2>
+<div class="outline-text-2" id="text-org7cdacd5">
 <p>
 A <a href="https://en.wikipedia.org/wiki/Polynomial">polynomial</a> is an expression of the form:
 </p>
@@ -136,16 +136,16 @@ where \(a_i\) are coefficients (typically real numbers) and \(x\) is a variable.
 </p>
 </div>
 </div>
-<div id="outline-container-org19b7c9b" class="outline-2">
-<h2 id="org19b7c9b">Representing Polynomials</h2>
-<div class="outline-text-2" id="text-org19b7c9b">
+<div id="outline-container-org04de6dd" class="outline-2">
+<h2 id="org04de6dd">Representing Polynomials</h2>
+<div class="outline-text-2" id="text-org04de6dd">
 <p>
 How can we represent polynomials in a computer? There are two fundamental approaches:
 </p>
 </div>
-<div id="outline-container-org056d53f" class="outline-3">
-<h3 id="org056d53f">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-org056d53f">
+<div id="outline-container-org1da23a5" class="outline-3">
+<h3 id="org1da23a5">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-org1da23a5">
 <p>
 \[ (a_0, a_1, a_2, \ldots, a_{n-1}) \]
 </p>
@@ -155,9 +155,9 @@ Simple—it's just a vector of numbers! This representation handles any one-dime
 </p>
 </div>
 </div>
-<div id="outline-container-org0b89682" class="outline-3">
-<h3 id="org0b89682">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-org0b89682">
+<div id="outline-container-orge1d432d" class="outline-3">
+<h3 id="orge1d432d">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-orge1d432d">
 <p>
 \[(x_0, y_0), (x_1, y_1), (x_2, y_2), \ldots, (x_{n-1}, y_{n-1})\]
 </p>
@@ -178,48 +178,48 @@ Intuitively, this makes sense. A line requires 2 points, a parabola needs 3 poin
 </div>
 </div>
 </div>
-<div id="outline-container-org89035b4" class="outline-2">
-<h2 id="org89035b4">Operations on Polynomials</h2>
-<div class="outline-text-2" id="text-org89035b4">
+<div id="outline-container-org217b7f4" class="outline-2">
+<h2 id="org217b7f4">Operations on Polynomials</h2>
+<div class="outline-text-2" id="text-org217b7f4">
 <p>
 What can we do with polynomials?
 </p>
 </div>
-<div id="outline-container-orgbf3a3d7" class="outline-3">
-<h3 id="orgbf3a3d7">Evaluation</h3>
-<div class="outline-text-3" id="text-orgbf3a3d7">
+<div id="outline-container-org1807e55" class="outline-3">
+<h3 id="org1807e55">Evaluation</h3>
+<div class="outline-text-3" id="text-org1807e55">
 <p>
 Given polynomial \(p\) and number \(x\), compute \(p(x)\).
 </p>
 </div>
 </div>
-<div id="outline-container-org1c8dddc" class="outline-3">
-<h3 id="org1c8dddc">Addition</h3>
-<div class="outline-text-3" id="text-org1c8dddc">
+<div id="outline-container-org517c8f2" class="outline-3">
+<h3 id="org517c8f2">Addition</h3>
+<div class="outline-text-3" id="text-org517c8f2">
 <p>
 Given polynomials \(p(x)\) and \(q(x)\), find polynomial \(r = p + q\) such that \(r(x) = p(x) + q(x)\) for all \(x\). If both have degree \(n-1\), the sum also has degree at most \(n-1\).
 </p>
 </div>
 </div>
-<div id="outline-container-org9bd76f8" class="outline-3">
-<h3 id="org9bd76f8">Multiplication</h3>
-<div class="outline-text-3" id="text-org9bd76f8">
+<div id="outline-container-orgb7a5dcf" class="outline-3">
+<h3 id="orgb7a5dcf">Multiplication</h3>
+<div class="outline-text-3" id="text-orgb7a5dcf">
 <p>
 Given polynomials \(p(x)\) and \(q(x)\), find polynomial \(r = p \cdot q\) such that \(r(x) = p(x) \cdot q(x)\) for all \(x\). If both have degree \(n-1\), the product has degree \(2n-2\).
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org90696d4" class="outline-2">
-<h2 id="org90696d4">Complexity Analysis</h2>
-<div class="outline-text-2" id="text-org90696d4">
+<div id="outline-container-orge48613f" class="outline-2">
+<h2 id="orge48613f">Complexity Analysis</h2>
+<div class="outline-text-2" id="text-orge48613f">
 <p>
 Let's analyze the time complexity for each representation:
 </p>
 </div>
-<div id="outline-container-org796f56c" class="outline-3">
-<h3 id="org796f56c">Coefficient Representation</h3>
-<div class="outline-text-3" id="text-org796f56c">
+<div id="outline-container-orgef2e53e" class="outline-3">
+<h3 id="orgef2e53e">Coefficient Representation</h3>
+<div class="outline-text-3" id="text-orgef2e53e">
 <p>
 <b>Evaluation</b>: Simple loop achieves \(O(n)\) operations (can be optimized further with <a href="https://en.wikipedia.org/wiki/Horner%27s_method">Horner's method</a>).
 </p>
@@ -233,9 +233,9 @@ Let's analyze the time complexity for each representation:
 </p>
 </div>
 </div>
-<div id="outline-container-orgfe9aaa3" class="outline-3">
-<h3 id="orgfe9aaa3">Point-Value Representation</h3>
-<div class="outline-text-3" id="text-orgfe9aaa3">
+<div id="outline-container-org48def59" class="outline-3">
+<h3 id="org48def59">Point-Value Representation</h3>
+<div class="outline-text-3" id="text-org48def59">
 <p>
 <b>Addition</b>: Given polynomials \((x_i, y_i)\) and \((x_i, z_i)\), simply compute \((x_i, y_i + z_i)\). This takes \(O(n)\) operations.
 </p>
@@ -257,9 +257,9 @@ Let's analyze the time complexity for each representation:
 </p>
 </div>
 </div>
-<div id="outline-container-org339f8c1" class="outline-3">
-<h3 id="org339f8c1">Summary</h3>
-<div class="outline-text-3" id="text-org339f8c1">
+<div id="outline-container-org71caaaa" class="outline-3">
+<h3 id="org71caaaa">Summary</h3>
+<div class="outline-text-3" id="text-org71caaaa">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -303,9 +303,9 @@ The question becomes: <b>Can we convert between representations efficiently to g
 </div>
 </div>
 </div>
-<div id="outline-container-org480bf1c" class="outline-2">
-<h2 id="org480bf1c">Converting Between Representations</h2>
-<div class="outline-text-2" id="text-org480bf1c">
+<div id="outline-container-org89f5533" class="outline-2">
+<h2 id="org89f5533">Converting Between Representations</h2>
+<div class="outline-text-2" id="text-org89f5533">
 <p>
 For polynomial \(A(x) = a_0 + a_1x + \ldots + a_{n-1}x^{n-1}\), converting from coefficient to point-value representation at \(n\) distinct points \((x_0, x_1, \ldots, x_{n-1})\) can be expressed as:
 </p>
@@ -341,9 +341,9 @@ To convert back from point-value to coefficient representation, we compute \(\ve
 <b><b>Fact</b></b>: \(V\) is invertible when all \(x_i\)'s are distinct.
 </p>
 </div>
-<div id="outline-container-orgf39ede7" class="outline-3">
-<h3 id="orgf39ede7">The Key Insight</h3>
-<div class="outline-text-3" id="text-orgf39ede7">
+<div id="outline-container-org8c5f65d" class="outline-3">
+<h3 id="org8c5f65d">The Key Insight</h3>
+<div class="outline-text-3" id="text-org8c5f65d">
 <p>
 Here's the crucial observation: <b>we get to choose the sample points \(x_i\) in matrix \(V\)</b>! If we pick these values with the right structure, maybe this conversion can be much faster. We're trading generality for speed, but we don't care—we still get efficient conversion between representations.
 </p>
@@ -354,13 +354,13 @@ Here's the crucial observation: <b>we get to choose the sample points \(x_i\) in
 </div>
 </div>
 </div>
-<div id="outline-container-org238c440" class="outline-2">
-<h2 id="org238c440">Divide and Conquer Strategy</h2>
-<div class="outline-text-2" id="text-org238c440">
+<div id="outline-container-org07ca3b9" class="outline-2">
+<h2 id="org07ca3b9">Divide and Conquer Strategy</h2>
+<div class="outline-text-2" id="text-org07ca3b9">
 </div>
-<div id="outline-container-org5c0d714" class="outline-3">
-<h3 id="org5c0d714">Our Goal</h3>
-<div class="outline-text-3" id="text-org5c0d714">
+<div id="outline-container-org99c90a6" class="outline-3">
+<h3 id="org99c90a6">Our Goal</h3>
+<div class="outline-text-3" id="text-org99c90a6">
 <p>
 Let's be crystal clear about what we want:
 </p>
@@ -381,9 +381,9 @@ The essence of <a href="https://people.eecs.berkeley.edu/~vazirani/algorithms/ch
 </ol>
 </div>
 </div>
-<div id="outline-container-org3e44f7e" class="outline-3">
-<h3 id="org3e44f7e">Divide and Conquer for Polynomials</h3>
-<div class="outline-text-3" id="text-org3e44f7e">
+<div id="outline-container-org898fa92" class="outline-3">
+<h3 id="org898fa92">Divide and Conquer for Polynomials</h3>
+<div class="outline-text-3" id="text-org898fa92">
 <p>
 Consider polynomial \(A(x) = a_0 + a_1x + a_2x^2 + \ldots + a_7x^7\).
 </p>
@@ -416,9 +416,9 @@ This requires only one multiplication and one addition—\(O(1)\) operations!
 </p>
 </div>
 </div>
-<div id="outline-container-org96dfa6b" class="outline-3">
-<h3 id="org96dfa6b">Making Subproblems Smaller</h3>
-<div class="outline-text-3" id="text-org96dfa6b">
+<div id="outline-container-org68d6c18" class="outline-3">
+<h3 id="org68d6c18">Making Subproblems Smaller</h3>
+<div class="outline-text-3" id="text-org68d6c18">
 <p>
 For divide and conquer to be effective, subproblems must be smaller than the original. We need the set \(Z = \{x^2 | x \in X\}\) to have fewer elements than \(X\).
 </p>
@@ -436,15 +436,15 @@ For \(n = 4\): We need 4 points that become 2 points when squared. This is where
 </p>
 </div>
 </div>
-<div id="outline-container-orgc680d57" class="outline-3">
-<h3 id="orgc680d57">Enter Complex Numbers</h3>
-<div class="outline-text-3" id="text-orgc680d57">
+<div id="outline-container-org63368cc" class="outline-3">
+<h3 id="org63368cc">Enter Complex Numbers</h3>
+<div class="outline-text-3" id="text-org63368cc">
 <p>
 Think of complex numbers as rotations in the plane. The key insight from <a href="https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/">Kalid's excellent explanation</a> is that complex numbers represent rotations around the origin.
 </p>
 
 
-<div id="orgc2957d6" class="figure">
+<div id="org6e3f2c7" class="figure">
 <p><img src="https://betterexplained.com/wp-content/uploads/complex/positive_negative_rotation.png" alt="&quot;Comple Numbers as Rotations&quot;" />
 </p>
 </div>
@@ -469,9 +469,9 @@ These special sets are called the <b>nth roots of unity</b> —they're the \(n\)
 </div>
 </div>
 </div>
-<div id="outline-container-org80d9abf" class="outline-2">
-<h2 id="org80d9abf">Runtime Analysis</h2>
-<div class="outline-text-2" id="text-org80d9abf">
+<div id="outline-container-org2eefa9f" class="outline-2">
+<h2 id="org2eefa9f">Runtime Analysis</h2>
+<div class="outline-text-2" id="text-org2eefa9f">
 <p>
 Let's analyze our divide-and-conquer algorithm:
 </p>
@@ -504,9 +504,9 @@ This elegant divide-and-conquer algorithm is the essence of the Fast Fourier Tra
 </p>
 </div>
 </div>
-<div id="outline-container-org650cd7b" class="outline-2">
-<h2 id="org650cd7b">Looking Forward</h2>
-<div class="outline-text-2" id="text-org650cd7b">
+<div id="outline-container-org2ee7ae7" class="outline-2">
+<h2 id="org2ee7ae7">Looking Forward</h2>
+<div class="outline-text-2" id="text-org2ee7ae7">
 <p>
 This explanation focused on the core algorithmic insight behind FFT. In future posts, we'll explore:
 </p>
@@ -521,9 +521,9 @@ The beauty of FFT lies not just in its efficiency, but in how it reveals deep co
 </p>
 </div>
 </div>
-<div id="outline-container-orgb789649" class="outline-2">
-<h2 id="orgb789649">References</h2>
-<div class="outline-text-2" id="text-orgb789649">
+<div id="outline-container-org835f754" class="outline-2">
+<h2 id="org835f754">References</h2>
+<div class="outline-text-2" id="text-org835f754">
 <ul class="org-ul">
 <li><a href="http://jeffe.cs.illinois.edu/teaching/algorithms/notes/02-fft.pdf">Jeff Erickson's Algorithm Notes</a></li>
 <li><a href="http://faculty.cs.tamu.edu/klappi/csce629-f17/csce411-set4c.pdf">TAMU Klappenecker Algorithms</a></li>

@@ -12,18 +12,18 @@ This is a great place to get started - [System Crafters Example](https://github.
 Publish Content
 
 ``` bash
-./build.sh
+./scrips/build.sh
 
 # Watch for changes and republish
-./build.sh watch
+./scripts/build.sh watch
 ```
 
 Serve with python http server
 ```
 # serves public/ dir
-./serve.sh
+./scripts/serve.sh
 
 # serves private/ dir (for local use)
-./serve.sh private
+./scripts/serve.sh private
 ```
 

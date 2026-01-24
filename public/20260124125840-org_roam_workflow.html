@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>References</title>
+<title>Org Roam Workflow</title>
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -32,14 +32,46 @@
 </div>
 </div>
 <div id="content" class="content">
-<h1 class="title">References</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org156e338">Combining Zettelkasten with GTD</a></li>
+</ul>
+</div>
+</div>
 <p>
-Reference materials/snippets/resources.
+I recently integrated <a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten</a> into my 15+ year collection of org notes. Following <a href="https://jethrokuan.github.io/org-roam-guide/">Jethro Kuan's slip box approach</a>, I organized my notes into four categories:
+</p>
+
+<ol class="org-ol">
+<li><b>main</b> - Quick thoughts and snippets</li>
+<li><b>references</b> - Ideas from books, articles, and other sources</li>
+<li><b>article</b> - Long-form content like paper reviews and essays (synthesis of multiple notes)</li>
+<li><b>project</b> - GTD-style task management (The default bucket for all my existing notes)</li>
+</ol>
+<div id="outline-container-org156e338" class="outline-2">
+<h2 id="org156e338">Combining Zettelkasten with GTD</h2>
+<div class="outline-text-2" id="text-org156e338">
+<p>
+The project directory bridges Zettelkasten and GTD workflows. I use <a href="https://github.com/subsid/emacs.d/blob/master/config/my-org-roam.el#L218">ripgrep with custom org-agenda</a> settings to find TODO items in project files and surface them in my agenda.
+</p>
+
+<p>
+<b>Why separate projects from other notes?</b>
 </p>
 
 <ul class="org-ul">
-<li><a href="20240902124421-awk.html">Awk/Sed Reference</a> <i>2017-09-02</i></li>
+<li>Keeps zettels conceptual and task-free</li>
+<li>Prevents org-agenda from scanning thousands of note files, which would be unusably slow</li>
+<li>Forces clear distinction between concepts (zettels) and actionable tasks (projects)</li>
 </ul>
+
+<p>
+You can find <a href="https://github.com/subsid/emacs.d/blob/master/config/my-org-roam.el">my setup here</a>.
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date"><i>Last Modified: January 24, 2026</i></p>
