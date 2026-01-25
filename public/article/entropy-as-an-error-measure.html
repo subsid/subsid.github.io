@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Entropy as an Error Measure</title>
+<title>Understanding Entropy, Cross-Entropy, and KL Divergence</title>
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -64,56 +64,67 @@
 </div>
 </div>
 <div id="content" class="content">
-<h1 class="title">Entropy as an Error Measure</h1>
+<h1 class="title">Understanding Entropy, Cross-Entropy, and KL Divergence</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc44e3f5">What is Entropy Anyway?</a></li>
-<li><a href="#orgb5d89a1">Why Should You Care?</a></li>
-<li><a href="#orgf32b3e3">Cross Entropy: How Bad Are You Actually?</a></li>
-<li><a href="#orgfb05194">KL Divergence: The Reality Check</a></li>
-<li><a href="#org06a3fd2">Why Machine Learning People Love This Stuff</a></li>
+<li><a href="#org78f0ec4">What is Entropy Anyway?</a>
+<ul>
+<li><a href="#org0c94b7c">A Weather Example</a></li>
+</ul>
+</li>
+<li><a href="#org9c48158">Why Should You Care?</a></li>
+<li><a href="#org869a216">Cross-Entropy: Measuring Real-World Performance</a></li>
+<li><a href="#org738e92d">KL Divergence: The Efficiency Gap</a></li>
+<li><a href="#org8dca82b">Why Machine Learning Loves Cross-Entropy</a></li>
 </ul>
 </div>
 </div>
 <p>
-So Shannon dropped this master's thesis - <a href="https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf">A Mathematical Theory of Communication</a>, where he basically invented information theory. He drew up this neat little diagram of how communication systems work:
+Back in 1948, Claude Shannon published his master's thesis, <a href="https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf">A Mathematical Theory of Communication</a>, essentially inventing information theory in the process. He introduced a simple diagram showing how communication systems work:
 </p>
 
 
-<div id="org4170e32" class="figure">
+<div id="orgafebd2d" class="figure">
 <p><img src="static/images/schematic-comm-system.png" alt="schematic-comm-system.png" />
 </p>
 </div>
 
 <p>
-And then he went ahead and defined <b>Entropy</b> - this thing that became the foundation of pretty much everything we do with information.
+Then he defined <b>Entropy</b> — a concept that became the foundation for everything we do with information today.
 </p>
-<div id="outline-container-orgc44e3f5" class="outline-2">
-<h2 id="orgc44e3f5">What is Entropy Anyway?</h2>
-<div class="outline-text-2" id="text-orgc44e3f5">
+<div id="outline-container-org78f0ec4" class="outline-2">
+<h2 id="org78f0ec4">What is Entropy Anyway?</h2>
+<div class="outline-text-2" id="text-org78f0ec4">
 <p>
-Information Entropy gets explained in a million different ways, but here's how I like to think about it: <b>"how much randomness is floating around in your data?"</b> It's pretty similar to <a href="https://www.wikiwand.com/en/Boltzmann%27s_entropy_formula">Boltzmann's Entropy</a> from physics, if you're into that sort of thing.
+Information entropy gets explained in many ways, but here's my favorite: <b>"How much randomness is floating around in your data?"</b> It's similar to <a href="https://www.wikiwand.com/en/Boltzmann%27s_entropy_formula">Boltzmann's Entropy</a> from physics, if you're familiar with that.
 </p>
 
 <p>
 The formula looks like this:
-$ H = -K &sum;<sub>i = 1</sub><sup>n</sup> p<sub>i</sub> log{p<sub>i</sub>} $
 </p>
 
 <p>
-where \(p_i\) is the probability of event <b>i</b> happening. (That K constant is just there so you can pick whatever units you want - bits, nats, whatever works.)
+\[ H = -K \sum_{i = 1}^{n} p_i \log{p_i} \]
 </p>
 
+<p>
+where \(p_i\) is the probability of event <i>i</i> happening. (The constant K just lets you choose your units — bits, nats, whatever works for you.)
+</p>
+</div>
+<div id="outline-container-org0c94b7c" class="outline-3">
+<h3 id="org0c94b7c">A Weather Example</h3>
+<div class="outline-text-3" id="text-org0c94b7c">
 <p>
 Let me show you what this actually means with some weather data:
 </p>
 
 <div class="org-src-container">
 <pre><code class="python"><span style="font-weight: bold;">import</span> numpy <span style="font-weight: bold;">as</span> np
-<span style="font-weight: bold; font-style: italic;">H</span> = <span style="font-weight: bold;">lambda</span> xs: - numpy.<span style="font-weight: bold;">sum</span>(<span style="font-weight: bold;">map</span>(<span style="font-weight: bold;">lambda</span> x: x * numpy.log2(x) <span style="font-weight: bold;">if</span> x != 0 <span style="font-weight: bold;">else</span> 0, xs))
-<span style="font-weight: bold;">return</span> <span style="font-weight: bold;">list</span>(<span style="font-weight: bold;">map</span>(H, [[0.25, 0.25, 0.25, 0.25], [0.5, 0.2, 0.2, 0.1], [0.8, 0.1, 0.05, 0.05], [1, 0, 0, 0]]))
+<span style="font-weight: bold; font-style: italic;">H</span> = <span style="font-weight: bold;">lambda</span> xs: -numpy.<span style="font-weight: bold;">sum</span>(<span style="font-weight: bold;">map</span>(<span style="font-weight: bold;">lambda</span> x: x * numpy.log2(x) <span style="font-weight: bold;">if</span> x != 0 <span style="font-weight: bold;">else</span> 0, xs))
+<span style="font-weight: bold;">return</span> <span style="font-weight: bold;">list</span>(<span style="font-weight: bold;">map</span>(H, [[0.25, 0.25, 0.25, 0.25], [0.5, 0.2, 0.2, 0.1], 
+                     [0.8, 0.1, 0.05, 0.05], [1, 0, 0, 0]]))
 </code></pre>
 </div>
 
@@ -176,15 +187,16 @@ Let me show you what this actually means with some weather data:
 </table>
 
 <p>
-See the pattern? The more uncertain things are, the higher the entropy. If you know something's gonna happen for sure (like that last row where it's 100% sunny), there's zero entropy. Makes sense, right?
+See the pattern? The more uncertain things are, the higher the entropy. When you know something will happen for sure (like that last row with 100% sunny weather), entropy drops to zero. Makes sense, right?
 </p>
 </div>
 </div>
-<div id="outline-container-orgb5d89a1" class="outline-2">
-<h2 id="orgb5d89a1">Why Should You Care?</h2>
-<div class="outline-text-2" id="text-orgb5d89a1">
+</div>
+<div id="outline-container-org9c48158" class="outline-2">
+<h2 id="org9c48158">Why Should You Care?</h2>
+<div class="outline-text-2" id="text-org9c48158">
 <p>
-Notice I used base 2 for the log? When you do that, Shannon called the units <b>bits</b> (apparently <a href="https://www.wikiwand.com/en/John_Tukey">J. W. Tukey</a> came up with that name). So you can think of entropy as:
+Notice I used base 2 for the logarithm? When you do that, Shannon called the units <b>bits</b> (<a href="https://www.wikiwand.com/en/John_Tukey">J. W. Tukey</a> apparently came up with that name). So you can think of entropy as answering this question:
 </p>
 
 <p>
@@ -192,73 +204,75 @@ Notice I used base 2 for the log? When you do that, Shannon called the units <b>
 </p>
 
 <p>
-This turned out to be incredibly useful for building communication systems that don't waste bandwidth. The basic idea is: if something happens a lot, use fewer bits to represent it. If it's rare, you can afford to use more bits.
+This insight proved incredibly useful for building efficient communication systems. The basic principle: if something happens frequently, use fewer bits to represent it. If it's rare, you can afford to use more bits.
 </p>
 
 <p>
-But here's the thing - knowing how many bits you <b>should</b> need is great, but how do you know if your actual system is any good? That's where cross-entropy comes in.
+But knowing the theoretical minimum is just the starting point. How do you know if your actual system is any good? That's where cross-entropy comes in.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf32b3e3" class="outline-2">
-<h2 id="orgf32b3e3">Cross Entropy: How Bad Are You Actually?</h2>
-<div class="outline-text-2" id="text-orgf32b3e3">
+<div id="outline-container-org869a216" class="outline-2">
+<h2 id="org869a216">Cross-Entropy: Measuring Real-World Performance</h2>
+<div class="outline-text-2" id="text-org869a216">
 <p>
-\[
-  H(p, q) = -K \sum_{i = 1}^{n} p_i \log{q_i}
-\]
+\[ H(p, q) = -K \sum_{i = 1}^{n} p_i \log{q_i} \]
 </p>
 
 <p>
-Where \(q_i\) is what your system <b>thinks</b> the probability is, and \(p_i\) is what it actually is in the real world.
+Here, \(q_i\) is what your system <i>thinks</i> the probability is, while \(p_i\) is the actual probability in the real world.
 </p>
 
 <p>
-I think of cross-entropy as "How well is your system actually doing?" or more specifically, "How many bits are you actually using?" (as opposed to how many you theoretically need).
+I think of cross-entropy as answering: "How many bits is your system actually using?" (as opposed to the theoretical minimum).
 </p>
 
 <p>
-The cool thing is, if your system is perfect and \(q_i = p_i\) for everything, then cross-entropy equals regular entropy. Your system is as efficient as theoretically possible.
+The elegant part? If your system is perfect and \(q_i = p_i\) for all events, then cross-entropy equals regular entropy. Your system is as efficient as theoretically possible.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfb05194" class="outline-2">
-<h2 id="orgfb05194">KL Divergence: The Reality Check</h2>
-<div class="outline-text-2" id="text-orgfb05194">
+<div id="outline-container-org738e92d" class="outline-2">
+<h2 id="org738e92d">KL Divergence: The Efficiency Gap</h2>
+<div class="outline-text-2" id="text-org738e92d">
 <p>
-The difference between cross-entropy and entropy is called <b>Relative Entropy</b> or <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL Divergence</a>. This tells you "How far off are you from perfect?"
+The difference between cross-entropy and entropy is called <b>Relative Entropy</b> or <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">KL Divergence</a>. It tells you exactly how far you are from perfect efficiency:
 </p>
 
 <p>
-\[
-  D_{KL}(p || q) = H(p, q) - H(p)
-\]
+\[ D_{KL}(p || q) = H(p, q) - H(p) \]
 </p>
 
 <p>
-Higher KL divergence means you're wasting more bits. Your system isn't as efficient as it could be.
+Higher KL divergence means you're wasting more bits — your system isn't as efficient as it could be.
 </p>
 </div>
 </div>
-<div id="outline-container-org06a3fd2" class="outline-2">
-<h2 id="org06a3fd2">Why Machine Learning People Love This Stuff</h2>
-<div class="outline-text-2" id="text-org06a3fd2">
+<div id="outline-container-org8dca82b" class="outline-2">
+<h2 id="org8dca82b">Why Machine Learning Loves Cross-Entropy</h2>
+<div class="outline-text-2" id="text-org8dca82b">
 <p>
-Cross-entropy shows up everywhere in ML as a loss function, especially for classification problems. <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy">Here's a good example</a> if you want to dive deeper.
+Cross-entropy shows up everywhere in machine learning as a loss function, especially for classification problems. <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy">Here's a detailed example</a> if you want to explore further.
 </p>
 
 <p>
-The intuition is pretty straightforward: if your model is confident about the right answer, cross-entropy is low. If it's confident about the wrong answer, cross-entropy goes through the roof. And if it's just confused and uncertain about everything, you get something in between.
+The intuition is straightforward:
 </p>
 
+<ul class="org-ul">
+<li><b>Model is confident and correct</b>: Cross-entropy is low ✓</li>
+<li><b>Model is confident but wrong</b>: Cross-entropy shoots up ✗</li>
+<li><b>Model is uncertain about everything</b>: Cross-entropy is somewhere in between ~</li>
+</ul>
+
 <p>
-It's basically a way to penalize both overconfidence in wrong predictions and general uncertainty, which is exactly what you want when training a classifier.
+It's the perfect way to penalize both overconfident wrong predictions and general uncertainty — exactly what you want when training a classifier.
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date"><i>Last Modified: August 17, 2025</i></p>
+<p class="date"><i>Last Modified: January 24, 2026</i></p>
 </div>
 </body>
 </html>

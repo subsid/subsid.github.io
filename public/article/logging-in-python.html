@@ -37,21 +37,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdec2329">Setting Up Python Logging Properly</a>
+<li><a href="#org327e640">Setting Up Python Logging Properly</a>
 <ul>
-<li><a href="#org60712b8">My Custom Logging Setup</a></li>
-<li><a href="#orgdd1fa0e">Why Split stdout and stderr?</a></li>
-<li><a href="#org8672ae6">For Notebooks and Long-Running Jobs</a></li>
-<li><a href="#org5b66fe4">Temporarily Disabling Logs in Notebooks</a></li>
-<li><a href="#org5cb9649">Example Usage</a></li>
+<li><a href="#orgf1d8cab">My Custom Logging Setup</a></li>
+<li><a href="#orgef5d0d1">Why Split stdout and stderr?</a></li>
+<li><a href="#org6ec9899">For Notebooks and Long-Running Jobs</a></li>
+<li><a href="#orge4bce2f">Temporarily Disabling Logs in Notebooks</a></li>
+<li><a href="#orgf49681c">Example Usage</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgdec2329" class="outline-2">
-<h2 id="orgdec2329">Setting Up Python Logging Properly</h2>
-<div class="outline-text-2" id="text-orgdec2329">
+<div id="outline-container-org327e640" class="outline-2">
+<h2 id="org327e640">Setting Up Python Logging Properly</h2>
+<div class="outline-text-2" id="text-org327e640">
 <p>
 Python's logging module requires configuration before it works. This code prints nothing:
 </p>
@@ -66,9 +66,9 @@ logging.info(<span style="font-style: italic;">"Hello world"</span>)
 By default, the root logger only shows WARNING and above. While <code>logging.basicConfig()</code> exists, here's a more flexible setup.
 </p>
 </div>
-<div id="outline-container-org60712b8" class="outline-3">
-<h3 id="org60712b8">My Custom Logging Setup</h3>
-<div class="outline-text-3" id="text-org60712b8">
+<div id="outline-container-orgf1d8cab" class="outline-3">
+<h3 id="orgf1d8cab">My Custom Logging Setup</h3>
+<div class="outline-text-3" id="text-orgf1d8cab">
 <p>
 This configuration routes INFO+ logs to stdout and ERROR logs to stderr, with readable formatting:
 </p>
@@ -103,17 +103,17 @@ This configuration routes INFO+ logs to stdout and ERROR logs to stderr, with re
 </div>
 </div>
 </div>
-<div id="outline-container-orgdd1fa0e" class="outline-3">
-<h3 id="orgdd1fa0e">Why Split stdout and stderr?</h3>
-<div class="outline-text-3" id="text-orgdd1fa0e">
+<div id="outline-container-orgef5d0d1" class="outline-3">
+<h3 id="orgef5d0d1">Why Split stdout and stderr?</h3>
+<div class="outline-text-3" id="text-orgef5d0d1">
 <p>
 Separating streams helps log aggregators (like Google Cloud Logging) correctly categorize error vs. info logs. Without this, all logs may be treated as the same severity level.
 </p>
 </div>
 </div>
-<div id="outline-container-org8672ae6" class="outline-3">
-<h3 id="org8672ae6">For Notebooks and Long-Running Jobs</h3>
-<div class="outline-text-3" id="text-org8672ae6">
+<div id="outline-container-org6ec9899" class="outline-3">
+<h3 id="org6ec9899">For Notebooks and Long-Running Jobs</h3>
+<div class="outline-text-3" id="text-org6ec9899">
 <p>
 For Jupyter notebooks or remote sessions, logging to a file is more reliable:
 </p>
@@ -135,9 +135,9 @@ For Jupyter notebooks or remote sessions, logging to a file is more reliable:
 </div>
 </div>
 </div>
-<div id="outline-container-org5b66fe4" class="outline-3">
-<h3 id="org5b66fe4">Temporarily Disabling Logs in Notebooks</h3>
-<div class="outline-text-3" id="text-org5b66fe4">
+<div id="outline-container-orge4bce2f" class="outline-3">
+<h3 id="orge4bce2f">Temporarily Disabling Logs in Notebooks</h3>
+<div class="outline-text-3" id="text-orge4bce2f">
 <p>
 When running tests or code that generates excessive logs, you can temporarily suppress output:
 </p>
@@ -161,9 +161,9 @@ This is particularly useful in Jupyter notebooks to keep output cells clean duri
 </p>
 </div>
 </div>
-<div id="outline-container-org5cb9649" class="outline-3">
-<h3 id="org5cb9649">Example Usage</h3>
-<div class="outline-text-3" id="text-org5cb9649">
+<div id="outline-container-orgf49681c" class="outline-3">
+<h3 id="orgf49681c">Example Usage</h3>
+<div class="outline-text-3" id="text-orgf49681c">
 <div class="org-src-container">
 <pre><code class="python">logging.info(<span style="font-style: italic;">"Before setup"</span>)  <span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">Prints nothing</span>
 

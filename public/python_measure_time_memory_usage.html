@@ -37,10 +37,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2bfe9fd">Measuring time and memory</a>
+<li><a href="#org4ad8a0e">Measuring time and memory</a>
 <ul>
-<li><a href="#org2010fd9">Using the context manager class</a></li>
-<li><a href="#orgb096043">Using the decorator syntax</a></li>
+<li><a href="#org61a512d">Using the context manager class</a></li>
+<li><a href="#orged20faa">Using the decorator syntax</a></li>
 </ul>
 </li>
 </ul>
@@ -57,16 +57,16 @@ These are some snippets I always have in my utils before starting a project.
 <p>
 <b>Note</b>: I use <code>perf_counter</code> (i.e performance counter clock) to measure time. For more details, <a href="https://realpython.com/python-timer/#using-alternative-python-timer-functions">see this</a>.
 </p>
-<div id="outline-container-org2bfe9fd" class="outline-2">
-<h2 id="org2bfe9fd">Measuring time and memory</h2>
-<div class="outline-text-2" id="text-org2bfe9fd">
+<div id="outline-container-org4ad8a0e" class="outline-2">
+<h2 id="org4ad8a0e">Measuring time and memory</h2>
+<div class="outline-text-2" id="text-org4ad8a0e">
 <p>
 I use python's <a href="https://realpython.com/python-with-statement/#measuring-execution-https://docs.python.org/3/library/stdtypes.html%23typecontextmanager">contextmanager</a> to manage state. Realpython has a <a href="https://realpython.com/python-with-statement/#measuring-execution-time">nice post</a> on this.
 </p>
 </div>
-<div id="outline-container-org2010fd9" class="outline-3">
-<h3 id="org2010fd9">Using the context manager class</h3>
-<div class="outline-text-3" id="text-org2010fd9">
+<div id="outline-container-org61a512d" class="outline-3">
+<h3 id="org61a512d">Using the context manager class</h3>
+<div class="outline-text-3" id="text-org61a512d">
 <div class="org-src-container">
 <pre><code class="python"><span style="font-weight: bold;">import</span> time
 <span style="font-weight: bold;">import</span> psutil
@@ -111,9 +111,9 @@ I use python's <a href="https://realpython.com/python-with-statement/#measuring-
 </div>
 </div>
 </div>
-<div id="outline-container-orgb096043" class="outline-3">
-<h3 id="orgb096043">Using the decorator syntax</h3>
-<div class="outline-text-3" id="text-orgb096043">
+<div id="outline-container-orged20faa" class="outline-3">
+<h3 id="orged20faa">Using the decorator syntax</h3>
+<div class="outline-text-3" id="text-orged20faa">
 <p>
 The context manager API can be verbose. Using the <a href="https://docs.python.org/3/library/stdtypes.html#typecontextmanager">contextmanager</a> decorator makes it more clear.
 </p>
