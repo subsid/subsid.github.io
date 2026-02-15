@@ -2,19 +2,24 @@
 
 set -euo pipefail
 
-echo "Building site"
-# Build site
-./scripts/build.sh
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+REMOTE=$(git -C "$REPO_DIR" remote get-url origin)
 
-echo "Committing changes"
-# Commit changes
-git add -A
 msg="rebuilding site $(date)"
-if [ -n "$*" ]; then
+if [ -n "${*:-}" ]; then
   msg="$*"
 fi
-git commit -m "$msg"
 
-echo "Deploying to main"
-# Deploy to main
-git push origin `git subtree split --prefix public org-publish`:main --force
+echo "Building site..."
+cd "$REPO_DIR"
+./scripts/build.sh
+
+echo "Deploying public/ to origin/main..."
+cd "$REPO_DIR/public"
+git init -q
+git add -A
+git commit -q -m "$msg"
+git push -q "$REMOTE" HEAD:main --force
+rm -rf "$REPO_DIR/public/.git"
+
+echo "Deploy complete!"

@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       aaaaaaaa-0001-0001-0001-000000000001
+:END:
+#+title: Published Article
+#+TAGS: publish
+#+EXPORT_FILE_NAME: published-article
+#+DATE: <2024-03-15 Fri>
+
+This is a published article with a clean export filename.
+
+* Section One
+
+Some content here.

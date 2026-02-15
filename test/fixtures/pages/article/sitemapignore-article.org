@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       aaaaaaaa-0001-0001-0001-000000000004
+:END:
+#+title: Sitemap Ignored Article
+#+TAGS: publish sitemapignore
+#+EXPORT_FILE_NAME: sitemapignore-article
+#+DATE: <2024-09-20 Fri>
+
+This article is published but excluded from the sitemap (e.g. the About page).
+
+* Content
+
+Body content.

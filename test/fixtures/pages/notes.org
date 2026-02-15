@@ -1,0 +1,6 @@
+#+TITLE: Notes
+
+Test notes.
+
+- [[file:article/notitle-article.html][No Title Article]] /2024-06-01/
+- [[file:article/published-article.html][Published Article]] /2024-03-15/
