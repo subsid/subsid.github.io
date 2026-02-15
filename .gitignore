@@ -4,5 +4,6 @@ _site/*
 node_modules/
 content/unpublished
 private/
+public/
 package-lock.json
 .hugo_build.lock

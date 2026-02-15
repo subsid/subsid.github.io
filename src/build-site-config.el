@@ -250,7 +250,7 @@
    :sitemap-function (lambda (title list)
                        (create-sitemap-with-description
                         title
-                        "Reference materials/snippets/resources."
+                        "Reference links/snippets/resources."
                         list)))
 
   ;; Private versions of notes and references (same content, published to ./private)
