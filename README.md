@@ -1,8 +1,57 @@
 # subsid.github.io
 
-Personal blog and notes, built with [Emacs org-mode](https://orgmode.org/) and [ox-publish](https://orgmode.org/manual/Publishing.html). Source files are [org-roam](https://www.orgroam.com/) notes; this repo contains only the build tooling that converts them to static HTML.
+Personal blog and notes, built with [Emacs org-mode](https://orgmode.org/) and [ox-publish](https://orgmode.org/manual/Publishing.html). Source files are [org-roam](https://www.orgroam.com/) notes; this branch (`org-publish`) contains the build tooling that converts them to static HTML. The generated site is deployed to the `main` branch.
 
-Live site: [subsid.github.io](https://subsid.github.io)
+Live site: [subsid.github.io](https://subsid.github.io) · [Setup](#setup) · [How It Works](#how-it-works)
+
+---
+
+## Setup
+
+**1. Clone the repo**
+
+```bash
+git clone https://github.com/subsid/subsid.github.io.git
+cd subsid.github.io
+```
+
+**2. Run a build**
+
+Without any configuration, the build uses the included fixture files in `test/fixtures/pages/` as the org source. This is a good way to verify everything works before pointing it at your own notes:
+
+```bash
+./scripts/build.sh
+./scripts/serve.sh   # open http://localhost:8000
+```
+
+**3. Point it at your own org files**
+
+Set the `ORG_PAGES_DIR` environment variable to your org-roam pages directory:
+
+```bash
+ORG_PAGES_DIR=~/path/to/your/org/pages ./scripts/build.sh
+```
+
+To make this permanent, export it in your shell profile (`.bashrc`, `.zshrc`, etc.):
+
+```bash
+export ORG_PAGES_DIR=~/path/to/your/org/pages
+```
+
+The directory should contain `article/`, `main/`, and `reference/` subdirectories matching the [layout described above](#source-directory-layout).
+
+**4. Tag your org files**
+
+Add `#+TAGS: publish` to any file you want on the public blog. Use `#+EXPORT_FILE_NAME:` for a clean output filename:
+
+```org
+#+title: My First Post
+#+TAGS: publish
+#+EXPORT_FILE_NAME: my-first-post
+#+DATE: <2025-01-01 Wed>
+
+Content goes here.
+```
 
 ---
 
@@ -67,48 +116,6 @@ Install `entr` on Debian/Ubuntu:
 ```bash
 apt install entr
 ```
-
----
-
-## Setup
-
-To use this as the basis for your own org-roam blog:
-
-**1. Clone the repo**
-
-```bash
-git clone https://github.com/subsid/subsid.github.io.git
-cd subsid.github.io
-```
-
-**2. Point the build at your org files**
-
-Open `src/build-site-config.el` and update the `:base-directory` in each project to point to your own org-roam pages directory. It appears in several places — search for `~/Dropbox/notes/org_roam_v2/pages` and replace all occurrences:
-
-```elisp
-:base-directory "~/path/to/your/org/pages"
-```
-
-**3. Tag your org files**
-
-Add `#+TAGS: publish` to any org file you want to appear on the public blog. Use `#+EXPORT_FILE_NAME:` to set a clean output filename (otherwise the source filename is used):
-
-```org
-#+title: My First Post
-#+TAGS: publish
-#+EXPORT_FILE_NAME: my-first-post
-#+DATE: <2025-01-01 Wed>
-
-Content goes here.
-```
-
-**4. Run a build**
-
-```bash
-./scripts/build.sh
-```
-
-Output appears in `public/`. Open `public/index.html` in a browser, or use `serve.sh` for a proper local server.
 
 ---
 
@@ -181,7 +188,7 @@ subsid.github.io/
 │           ├── article/
 │           ├── main/
 │           └── reference/
-├── public/                    # Generated public site (committed via git subtree)
+├── public/                    # Generated public site (deployed to origin/main by deploy.sh)
 ├── private/                   # Generated private site (local only, gitignored)
 └── LICENSE
 ```

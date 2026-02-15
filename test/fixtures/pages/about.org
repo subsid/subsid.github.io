@@ -1,0 +1,14 @@
+:PROPERTIES:
+:ID:       aaaaaaaa-0000-0000-0000-000000000001
+:END:
+#+title: About
+#+TAGS: publish notitle sitemapignore
+#+EXPORT_FILE_NAME: about
+#+date: <2025-01-01>
+#+options: toc:nil
+
+* About This Site
+
+This is a sample about page. Replace with your own content.
+
+This site is built with [[https://orgmode.org/manual/Publishing.html][ox-publish]] from [[https://www.orgroam.com/][org-roam]] notes. See the [[https://github.com/subsid/subsid.github.io][build tooling]] for details.

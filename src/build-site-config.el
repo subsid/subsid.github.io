@@ -18,6 +18,14 @@
 ;; Load the publishing system
 (require 'ox-publish)
 
+;; Source directory for org files.
+;; Override by setting the ORG_PAGES_DIR environment variable.
+;; Defaults to test/fixtures/pages so a fresh clone works out of the box.
+(defvar my-org-pages-dir
+  (expand-file-name
+   (or (getenv "ORG_PAGES_DIR") "./test/fixtures/pages"))
+  "Root directory containing org source files (article/, main/, reference/).")
+
 ;; Define preambles
 (defvar my-site-preamble
   "<div class=\"site-header\">
@@ -219,7 +227,7 @@ If PINNED is a string, any entry whose link contains PINNED is moved to the fron
   ;; Public notes: article/ and main/ -> public/article/, public/main/
   ("my-org-notes"
    :recursive t
-   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-directory ,my-org-pages-dir
    :base-extension "org"
    :publishing-directory "./public"
    :publishing-function my-conditional-html-publish
@@ -237,7 +245,7 @@ If PINNED is a string, any entry whose link contains PINNED is moved to the fron
   ;; Public references: reference/ -> public/reference/
   ("my-org-references"
    :recursive t
-   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-directory ,my-org-pages-dir
    :base-extension "org"
    :publishing-directory "./public"
    :publishing-function my-conditional-html-publish
@@ -256,7 +264,7 @@ If PINNED is a string, any entry whose link contains PINNED is moved to the fron
   ;; Private notes: article/ and main/ -> private/article/, private/main/
   ("my-private-notes"
    :recursive t
-   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-directory ,my-org-pages-dir
    :base-extension "org"
    :publishing-directory "./private"
    :publishing-function my-conditional-html-publish
@@ -276,7 +284,7 @@ If PINNED is a string, any entry whose link contains PINNED is moved to the fron
   ;; Private references: reference/ -> private/reference/
   ("my-private-references"
    :recursive t
-   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-directory ,my-org-pages-dir
    :base-extension "org"
    :publishing-directory "./private"
    :publishing-function my-conditional-html-publish
@@ -297,7 +305,7 @@ If PINNED is a string, any entry whose link contains PINNED is moved to the fron
   ;; Private unpublished: all files not on public blog -> private/
   ("my-private-blog-content"
    :recursive t
-   :base-directory "~/Dropbox/notes/org_roam_v2/pages"
+   :base-directory ,my-org-pages-dir
    :base-extension "org"
    :publishing-directory "./private"
    :publishing-function my-publish-all-html
