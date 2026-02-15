@@ -23,22 +23,26 @@
 (defun my/publish-file-to-project (file project-name)
   "Publish FILE into PROJECT-NAME, initializing that project's cache first.
 Computes the correct pub-dir by preserving the relative path from the
-project's base directory, matching what org-publish-file does."
+project's base directory, matching what org-publish-file does.
+Respects :exclude patterns defined on the project."
   (let ((project (assoc project-name org-publish-project-alist)))
     (when project
       (org-publish-initialize-cache project-name)
       (let* ((plist (cdr project))
              (base-dir (file-truename (expand-file-name (plist-get plist :base-directory))))
              (true-file (file-truename (expand-file-name file)))
+             (relative-file (file-relative-name true-file base-dir))
+             (exclude-regexp (plist-get plist :exclude))
              (root-pub-dir (file-name-as-directory (expand-file-name (plist-get plist :publishing-directory))))
              ;; Compute the subdir of the file relative to base-dir, then append to pub-dir
-             (relative-dir (file-name-directory (file-relative-name true-file base-dir)))
+             (relative-dir (file-name-directory relative-file))
              (pub-dir (if (and relative-dir (not (equal relative-dir "./")))
                           (expand-file-name relative-dir root-pub-dir)
                         root-pub-dir))
              (pub-fn (plist-get plist :publishing-function)))
         (when (and pub-fn
-                   (string-prefix-p base-dir true-file))
+                   (string-prefix-p base-dir true-file)
+                   (not (and exclude-regexp (string-match exclude-regexp relative-file))))
           (message "Publishing %s -> %s (project: %s)" file pub-dir project-name)
           (make-directory pub-dir t)
           (funcall pub-fn plist file pub-dir)
@@ -48,14 +52,10 @@ project's base directory, matching what org-publish-file does."
 (when (boundp 'changed-file)
   (message "Publishing single file: %s" changed-file)
 
-  (dolist (project-name '("my-org-notes-articles"
-                           "my-org-notes-main"
-                           "my-org-notes-sitemap"
-                           "my-private-notes-articles"
-                           "my-private-notes-main"
-                           "my-private-notes-sitemap"
-                           "my-org-references-content"
-                           "my-private-references-content"
+  (dolist (project-name '("my-org-notes"
+                           "my-org-references"
+                           "my-private-notes"
+                           "my-private-references"
                            "my-private-blog-content"))
     (my/publish-file-to-project changed-file project-name)))
 

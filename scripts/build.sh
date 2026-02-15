@@ -4,9 +4,9 @@ if [ "$1" = "watch" ]; then
     echo "Watching for changes in ~/Dropbox/notes/org_roam_v2/pages/{article,main,reference}/..."
     find ~/Dropbox/notes/org_roam_v2/pages/{article,main,reference} -name "*.org" \
         -not -name "notes.org" -not -name "references.org" -not -name "private.org" -not -name "sitemap.org" | \
-        entr ./scripts/build.sh incremental /_
+        entr -n -s './scripts/build.sh incremental "$0"'
 elif [ "$1" = "incremental" ]; then
-    CHANGED_FILE="$2"
+    CHANGED_FILE="${*:2}"
     if [ -n "$CHANGED_FILE" ]; then
         echo "Incrementally building changed file: $CHANGED_FILE"
         emacs -Q --batch --eval "(setq changed-file \"$CHANGED_FILE\")" -l ./src/incremental-build.el
@@ -15,6 +15,8 @@ elif [ "$1" = "incremental" ]; then
         echo "No file specified for incremental build"
     fi
 else
+    echo "Cleaning public/ and private/ directories..."
+    rm -rf ./public/* ./private/*
     echo "Building site (full rebuild)..."
     emacs -Q --script ./src/build-site.el
     echo "Build complete!"
