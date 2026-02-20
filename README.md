@@ -128,6 +128,7 @@ Files in `project/`, `work/`, `Inbox.org`, and `Mobile Inbox.org` are automatica
 
 # Watch for changes and rebuild incrementally
 ./scripts/build.sh watch
+# Note: Sitemaps (notes.html, references.html) require a full rebuild to update
 
 # Rebuild a single file
 ./scripts/build.sh incremental /path/to/file.org
