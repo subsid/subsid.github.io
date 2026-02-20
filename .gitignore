@@ -1,9 +1,19 @@
-_site/*
-.DS_Store
-
-node_modules/
-content/unpublished
+# Build outputs
 private/
 public/
+
+# Emacs packages
+.packages/
+
+# Org publish cache
+.org-timestamps/
+
+# Old/unused
+_site/*
+.DS_Store
+node_modules/
 package-lock.json
 .hugo_build.lock
+
+# Content
+content/unpublished

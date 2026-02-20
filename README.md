@@ -1,121 +1,120 @@
 # subsid.github.io
 
-Personal blog and notes, built with [Emacs org-mode](https://orgmode.org/) and [ox-publish](https://orgmode.org/manual/Publishing.html). Source files are [org-roam](https://www.orgroam.com/) notes; this branch (`org-publish`) contains the build tooling that converts them to static HTML. The generated site is deployed to the `main` branch.
+Personal blog and notes, built with [Emacs org-mode](https://orgmode.org/) and [ox-publish](https://orgmode.org/manual/Publishing.html). Source files are [org-roam](https://www.orgroam.com/) notes published using [orgroam-publish](https://github.com/subsid/orgroam-publish), a static site generator for org-roam.
 
-Live site: [subsid.github.io](https://subsid.github.io) · [Setup](#setup) · [How It Works](#how-it-works)
+Live site: [subsid.github.io](https://subsid.github.io)
 
 ---
 
-## Setup
+## Features
 
-**1. Clone the repo**
+- **Dual Blog System** — Generate both public (`public/`) and private (`private/`) versions
+- **Tag-based Publishing** — Control what gets published with simple org-mode tags
+- **Incremental Builds** — Fast rebuilds when editing individual files
+- **Watch Mode** — Automatically rebuild on file changes
+- **Sitemap Generation** — Automatic index pages sorted chronologically
+
+---
+
+## Quick Start
+
+**1. Clone with submodules**
 
 ```bash
-git clone https://github.com/subsid/subsid.github.io.git
+git clone --recursive https://github.com/subsid/subsid.github.io.git
 cd subsid.github.io
 ```
 
-**2. Run a build**
-
-Without any configuration, the build uses the included fixture files in `test/fixtures/pages/` as the org source. This is a good way to verify everything works before pointing it at your own notes:
+**2. Build the site**
 
 ```bash
 ./scripts/build.sh
 ./scripts/serve.sh   # open http://localhost:8000
 ```
 
-**3. Point it at your own org files**
-
-Set the `ORG_PAGES_DIR` environment variable to your org-roam pages directory:
+**3. Deploy**
 
 ```bash
-ORG_PAGES_DIR=~/path/to/your/org/pages ./scripts/build.sh
-```
-
-To make this permanent, export it in your shell profile (`.bashrc`, `.zshrc`, etc.):
-
-```bash
-export ORG_PAGES_DIR=~/path/to/your/org/pages
-```
-
-The directory should contain `article/`, `main/`, and `reference/` subdirectories matching the [layout described above](#source-directory-layout).
-
-**4. Tag your org files**
-
-Add `#+TAGS: publish` to any file you want on the public blog. Use `#+EXPORT_FILE_NAME:` for a clean output filename:
-
-```org
-#+title: My First Post
-#+TAGS: publish
-#+EXPORT_FILE_NAME: my-first-post
-#+DATE: <2025-01-01 Wed>
-
-Content goes here.
+./scripts/deploy.sh
 ```
 
 ---
 
 ## How It Works
 
-Org files from an external org-roam directory are published to two output targets:
+This repository uses [orgroam-publish](https://github.com/subsid/orgroam-publish) (in `generator/`) to convert org-roam notes to static HTML. The generator is configured via `site-config.el` in this repo.
 
-- **`public/`** — the public blog, deployed to GitHub Pages. Only files tagged `publish` are included.
-- **`private/`** — a full local preview including unpublished drafts. Never committed to git.
+### Directory Structure
 
-### Tag System
+```
+subsid.github.io/
+├── generator/              # orgroam-publish (git submodule)
+├── site-config.el         # Site-specific configuration
+├── scripts/
+│   ├── build.sh           # Wrapper calling generator/scripts/build.sh
+│   ├── serve.sh           # Wrapper calling generator/scripts/serve.sh
+│   └── deploy.sh          # Deploy to GitHub Pages
+├── content/
+│   └── published/         # Static assets (CSS, JS, images)
+├── public/                # Generated public blog (deployed to main branch)
+└── private/               # Generated private blog (gitignored)
+```
 
-Tags are set in an org file's header with `#+TAGS:`. Three tags control publishing behaviour:
+### Configuration
+
+The `site-config.el` file contains site-specific settings:
+
+```elisp
+;; Point to your org-roam directory
+(setq my-org-pages-dir 
+  (expand-file-name "~/Dropbox/notes/org_roam_v2/pages"))
+
+;; Customize navigation
+(setq my-site-preamble
+  "<div class=\"site-header\">
+  <nav class=\"site-nav\">
+    <a href=\"/about.html\">About</a>
+    <a href=\"/notes.html\">Notes</a>
+    <a href=\"/references.html\">References</a>
+  </nav>
+</div>")
+```
+
+See `generator/site-config.example.el` for all available options.
+
+### Publishing Tags
+
+Tags are set in an org file's header with `#+TAGS:`:
 
 | Tag             | Effect                                                                 |
 |-----------------|------------------------------------------------------------------------|
 | `publish`       | Include the file in the public blog                                    |
-| `sitemapignore` | Publish the HTML but exclude the file from the sitemap listing         |
-| `notitle`       | Suppress the `<h1>` title in the exported HTML (useful for custom layouts) |
+| `sitemapignore` | Publish the HTML but exclude from sitemap                             |
+| `notitle`       | Suppress the `<h1>` title in the exported HTML                        |
 
-Example org file header:
+Example:
 
 ```org
-#+title: My Article
+#+TITLE: My Article
 #+TAGS: publish
 #+EXPORT_FILE_NAME: my-article
 #+DATE: <2025-03-01 Sat>
+
+Content goes here.
 ```
 
 ### Source Directory Layout
 
-The build expects org files organised into three subdirectories:
+The generator expects org files in three subdirectories:
 
 ```
 pages/
 ├── article/    # Long-form articles and posts
 ├── main/       # Short notes and zettels
-└── reference/  # Reference material, snippets, link collections
+└── reference/  # Reference material, snippets, links
 ```
 
-Files in `project/`, `work/`, `Inbox.org`, and `Mobile Inbox.org` are always excluded.
-
-### Sitemap Generation
-
-Two sitemaps are generated automatically:
-
-- **`notes.html`** — lists all published `article/` and `main/` files, sorted by date (newest first)
-- **`references.html`** — lists all published `reference/` files, with the Links file pinned to the top
-
----
-
-## Prerequisites
-
-| Dependency | Purpose                          | Required?                  |
-|------------|----------------------------------|----------------------------|
-| Emacs 28+  | Build engine (ox-publish)        | Yes                        |
-| Python 3   | Local preview server             | For `serve.sh` only        |
-| `entr`     | File watching for incremental builds | For `build.sh watch` only |
-
-Install `entr` on Debian/Ubuntu:
-
-```bash
-apt install entr
-```
+Files in `project/`, `work/`, `Inbox.org`, and `Mobile Inbox.org` are automatically excluded.
 
 ---
 
@@ -124,23 +123,23 @@ apt install entr
 ### Build
 
 ```bash
-# Full clean build (clears public/ and private/ before rebuilding)
+# Full clean build
 ./scripts/build.sh
 
-# Watch for file changes and incrementally rebuild on save
+# Watch for changes and rebuild incrementally
 ./scripts/build.sh watch
 
-# Rebuild a single file (used internally by watch mode)
+# Rebuild a single file
 ./scripts/build.sh incremental /path/to/file.org
 ```
 
-### Serve locally
+### Serve Locally
 
 ```bash
-# Serve public/ on http://localhost:8000
+# Serve public blog on http://localhost:8000
 ./scripts/serve.sh
 
-# Serve private/ (includes unpublished drafts)
+# Serve private blog (includes unpublished drafts)
 ./scripts/serve.sh private
 
 # Custom port
@@ -153,68 +152,78 @@ apt install entr
 # Build and push public/ to GitHub Pages
 ./scripts/deploy.sh
 
-# With a custom commit message
+# With custom commit message
 ./scripts/deploy.sh "update notes"
 ```
 
-Initialises a throwaway git repo inside `public/`, commits all generated files, and force-pushes to `origin/main`. The `public/` directory is gitignored on the working branch — only the generated output lands on `main`.
+The deploy script:
+1. Runs a full build
+2. Creates a temporary git repo in `public/`
+3. Commits all generated files
+4. Force-pushes to `origin/main`
 
-### Test
+---
+
+## Prerequisites
+
+| Dependency | Purpose                          | Required?                  |
+|------------|----------------------------------|----------------------------|
+| Emacs 28+  | Build engine (ox-publish)        | Yes                        |
+| Python 3   | Local preview server             | For `serve.sh` only        |
+| `entr`     | File watching                    | For `build.sh watch` only  |
+
+Install `entr` on Debian/Ubuntu:
 
 ```bash
-./scripts/test.sh
+apt install entr
 ```
 
 ---
 
-## Project Structure
+## Customization
 
+### CSS
+
+Add custom styles to `content/published/static/css/custom.css`. This file is copied to both `public/` and `private/` during builds.
+
+### JavaScript
+
+Place JS files in `content/published/js/` and reference them in `site-config.el`:
+
+```elisp
+(setq my-html-head
+  "<link rel=\"stylesheet\" href=\"/static/css/custom.css\" />
+<script src=\"/js/main.js\"></script>")
 ```
-subsid.github.io/
-├── src/
-│   ├── build-site-config.el   # All project definitions, tag logic, sitemap functions
-│   ├── build-site.el          # Full build entry point (loads config and runs org-publish)
-│   └── incremental-build.el   # Single-file publish logic used by watch mode
-├── scripts/
-│   ├── build.sh               # Full / watch / incremental build
-│   ├── deploy.sh              # Build and deploy to GitHub Pages
-│   ├── serve.sh               # Local preview server
-│   └── test.sh                # Run the test suite
-├── content/
-│   └── published/             # Static assets (CSS, JS) copied to public/ and private/
-├── test/
-│   └── fixtures/              # Mock org files used by the test suite
-│       └── pages/
-│           ├── article/
-│           ├── main/
-│           └── reference/
-├── public/                    # Generated public site (deployed to origin/main by deploy.sh)
-├── private/                   # Generated private site (local only, gitignored)
-└── LICENSE
-```
+
+### Navigation
+
+Modify `my-site-preamble` and `my-private-site-preamble` in `site-config.el`.
 
 ---
 
-## Running Tests
+## Generator
 
-Tests use Emacs's built-in [ERT](https://www.gnu.org/software/emacs/manual/html_node/ert/) framework and run against the fixture files in `test/fixtures/` — no real notes are required.
+This site uses [orgroam-publish](https://github.com/subsid/orgroam-publish), a static site generator for org-roam notes. The generator lives in `generator/` as a git submodule.
+
+To update the generator:
 
 ```bash
-./scripts/test.sh
+cd generator
+git pull origin main
+cd ..
+git add generator
+git commit -m "Update orgroam-publish generator"
 ```
 
-15 tests across three categories:
-
-- **Tag tests** — `get-file-tags-info` correctly detects `publish`, `notitle`, and `sitemapignore`
-- **Sitemap unit tests** — `create-sitemap-entry` path handling, `EXPORT_FILE_NAME` resolution, pinned entry ordering
-- **Integration tests** — full `ox-publish` run verifying published files appear in the right place, unpublished files are excluded, `notitle` suppresses the heading, `sitemapignore` keeps files out of the sitemap, and the Links reference is pinned first
+See the [generator README](generator/README.md) for more details on how it works.
 
 ---
 
 ## License
 
-The build tooling in this repository (scripts, Emacs Lisp source, test fixtures) is released under the [MIT License](LICENSE). This covers the software only — not the blog posts and notes, which remain personal content.
+The build tooling and configuration in this repository are released under the [MIT License](LICENSE). This covers the software only — blog posts and notes remain personal content.
 
 ---
 
-*Inspired by the [System Crafters org-website-example](https://github.com/SystemCrafters/org-website-example).*
+*Built with [orgroam-publish](https://github.com/subsid/orgroam-publish) • Inspired by [System Crafters org-website-example](https://github.com/SystemCrafters/org-website-example)*

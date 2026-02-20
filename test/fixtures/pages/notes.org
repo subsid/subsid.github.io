@@ -1,6 +1,0 @@
-#+TITLE: Notes
-
-A collection of notes, articles, and snippets.
-
-- [[file:article/notitle-article.html][No Title Article]] /2024-06-01/
-- [[file:article/published-article.html][Published Article]] /2024-03-15/

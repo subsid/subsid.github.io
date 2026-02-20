@@ -11,7 +11,9 @@ This repository is a personal blog/notes system that uses Emacs org-mode to publ
 - **Output**: 
   - `public/` - Public blog (published to GitHub Pages)
   - `private/` - Private blog (local only, excluded from git)
-- **Build System**: Emacs Lisp scripts using ox-publish
+- **Build System**: Uses `orgroam-publish` generator (in `generator/` directory)
+  - Core build logic: `generator/src/build-site-config.el`
+  - Site customization: `site-config.el` (in repo root)
 - **Static Assets**: `content/published/` contains CSS/JS files
 
 ## Build Commands
@@ -21,8 +23,8 @@ This repository is a personal blog/notes system that uses Emacs org-mode to publ
 # Build both public and private blogs
 ./scripts/build.sh
 
-# Alternative: Direct emacs invocation
-emacs -Q --script ./src/build-site.el
+# Or call the generator directly:
+./generator/scripts/build.sh
 ```
 
 ### Incremental Build
@@ -32,8 +34,6 @@ emacs -Q --script ./src/build-site.el
 
 # Manually build a single file
 ./scripts/build.sh incremental /path/to/file.org
-# Or directly:
-emacs -Q --batch --eval "(setq changed-file \"/path/to/file.org\")" -l ./src/incremental-build.el
 ```
 
 ### Serve Locally
@@ -62,9 +62,10 @@ emacs -Q --batch --eval "(setq changed-file \"/path/to/file.org\")" -l ./src/inc
 ### Emacs Lisp
 
 #### File Organization
-- Configuration file: `src/build-site-config.el` (main config, ~440 lines)
-- Entry point: `src/build-site.el` (minimal, loads config and runs build)
-- Incremental build: `src/incremental-build.el` (single-file publishing)
+- Configuration file: `generator/src/build-site-config.el` (main config, ~440 lines)
+- Entry point: `generator/src/build-site.el` (minimal, loads config and runs build)
+- Incremental build: `generator/src/incremental-build.el` (single-file publishing)
+- Site customization: `site-config.el` (root of this repo, overrides generator defaults)
 
 #### Naming Conventions
 - **Functions**: Use `my-` or `my/` prefix for custom functions
@@ -225,16 +226,21 @@ Use advice to transform org-mode HTML output:
 
 ### Adding New Static Assets
 1. Place files in `content/published/static/` (CSS) or `content/published/js/` (JS)
-2. Reference in `org-html-head` variable in `src/build-site-config.el:47-60`
+2. Reference in `my-html-head` variable in `site-config.el` or generator's default config
 3. No rebuild needed - static files copied automatically
 
 ### Modifying Navigation
-Edit `my-site-preamble` or `my-private-site-preamble` variables in `src/build-site-config.el:22-39`
+Edit `my-site-preamble` or `my-private-site-preamble` variables in `site-config.el`
 
 ### Changing Publishing Logic
-1. Modify filter functions in `src/build-site-config.el:76-108`
-2. Update `get-file-tags-info` for new tag types
+1. For site-specific changes: Add overrides to `site-config.el`
+2. For generator changes: Edit `generator/src/build-site-config.el`
 3. Test with both full and incremental builds
+
+### Modifying Generator Defaults
+1. Edit files in `generator/` directory
+2. Changes will affect all sites using the generator
+3. Commit changes to the generator repository separately
 
 ### Debug Build Issues
 - Clear cache: `rm -rf ~/.org-timestamps/`
@@ -246,5 +252,6 @@ Edit `my-site-preamble` or `my-private-site-preamble` variables in `src/build-si
 - **Dependencies**: Requires Emacs with package system, entr (for watch mode), Python 3 (for serving)
 - **Org-roam integration**: This project consumes org-roam files but doesn't manage them
 - **Deployment**: Uses `git subtree` to push `public/` folder to `main` branch on GitHub
-- **Cache handling**: `org-publish-cache` cleared on each full build (line 433-436)
+- **Cache handling**: `org-publish-cache` cleared on each full build
 - **Incremental builds**: Must initialize cache for all projects before publishing single file
+- **Generator**: The `generator/` directory contains the `orgroam-publish` static site generator (separate git repository)

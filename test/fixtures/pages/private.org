@@ -1,8 +1,0 @@
-#+TITLE: Private Articles
-
-Articles not published on the public blog.
-
-- [[file:about.html][About]] /2025-01-01/
-- [[file:main/private-note.html][Private Note]] /2025-11-05/
-- [[file:article/sitemapignore-article.html][Sitemap Ignored Article]] /2024-09-20/
-- [[file:article/unpublished-article.html][Unpublished Article]] /2024-01-10/
