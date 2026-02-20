@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org Roam Workflow</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgfc84471">Publishing</a></li>
+<li><a href="#orgb36aa50">Emacs Config</a></li>
+</ul>
+</div>
+</div>
+<p>
+I use <a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten</a> via <a href="https://www.orgroam.com/">org-roam</a> to manage 15+ years of org notes. Following <a href="https://jethrokuan.github.io/org-roam-guide/">Jethro Kuan's slip box approach</a>, notes are organised into four directories:
+</p>
+
+<ol class="org-ol">
+<li><b>main</b> - Quick thoughts and snippets</li>
+<li><b>reference</b> - Ideas from books, articles, and other sources</li>
+<li><b>article</b> - Long-form content: paper reviews, essays, synthesis of multiple notes</li>
+<li><b>project</b> - GTD-style task management, kept separate so org-agenda doesn't scan thousands of zettels</li>
+</ol>
+<div id="outline-container-orgfc84471" class="outline-2">
+<h2 id="orgfc84471">Publishing</h2>
+<div class="outline-text-2" id="text-orgfc84471">
+<p>
+Notes are published to a static blog using <a href="https://github.com/subsid/orgroam-publish">orgroam-publish</a>, a static site generator built on <a href="https://orgmode.org/manual/Publishing.html">ox-publish</a>. The blog setup can be found <a href="https://github.com/subsid/subsid.github.io">here</a>.
+</p>
+
+<p>
+Two outputs are generated:
+</p>
+<ul class="org-ul">
+<li><b>Public</b> (<code>public/</code>) — only files tagged <code>publish</code> are included, deployed to <a href="https://subsid.github.io">my site</a></li>
+<li><b>Private</b> (<code>private/</code>) — full local preview including drafts, never committed</li>
+</ul>
+
+<p>
+Three tags control publishing:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><code>publish</code></td>
+<td class="org-left">Include in the public blog</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>sitemapignore</code></td>
+<td class="org-left">Publish the HTML but exclude from the sitemap</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>notitle</code></td>
+<td class="org-left">Suppress the <code>&lt;h1&gt;</code> title in the exported HTML</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The generator is configured via a single <code>site-config.el</code> file that points to this org-roam directory and customizes navigation/styling.
+</p>
+</div>
+</div>
+<div id="outline-container-orgb36aa50" class="outline-2">
+<h2 id="orgb36aa50">Emacs Config</h2>
+<div class="outline-text-2" id="text-orgb36aa50">
+<p>
+org-roam setup: <a href="https://github.com/subsid/emacs.d/blob/master/config/my-org-roam.el">my-org-roam.el</a>. org-agenda uses <a href="https://github.com/subsid/emacs.d/blob/master/config/my-org-roam.el#L218">ripgrep</a> to surface TODOs from project files only.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: February 19, 2026</i></p>
+</div>
+</body>
+</html>

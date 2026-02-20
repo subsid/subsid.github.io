@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI: The Good, Bad, and Ugly — Talk Notes</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">AI: The Good, Bad, and Ugly — Talk Notes</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4dbb554">Why Modern Neural Networks Actually Work (The Lucky Breaks)</a></li>
+<li><a href="#orga33675d">Why Big Models Don't Just Memorize Everything</a></li>
+<li><a href="#org2ec4980">The Chinchilla Insight: Why Data and Parameters Must Scale Together</a></li>
+<li><a href="#org1759b06">Closing Thoughts</a></li>
+<li><a href="#orgc2cbfc3">Neural Networks Work by Compressing Reality</a></li>
+</ul>
+</div>
+</div>
+<p>
+<a href="https://www.youtube.com/watch?v=-a61zsRRONc">Artificial Intelligence - Good, bad, ugly</a> - Yaser Abu-Mostafa
+</p>
+
+<p>
+Really enjoyed this talk. My takeaways with some additional notes and brainstorming.
+</p>
+<div id="outline-container-org4dbb554" class="outline-2">
+<h2 id="org4dbb554">Why Modern Neural Networks Actually Work (The Lucky Breaks)</h2>
+<div class="outline-text-2" id="text-org4dbb554">
+<p>
+<b>Local minima are good enough</b> Finding the perfect global minimum is computationally intractable, but the "pretty good" minima that gradient descent finds generalize well. Neural network loss landscapes are surprisingly forgiving, and optimization reliably finds solutions that work.
+</p>
+
+<p>
+<b>Huge models still generalize</b>
+</p>
+
+<p>
+Old wisdom said: more parameters than data points means memorization and poor generalization. Turns out that's wrong. Models like Llama 405B still generalize beautifully. This is because language has massive redundancy and structure — the model is overparameterized relative to raw token count, but not relative to the actual complexity of language and the patterns it needs to learn.
+</p>
+
+<p>
+<b>Emergent abilities need a critical mass</b>
+</p>
+
+<p>
+Some capabilities — reasoning, coding, in-context learning — don't appear gradually. They switch on once the model reaches sufficient scale. The underlying loss improves smoothly the whole time, but capabilities appear suddenly once the model has enough representational capacity. Like water heating up: temperature rises smoothly, but boiling happens at a threshold.
+</p>
+</div>
+</div>
+<div id="outline-container-orga33675d" class="outline-2">
+<h2 id="orga33675d">Why Big Models Don't Just Memorize Everything</h2>
+<div class="outline-text-2" id="text-orga33675d">
+<p>
+<b>Gradient descent has an implicit bias toward simple solutions</b>
+</p>
+
+<p>
+Even though infinitely many functions can fit the training data, gradient descent naturally finds simpler, smoother, more structured ones rather than memorizing noise. A model that simply memorizes can't compress efficiently — memorization requires storing every example separately, while true compression means learning underlying structure. This implicit bias is a major reason overparameterized networks still generalize well.
+</p>
+
+<p>
+<b>Scaling Laws and Emergence Are Not in Conflict</b>
+</p>
+
+<p>
+Scaling laws show that prediction loss improves smoothly as you increase model size, data, and compute. But usefulness improves nonlinearly. Small improvements in representation can suddenly unlock new capabilities once the model crosses a threshold of abstraction. Emergence is a natural consequence of smooth improvements interacting with nonlinear task requirements.
+</p>
+</div>
+</div>
+<div id="outline-container-org2ec4980" class="outline-2">
+<h2 id="org2ec4980">The Chinchilla Insight: Why Data and Parameters Must Scale Together</h2>
+<div class="outline-text-2" id="text-org2ec4980">
+<p>
+Early models like GPT-3 increased parameter count faster than training data, leaving many parameters undertrained. <a href="https://arxiv.org/pdf/2203.15556">DeepMind's Chinchilla result</a> (<a href="https://irhum.github.io/blog/chinchilla/#ref-hoffmann2022training">good summary</a>)showed that optimal training requires roughly 20 training tokens per parameter. Too large a model with too little data wastes capacity; too much data with too small a model limits capability. Frontier models like Llama 3 are trained near this optimal balance. Scaling works because larger models can represent richer abstractions — but only if trained on enough data to fully utilize that capacity.
+</p>
+</div>
+</div>
+<div id="outline-container-org1759b06" class="outline-2">
+<h2 id="org1759b06">Closing Thoughts</h2>
+<div class="outline-text-2" id="text-org1759b06">
+<p>
+AI progress initially came from academia (AlexNet, GANs), but modern breakthroughs require enormous compute and are driven by industry (GPT, Llama, AlphaFold). The AI revolution is moving much faster than the industrial revolution — possibly compressing a century-scale transformation into a few decades.
+On risks, Yaser's view is pragmatic: AI has capability but no intrinsic desires. The real concerns are misuse — misinformation, job displacement, and crime. His regulatory suggestion is to treat AI-assisted crime as an aggravating circumstance, similar to using a weapon.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc2cbfc3" class="outline-2">
+<h2 id="orgc2cbfc3">Neural Networks Work by Compressing Reality</h2>
+<div class="outline-text-2" id="text-orgc2cbfc3">
+<p>
+My general intuition tying all of this together: at their core, neural networks are compression engines. Predicting the next token forces the model to compress the statistical structure of language into its parameters. To compress well, it must discover real patterns — grammar, facts, reasoning, cause-and-effect, abstract concepts. A model that memorizes can't compress efficiently, because memorization requires storing every example separately. True compression requires learning underlying structure. Scaling increases the model's ability to compress more of reality, which naturally leads to better generalization and emergent capabilities. Intelligence, in this view, is the ability to build compact internal representations of a complex world.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: February 19, 2026</i></p>
+</div>
+</body>
+</html>
