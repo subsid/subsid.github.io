@@ -55,3 +55,44 @@ h6 {
   font-size: 0.9rem;
 }
 
+/* Constrain main content width for readability */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Better code block scrolling */
+pre {
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Wrap text-based code blocks (markdown, text, yaml, etc.) */
+pre code.markdown,
+pre code.text,
+pre code.txt,
+pre code.yaml,
+pre code.yml,
+pre code.json {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Improve scrollbar visibility */
+pre::-webkit-scrollbar {
+  height: 10px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
