@@ -96,3 +96,15 @@ pre::-webkit-scrollbar-thumb:hover {
   background: #777;
 }
 
+/* Add spacing after list items containing "useful-links" */
+ul.org-ul li:has(a[href*="useful-links"]) {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Hide date for useful-links entry */
+ul.org-ul li:has(a[href*="useful-links"]) i {
+  display: none;
+}
+
