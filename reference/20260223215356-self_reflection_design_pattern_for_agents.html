@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Self-Reflection Design Pattern For Agents</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">Self-Reflection Design Pattern For Agents</h1>
+<p>
+Recently, I've been trying to incorporate the <a href="https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/">self-reflection design pattern</a> in my workflow. Quite happy with it - especially in greenfield projects where it helps me think through the design.
+</p>
+
+<p>
+This is the prompt I use. 
+</p>
+
+<div class="org-src-container">
+<pre><code class="markdown">---
+description: Review session and identify improvements
+agent: general
+---
+
+# Reflection and Continuous Improvement
+
+You have just completed a major task. Let's review the session to identify how the AI-assisted coding workflow can be improved.
+
+## Review Context
+
+Please analyze:
+1. **Recent chat history**: Review our conversation and the approach taken
+2. **Commit history**: Examine recent commits to understand what was built
+!`git log --oneline -10`
+
+3. **Changes made**: Review the actual code changes
+!`git diff HEAD~5..HEAD --stat`
+
+## Questions for the User
+
+Ask me:
+- What went well during this session?
+- What was frustrating or took longer than expected?
+- Were there any unclear moments or confusion?
+- What could have been smoother?
+
+## Self-Reflection
+
+Based on the chat history and my responses, reflect on:
+- **Instruction clarity**: Could the instructions in AGENTS.md have been clearer for this type of task?
+- **Missing skills**: Would a new reusable skill have made this task easier?
+- **Tool usage**: Were there better tools or commands that could have been used?
+- **Workflow gaps**: Are there repetitive patterns that could be automated?
+- **Documentation**: Would additional documentation have helped?
+
+## Actionable Improvements
+
+Based on the discussion and reflection, propose specific, actionable improvements:
+1. Updates to AGENTS.md (coding preferences/guidelines)
+2. New slash commands to create
+3. New skills to implement
+4. Tool or workflow improvements
+5. Documentation additions
+
+## Implementation
+
+After we discuss and agree on improvements, immediately implement them:
+- Update AGENTS.md if instruction improvements are identified
+- Create new slash commands if useful patterns were found
+- Document new workflows or practices
+- Commit changes with a clear message about the improvement
+
+The goal is continuous improvement of the AI-assisted coding workflow, making each session better than the last.
+</code></pre>
+</div>
+
+<p>
+I've implemented this as <code>~/.config/opencode/commands/reflect.md</code> (or <code>~/.claude/commands/reflect.md</code> for Claude Code).
+</p>
+
+<p>
+This usually leads to one or more of the following:
+</p>
+
+<ol class="org-ol">
+<li>Update the project agents file to capture the current state better.</li>
+<li>Improve my boundary conditions/style in global agents file.</li>
+<li>Refactor current implementation</li>
+</ol>
+
+<p>
+Repeat until I have a good understanding of the system.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: March 02, 2026</i></p>
+</div>
+</body>
+</html>
