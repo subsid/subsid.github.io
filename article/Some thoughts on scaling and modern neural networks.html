@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scaling and Modern Neural Networks</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgd7bc343">Why Big Models Generalize</a></li>
+<li><a href="#org3b7a535">The Chinchilla Insight: Parameters and Data Must Scale Together</a></li>
+<li><a href="#org4e29599">Emergent Abilities</a></li>
+<li><a href="#org2fa63c5">Closing Thoughts</a></li>
+</ul>
+</div>
+</div>
+<p>
+I was watching <a href="https://www.youtube.com/watch?v=-a61zsRRONc">this talk</a> from professor <a href="https://work.caltech.edu/">Yaser Abu-Mostafa</a> the other day (<a href="https://work.caltech.edu/telecourse.html#lectures">his ML class</a> is still one of my favorites) and thought I'd summarize my current understanding of the landscape.
+</p>
+<div id="outline-container-orgd7bc343" class="outline-2">
+<h2 id="orgd7bc343">Why Big Models Generalize</h2>
+<div class="outline-text-2" id="text-orgd7bc343">
+<p>
+Old wisdom said: more parameters than data points means memorization and poor generalization.
+In practice, very large models generalize <b>better</b> than smaller ones.
+</p>
+
+<p>
+Two reasons:
+</p>
+<ul class="org-ul">
+<li><b>Implicit bias of gradient descent</b> — even when infinitely many functions could fit the
+training data, SGD naturally gravitates toward smoother, lower-norm solutions rather than
+memorizing noise. This is a tendency, not a guarantee, and not yet fully understood theoretically.</li>
+<li><b>Task complexity</b> — a model like Llama 405B has ~15 trillion tokens vs 405 billion parameters,
+so it isn't even overparameterized in the raw statistical sense. The patterns in language
+(grammar, facts, reasoning, causality) are deep enough to fully utilize the model's capacity.</li>
+</ul>
+
+<p>
+A model that memorizes can't compress efficiently — memorization stores every example
+separately, while generalization means learning underlying structure. Neural networks are
+fundamentally <b>compression engines</b>: predicting the next token forces the model to compress
+the statistical structure of language into its weights.
+</p>
+</div>
+</div>
+<div id="outline-container-org3b7a535" class="outline-2">
+<h2 id="org3b7a535">The Chinchilla Insight: Parameters and Data Must Scale Together</h2>
+<div class="outline-text-2" id="text-org3b7a535">
+<p>
+Early LLMs like GPT-3 scaled parameters much faster than training data, leaving many
+parameters undertrained (only ~1.7 tokens per parameter).
+</p>
+
+<p>
+<a href="https://arxiv.org/pdf/2203.15556">DeepMind's Chinchilla paper</a> showed that for a <b>fixed compute budget</b>, the optimal allocation
+is roughly <b>20 training tokens per parameter</b> — scaling both together rather than
+prioritizing model size.
+</p>
+
+<p>
+However, 20:1 is compute-optimal, not deployment-optimal. Modern models deliberately
+exceed it:
+</p>
+<ul class="org-ul">
+<li>Llama 1 65B: ~21 tokens/param (near Chinchilla-optimal)</li>
+<li>Llama 3 405B: ~37 tokens/param</li>
+<li>Llama 3 8B: ~1,875 tokens/param</li>
+</ul>
+
+<p>
+Meta intentionally over-trains smaller models beyond the Chinchilla point, spending more
+compute at training time to produce models that are cheaper to serve at inference. The loss
+continues to decrease well past the 20:1 ratio — the optimal ratio for deployment depends
+on expected inference demand, not just training compute.
+</p>
+</div>
+</div>
+<div id="outline-container-org4e29599" class="outline-2">
+<h2 id="org4e29599">Emergent Abilities</h2>
+<div class="outline-text-2" id="text-org4e29599">
+<p>
+Some capabilities — reasoning, coding, in-context learning — don't appear gradually.
+They seem to switch on once the model reaches sufficient scale, even though the underlying
+loss improves smoothly the entire time.
+</p>
+
+<p>
+Analogy: water heating up — temperature rises smoothly, but boiling happens at a threshold.
+</p>
+
+<p>
+<b>Caveat:</b> there is genuine debate about whether emergence is a real discontinuity or partly
+a measurement artifact. Studies using finer-grained metrics (rather than binary task
+pass/fail) show much more gradual improvement, suggesting the apparent sudden jump may
+partly reflect coarse evaluation.
+</p>
+
+<p>
+Scaling laws and emergence are not in conflict: smooth improvements in loss can produce
+nonlinear jumps in task performance once the model crosses a threshold of representational
+capacity.
+</p>
+</div>
+</div>
+<div id="outline-container-org2fa63c5" class="outline-2">
+<h2 id="org2fa63c5">Closing Thoughts</h2>
+<div class="outline-text-2" id="text-org2fa63c5">
+<p>
+Modern AI breakthroughs require enormous compute and are driven by industry (GPT, Llama,
+AlphaFold), unlike earlier progress which came largely from academia. The transformation
+may compress a century-scale shift (like the industrial revolution) into a few decades.
+</p>
+
+<p>
+On risks: AI has capability but no intrinsic desires. The primary concerns are misuse —
+misinformation, job displacement, and crime. A pragmatic regulatory response: treat
+AI-assisted crime as an aggravating circumstance, similar to the use of a weapon.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: February 23, 2026</i></p>
+</div>
+</body>
+</html>

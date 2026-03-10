@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Physics of Flocking</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-dark.min.css" integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+<script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css"
+/>
+<link rel="stylesheet" href="/static/css/custom.css" />
+<script src="/js/main.js"></script>
+<script>hljs.highlightAll();hljs.addPlugin(new CopyButtonPlugin());</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class="site-header">
+  <nav class="site-nav">
+    <a href="/about.html">About</a>
+    <a href="/notes.html">Notes</a>
+    <a href="/references.html">References</a>
+  </nav>
+</div>
+</div>
+<div id="content" class="content">
+<h1 class="title">Physics of Flocking</h1>
+<p>
+I implemented a <a href="https://subsid.github.io/flocking/dist/">flocking simulation</a> using <a href="https://threejs.org/">threejs</a>.
+</p>
+
+<p>
+Flocking (or Swarming) is a nice example of something known as <b>emergent behavior</b> (<a href="https://en.wikipedia.org/wiki/Emergence">wiki</a>).
+</p>
+
+<blockquote>
+<p>
+Emergence is a phenomenon whereby larger entities arise through interactions among smaller or simpler entities such that the larger entities exhibit properties the smaller/simpler entities do not exhibit.
+</p>
+</blockquote>
+
+<p>
+This behavior is common among various animal groups such as birds, ants, bees, fishes. Here is a nice video of starlings flocking around.
+</p>
+
+<div class="iframe_container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/V4f_1_r80RY?rel=0" frameborder="0" allowfullscreen='allowfullscreen'> </iframe>
+</div>
+
+<p>
+The idea was popularized in the field of graphics by <a href="https://en.wikipedia.org/wiki/Craig_Reynolds_(computer_graphics)">Craig Reynolds</a>, when he created the famous <a href="https://en.wikipedia.org/wiki/Boids">Boids</a> artificial life simulation in 1986.
+</p>
+
+<p>
+At its core, each Boid (Bird-oid object!) follows three simple rules:
+</p>
+
+<ul class="org-ul">
+<li><b><b>Seperation</b></b> Avoid crowding local buddies.</li>
+<li><b><b>Alignment</b></b> Direction of velocity should be along the average direction of local buddies.</li>
+<li><b><b>Cohesion</b></b> Stay centered between local buddies.</li>
+</ul>
+
+<p>
+And that's it! This leads to some cool emergent behavior. This can be extended in many ways, by adding some obstacle avoidance, common goal and other effects. Something I find really cool is that we can start each boid at some random initial velocity, and see them slowly come together into a nice flock.
+</p>
+
+<p>
+The source code is available <a href="https://github.com/subsid/flocking">here</a>, in case someone wants to play with it. The implementation is based on <a href="https://codepen.io/coaster/pen/QpqVjP">this one by Ellie</a>.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date"><i>Last Modified: June 06, 2025</i></p>
+</div>
+</body>
+</html>
